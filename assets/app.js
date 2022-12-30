@@ -1,3 +1,6 @@
+import React from 'React';
+import  ReactDOM  from 'react-dom';
+
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -10,3 +13,13 @@ import './styles/app.css';
 
 // start the Stimulus application
 import './bootstrap';
+
+console.log("Hello word!!!")
+
+const App = () =>{
+    return <h1> Bonjour a tous </h1>;
+}
+
+// Dans la div app rend moi le contenu de App
+const rootElement = document.querySelector("#app");
+ReactDOM.render(<App/>, rootElement);
