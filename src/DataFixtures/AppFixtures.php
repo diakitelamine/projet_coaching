@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Ingredient;
+use App\Entity\Recette;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -13,14 +15,16 @@ class AppFixtures extends Fixture
     { 
 
         $faker = Factory::create();
-
+           
         for($u=0; $u<10; $u++){
-              $user = new User();
-              $user->setFirstname($faker->firstName());
-              $user->setLastname($faker->lastName());
-              $user->setEmail($faker->email());
-              $user->setPassword($faker->password());
-              $manager->persist($user);
+              $users = new User();
+              $users->setFirstname($faker->firstName());
+              $users->setLastname($faker->lastName());
+              $users->setEmail($faker->email());
+              $users->setPassword($faker->password());
+              $manager->persist($users);
+
+
         }
         
 
