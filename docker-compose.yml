@@ -5,9 +5,8 @@ services:
   database:
     image: mysql
     environment:
-      MYSQL_DATABASE: bibliotheque_api
+      MYSQL_DATABASE: project_coaching
       # You should definitely change the password in production
-
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - db-data:/var/lib/mysql:rw
