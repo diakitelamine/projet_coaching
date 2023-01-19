@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import HomePage from './components/HomePage';
 import FormRegister from './components/pages/FormRegister';
+import Coach from './components/pages/Coach';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 const $ = require('jquery');
 require('bootstrap');
@@ -16,8 +17,9 @@ const App = () =>{
           <HashRouter>
                <NavBar/>
                <HomePage/>
+               <Coach></Coach>
                <Switch>
-                    <Route path="/register" Component={FormRegister}>
+                    <Route path="/test" Component={FormRegister}>
                     </Route>
                </Switch>
           </HashRouter>
