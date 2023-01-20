@@ -1,5 +1,5 @@
 import  ReactDOM  from 'react-dom';
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import './styles/app.scss';
 import './bootstrap';
 import NavBar from './components/NavBar';
@@ -8,22 +8,37 @@ import HomePage from './components/HomePage';
 import FormRegister from './components/pages/FormRegister';
 import Coach from './components/pages/Coach';
 import { HashRouter, Route, Switch } from 'react-router-dom';
+import Loader from './components/pages/loader';
 const $ = require('jquery');
 require('bootstrap');
 
 console.log("Hello word!!!")
 const App = () =>{
-     return <> 
+     const [loader, setLoader] = useState(true);
+
+     useEffect(()=> {
+          setTimeout(()=>{
+               setLoader(false);
+          }, 3000 );
+     }, []) ;
+
+     return loader ? (
+          <Loader></Loader>
+          
+     ) : (
           <HashRouter>
-               <NavBar/>
-               <HomePage/>
-               <Coach></Coach>
+               <NavBar></NavBar>
                <Switch>
-                    <Route path="/test" Component={FormRegister}>
+                    <Route path="/" Component={HomePage}>
+                         <HomePage />
+                    </Route>
+                    <Route path="/authentification" Component={FormRegister}>
+                         <FormRegister/>
                     </Route>
                </Switch>
+               <Coach></Coach>
           </HashRouter>
-     </>;
+     );
 }
 
 // Dans la div app rend moi le contenu de App

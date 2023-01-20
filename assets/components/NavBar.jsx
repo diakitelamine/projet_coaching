@@ -1,4 +1,6 @@
 import React from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import FormRegister from './pages/FormRegister';
 
 const NavBar = (props)=>{
     return(
@@ -27,7 +29,7 @@ const NavBar = (props)=>{
           </ul>
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-                <a className="nav-link" href="">Authentification</a>
+                <a className="nav-link" href="#/authentification" >Authentification</a>
             </li>
           </ul>
         </div>
