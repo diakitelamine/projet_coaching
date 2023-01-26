@@ -6,3 +6,30 @@
         height: 800px;
     }
 }
+.icon-home{
+    color: #fff;
+}
+.home-page-card{
+    background-color: #151515;
+    color: #c4c0c0;
+    transition: transform 0.5s;
+    cursor: pointer;
+    .card-body{
+        .round{
+            background: #ffe8e85e;
+            padding: 15px 15px 15px 15px;
+            border-radius: 50px;
+            width: 90px;
+            height: 90px;
+            margin: auto;
+        }
+    }
+}
+.home-page-card:hover{
+    transform: scale(1.1);
+    .card-body{
+        .round{
+            background: #fff;
+        }
+    }
+}

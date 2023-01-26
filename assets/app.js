@@ -4,11 +4,12 @@ import './styles/app.scss';
 import './bootstrap';
 import NavBar from './components/NavBar';
 import "bootstrap-icons/font/bootstrap-icons.css";
-import HomePage from './components/HomePage';
+import Home from './components/Home';
 import FormRegister from './components/pages/FormRegister';
 import Coach from './components/pages/Coach';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Loader from './components/pages/loader';
+import HomePage from './components/pages/HomePage';
 const $ = require('jquery');
 require('bootstrap');
 
@@ -30,13 +31,14 @@ const App = () =>{
                <NavBar></NavBar>
                <Switch>
                     <Route path="/" Component={HomePage}>
-                         <HomePage />
+                         <Home />
+                         <HomePage/>
+                         <Coach/>
                     </Route>
                     <Route path="/authentification" Component={FormRegister}>
                          <FormRegister/>
                     </Route>
                </Switch>
-               <Coach></Coach>
           </HashRouter>
      );
 }

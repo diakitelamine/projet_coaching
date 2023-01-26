@@ -1,6 +1,4 @@
 import React from 'react';
-import { USERS_API } from "../../config";
-import Loader from './loader';
 class Coachs extends React.Component {
     // Constructor 
     constructor(props) {
@@ -27,8 +25,8 @@ class Coachs extends React.Component {
     }
     render() {
         const { DataisLoaded, coachs } = this.state;
-       
         return (
+            /*Coachs */
             <div className="p-5">
                 <h2> Coach du moment</h2>  
                 <div className="row row-cols-1 row-cols-md-6 g-4">
@@ -44,7 +42,8 @@ class Coachs extends React.Component {
                                 </p>
                                 </div>
                             </div>
-                    </div>
+                         </div>
+
                     ))}
                 </div>
             </div>

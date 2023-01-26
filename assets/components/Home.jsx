@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HomePage = (props)=>{ 
+const Home = (props)=>{ 
     return (
         <div id="carouselExampleDark" className="carousel carousel-dark slide">
             <div className="carousel-indicators">
@@ -42,4 +42,4 @@ const HomePage = (props)=>{
         </div>
     )
 }
-export default HomePage;
+export default Home;
