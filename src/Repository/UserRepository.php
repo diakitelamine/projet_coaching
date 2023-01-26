@@ -60,7 +60,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $this->createQueryBuilder('user')
             ->andWhere('user.roles LIKE :role')
             ->setParameter(':role', '%'.$role.'%')
-            ->setMaxResults(10)
+            ->setMaxResults(6)
             ->getQuery()
             ->getResult()
         ;
