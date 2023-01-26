@@ -17,6 +17,7 @@ class Coachs extends React.Component {
             // Transforme les données en json
             .then((res) => res.json())
             .then((json) => {
+                //console.log(json["hydra:member"]);
                 //Change la valeur des attributs
                 this.setState({
                     coachs: json["hydra:member"],
@@ -26,6 +27,7 @@ class Coachs extends React.Component {
     }
     render() {
         const { DataisLoaded, coachs } = this.state;
+        
         //Si les données ne sont pas encore récupérer
         //Chargement
        /* if (!DataisLoaded) return(
