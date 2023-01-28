@@ -28,9 +28,10 @@ const App = () =>{
           
      ) : (
           <HashRouter>
-               <NavBar></NavBar>
+               
                <Switch>
                     <Route path="/" Component={HomePage}>
+                         <NavBar name="navbar-home"></NavBar>
                          <Home />
                          <HomePage/>
                          <Coach/>

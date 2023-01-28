@@ -38,7 +38,7 @@ class Coachs extends React.Component {
                                 <div className="card-img-overlay">
                                 <h5 className="card-title"> { coach.lastname } { coach.firstname }</h5>
                                 <p className="card-text"> 
-                                {coach.description !== null ? `${coach.description.substring(0, 100)}...` : '' }
+                                {coach.description !== null ? `${coach.description.substring(0, 90)}...` : '' }
                                 </p>
                                 </div>
                             </div>

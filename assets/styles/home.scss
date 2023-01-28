@@ -1,6 +1,7 @@
 .carousel{
-    height: 600px;
+    height: 40%;
     overflow: hidden;
+    margin: -100px;
     img{
         object-fit: cover;
         height: 800px;
@@ -29,7 +30,10 @@
     transform: scale(1.1);
     .card-body{
         .round{
-            background: #fff;
+            background: linear-gradient(white,$red);
         }
     }
+}
+.container-min{
+    max-width: 1100px;
 }
