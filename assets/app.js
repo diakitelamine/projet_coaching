@@ -34,7 +34,7 @@ const App = () =>{
                          <NavBar name="navbar-home"></NavBar>
                          <Home />
                          <HomePage/>
-                         <Coach/>
+                         <Coach maxResults='5' />
                     </Route>
                     <Route path="/authentification" Component={FormRegister}>
                          <FormRegister/>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const HomePage = (props)=>{ 
     return (
-        <div>
+        <div class='container-fluid'>
             
             <div className="container container-min">
                 <div className="row row-cols-1 row-cols-md-3 g-4">
@@ -47,8 +47,27 @@ const HomePage = (props)=>{
                     </div>
                 </div>
             </div>
-            <div className="row row-cols-1 row-cols-md-3 g-4">
-                
+            <div className="row row-cols-1 row-cols-md-2 presentation">
+                <div className="col media coach"> 
+                    <div className="round "><img src="./uploads/images/coach-home.png"/></div>
+                </div>
+                <div className="col">
+                    <h2>Trouve ton coach</h2>
+                    <p className="slogan">Donnez votre meilleur effort avec un coach qui vous pousse à aller plus loin.</p>
+                    <p>Les coachs sportifs sont des professionnels qui aident les athlètes à atteindre leurs objectifs de performance. 
+                        Ils utilisent leur connaissance de l'anatomie, de la physiologie et de la psychologie pour élaborer des programmes d'entraînement personnalisés et pour aider les sportifs à surmonter les obstacles mentaux et physiques qui peuvent se dresser sur leur chemin.</p>
+                </div>
+            </div>
+            <div className="row row-cols-1 row-cols-md-2 presentation">
+                <div className="col">
+                    <h2>Ton corps entend tout ce que dit ta tête</h2>
+                    <p className="slogan">Travailler plus qu'hier si vous voulez un résultat demain.</p>
+                    <p>C'est pourquoi il est important de maintenir une attitude mentale positive et de se fixer des objectifs clairs lorsque vous entraînez votre corps. 
+                        En vous concentrant sur vos réalisations plutôt que sur vos échecs, vous pouvez vous motiver à continuer à travailler dur et à progresser dans votre entraînement.</p>
+                </div>
+                <div className="col media fitness"> 
+                    <div className="round"><img src="./uploads/images/fitness-home.png"/></div>
+                </div>
             </div>
         </div>
     )

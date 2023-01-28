@@ -10,30 +10,73 @@
 .icon-home{
     color: #fff;
 }
-.home-page-card{
-    background-color: #151515;
-    color: #c4c0c0;
-    transition: transform 0.5s;
-    cursor: pointer;
-    .card-body{
-        .round{
-            background: #ffe8e85e;
-            padding: 15px 15px 15px 15px;
-            border-radius: 50px;
-            width: 90px;
-            height: 90px;
+
+.container-fluid{
+    .home-page-card{
+        background-color: #151515;
+        color: #c4c0c0;
+        transition: transform 0.5s;
+        cursor: pointer;
+        .card-body{
+            .round{
+                background: #ffe8e85e;
+                padding: 15px 15px 15px 15px;
+                border-radius: 50px;
+                width: 90px;
+                height: 90px;
+                margin: auto;
+            }
+        }
+    }
+    .home-page-card:hover{
+        transform: scale(1.1);
+        .card-body{
+            .round{
+                background: linear-gradient(white,$pink);
+            }
+        }
+    }
+    .container-min{
+        max-width: 1100px;
+    }
+    .presentation{
+        margin-top: 150px;
+        padding :100px;
+        color: white;
+        .media{
             margin: auto;
+            width: 350px;
+            border-radius: 500px;
+            height: 350px;
+        }
+        .fitness{
+            background: linear-gradient($pink, white);
+            img {
+                width: 350px;
+            }
+        }
+        .fitness:hover{
+            background: linear-gradient($blue, white);
+        }
+        .coach{
+            background: linear-gradient($blue, white);
+            img {
+                width: 320px;
+            }
+        }
+        .coach:hover{
+            background: linear-gradient($pink, white);
+        }
+       
+    }  
+}
+.coachs{
+    .voir-plus-coach{
+        text-align: center;
+        margin: auto;
+        a{
+            text-decoration: none;
+            color: white;
         }
     }
-}
-.home-page-card:hover{
-    transform: scale(1.1);
-    .card-body{
-        .round{
-            background: linear-gradient(white,$red);
-        }
-    }
-}
-.container-min{
-    max-width: 1100px;
 }

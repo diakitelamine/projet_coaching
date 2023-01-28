@@ -1,5 +1,6 @@
 import React from 'react';
-class Coachs extends React.Component {
+import FormRegister from './FormRegister';
+class Coachs extends React.Component{
     // Constructor 
     constructor(props) {
         super(props);
@@ -11,11 +12,11 @@ class Coachs extends React.Component {
 
     componentDidMount() {
         // Requete à l'api user
-        fetch('https://127.0.0.1:8000/api/coachs')
+        fetch('https://127.0.0.1:8000/api/coachs/'+this.props.maxResults)
             // Transforme les données en json
             .then((res) => res.json())
             .then((json) => {
-                console.log(json);
+                console.log(json, this.props.maxResult);
                 //Change la valeur des attributs
                 this.setState({
                     coachs: json,
@@ -29,7 +30,7 @@ class Coachs extends React.Component {
             /*Coachs */
             <div className="p-5">
                 <h2> Coach du moment</h2>  
-                <div className="row row-cols-1 row-cols-md-6 g-4">
+                <div className="row row-cols-1 row-cols-md-6 g-4 coachs">
                     {coachs.map((coach) => ( 
                         
                         <div className="col">
@@ -45,6 +46,9 @@ class Coachs extends React.Component {
                          </div>
 
                     ))}
+                    <div className="col voir-plus-coach">
+                        <a href="/coachs">Voir plus <i class="bi bi-arrow-right"></i></a>
+                    </div>
                 </div>
             </div>
     );
