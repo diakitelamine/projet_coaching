@@ -1,7 +1,9 @@
 .carousel{
     height: 40%;
     overflow: hidden;
-    margin: -100px;
+    margin-top: -100px;
+    margin-bottom: -100px;
+    width: 100%;
     img{
         object-fit: cover;
         height: 800px;
@@ -70,13 +72,9 @@
        
     }  
 }
-.coachs{
-    .voir-plus-coach{
-        text-align: center;
-        margin: auto;
-        a{
-            text-decoration: none;
-            color: white;
-        }
-    }
+.voir-plus-coach{
+        text-decoration: none;
+        color: white;
+        float: right;
 }
+

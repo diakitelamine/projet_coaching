@@ -2,14 +2,13 @@ import  ReactDOM  from 'react-dom';
 import React, { useEffect,useState } from 'react';
 import './styles/app.scss';
 import './bootstrap';
-import NavBar from './components/NavBar';
 import "bootstrap-icons/font/bootstrap-icons.css";
-import Home from './components/Home';
-import FormRegister from './components/pages/FormRegister';
-import Coach from './components/pages/Coach';
+import FormRegister from './components/modules/FormRegister';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import Loader from './components/pages/loader';
-import HomePage from './components/pages/HomePage';
+import Loader from './components/modules/loader';
+import HomePage from './components/HomePage';
+import NavBar from './components/modules/NavBar';
+import CoachsPage from './components/CoachsPage';
 const $ = require('jquery');
 require('bootstrap');
 
@@ -28,15 +27,14 @@ const App = () =>{
           
      ) : (
           <HashRouter>
-               
                <Switch>
-                    <Route path="/" Component={HomePage}>
-                         <NavBar name="navbar-home"></NavBar>
-                         <Home />
+                    <Route exactly path="/" Component={HomePage}>
                          <HomePage/>
-                         <Coach maxResults='5' />
                     </Route>
-                    <Route path="/authentification" Component={FormRegister}>
+                    <Route exactly path="/coachs" Component={CoachsPage}>
+                         <CoachsPage/>
+                    </Route>
+                    <Route exactly path="/authentification" Component={FormRegister}>
                          <FormRegister/>
                     </Route>
                </Switch>

@@ -1,6 +1,4 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
-import FormRegister from './pages/FormRegister';
 
 const NavBar = (props)=>{
     return(
@@ -13,12 +11,12 @@ const NavBar = (props)=>{
         <div className="collapse navbar-collapse" id="navbarColor02">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <a className="nav-link" href="">Home
+              <a className="nav-link" href="/">Accueil
                 <span className="visually-hidden">(current)</span>
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="">Features</a>
+              <a className="nav-link" href="/coachs/">Coachs</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="">Pricing</a>

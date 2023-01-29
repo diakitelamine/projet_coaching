@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HomePage = (props)=>{ 
+const Home = (props)=>{ 
     return (
         <div class='container-fluid'>
             
@@ -72,4 +72,4 @@ const HomePage = (props)=>{
         </div>
     )
 }
-export default HomePage;
+export default Home;
