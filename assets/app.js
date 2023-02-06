@@ -3,13 +3,24 @@ import React from 'react';
 import './styles/app.scss';
 import './bootstrap';
 import NavBar from './components/NavBar';
+import "bootstrap-icons/font/bootstrap-icons.css";
+import HomePage from './components/HomePage';
+import FormRegister from './components/pages/FormRegister';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 const $ = require('jquery');
 require('bootstrap');
 
 console.log("Hello word!!!")
 const App = () =>{
-    return <> 
-          <NavBar/>
+     return <> 
+          <HashRouter>
+               <NavBar/>
+               <HomePage/>
+               <Switch>
+                    <Route path="/register" Component={FormRegister}>
+                    </Route>
+               </Switch>
+          </HashRouter>
      </>;
 }
 
