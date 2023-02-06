@@ -1,16 +1,36 @@
 import  ReactDOM  from 'react-dom';
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import './styles/app.scss';
 import './bootstrap';
-import NavBar from './components/NavBar';
+import "bootstrap-icons/font/bootstrap-icons.css";
+import FormRegister from './components/modules/FormRegister';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+import Loader from './components/modules/loader';
+import HomePage from './components/HomePage';
+import NavBar from './components/modules/NavBar';
+import CoachsPage from './components/CoachsPage';
 const $ = require('jquery');
 require('bootstrap');
 
 console.log("Hello word!!!")
 const App = () =>{
-    return <> 
-          <NavBar/>
-     </>;
+     const [loader, setLoader] = useState(true);
+
+     useEffect(()=> {
+          setTimeout(()=>{
+               setLoader(false);
+          }, 3000 );
+     }, []) ;
+
+     return loader ? (
+          <Loader></Loader>
+          
+     ) : (
+          <HashRouter>
+               <Route exact path="/" component={HomePage}/>
+               <Route path="/coachs" component={CoachsPage}/>
+          </HashRouter>
+     );
 }
 
 // Dans la div app rend moi le contenu de App
