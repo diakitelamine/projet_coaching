@@ -1,6 +1,6 @@
 import React from 'react';
 
-const formRegister = (props)=>{
+const FormRegister = (props)=>{
     return(
         <div className="card card-register">
             <h1 className="title-register">Inscription</h1>
@@ -16,5 +16,4 @@ const formRegister = (props)=>{
         </div>
     )
 }
-
-export default formRegister;
+export default FormRegister;
