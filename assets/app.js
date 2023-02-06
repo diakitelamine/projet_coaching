@@ -1,27 +1,35 @@
 import  ReactDOM  from 'react-dom';
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import './styles/app.scss';
 import './bootstrap';
-import NavBar from './components/NavBar';
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { HashRouter, Route } from 'react-router-dom';
+import Loader from './components/modules/loader';
 import HomePage from './components/HomePage';
-import FormRegister from './components/pages/FormRegister';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import CoachsPage from './components/CoachsPage';
+import RegisterPage from './components/RegisterPage';
 const $ = require('jquery');
 require('bootstrap');
 
 console.log("Hello word!!!")
 const App = () =>{
-     return <> 
+     const [loader, setLoader] = useState(true);
+
+     useEffect(()=> {
+          setTimeout(()=>{
+               setLoader(false);
+          }, 3000 );
+     }, []) ;
+
+     return loader ? (
+          <Loader></Loader>
+     ) : (
           <HashRouter>
-               <NavBar/>
-               <HomePage/>
-               <Switch>
-                    <Route path="/register" Component={FormRegister}>
-                    </Route>
-               </Switch>
+               <Route exact path="/" component={HomePage}/>
+               <Route path="/coachs" component={CoachsPage}/>
+               <Route path="/auth" component={RegisterPage}/>
           </HashRouter>
-     </>;
+     );
 }
 
 // Dans la div app rend moi le contenu de App

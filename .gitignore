@@ -8,6 +8,7 @@
 /var/
 /vendor/
 /node_modules/
+/.env
 ###< symfony/framework-bundle ###
 
 ###> symfony/webpack-encore-bundle ###
