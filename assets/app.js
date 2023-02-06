@@ -3,11 +3,11 @@ import React, { useEffect,useState } from 'react';
 import './styles/app.scss';
 import './bootstrap';
 import "bootstrap-icons/font/bootstrap-icons.css";
-import FormRegister from './components/modules/FormRegister';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import Loader from './components/modules/loader';
 import HomePage from './components/HomePage';
 import CoachsPage from './components/CoachsPage';
+import RegisterPage from './components/RegisterPage';
 const $ = require('jquery');
 require('bootstrap');
 
@@ -27,7 +27,7 @@ const App = () =>{
           <HashRouter>
                <Route exact path="/" component={HomePage}/>
                <Route path="/coachs" component={CoachsPage}/>
-               <Route path="/auth" component={FormRegister}/>
+               <Route path="/auth" component={RegisterPage}/>
           </HashRouter>
      );
 }
