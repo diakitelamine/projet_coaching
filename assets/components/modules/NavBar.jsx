@@ -27,7 +27,7 @@ const NavBar = (props)=>{
           </ul>
           <ul className="navbar-nav me-auto navbar-right">
             <li className="nav-item">
-                <a className="nav-link" href="#/authentification" >Authentification</a>
+                <a className="nav-link" href="#/auth" >Authentification</a>
             </li>
           </ul>
         </div>
