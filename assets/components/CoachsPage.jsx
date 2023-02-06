@@ -6,7 +6,9 @@ const CoachsPage = (props)=>{
     return (
         <div>
             <NavBar name="navbar-home"></NavBar>
-            <Coachs></Coachs>
+            <div className="p-5">
+                <Coachs></Coachs>
+            </div>
         </div>
     )
 }

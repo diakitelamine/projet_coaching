@@ -34,7 +34,7 @@ const HomePage = (props)=>{
                         <h2 > Coach du moment</h2> 
                     </div>   
                     <div className="col">
-                        <a href="/coachs" className="voir-plus-coach">Voir plus <i className="bi bi-arrow-right"></i></a> 
+                        <a href="#/coachs" className="voir-plus-coach">Voir plus <i className="bi bi-arrow-right"></i></a> 
                     </div>
                 </div>
                 <Coachs maxResults="6"></Coachs>

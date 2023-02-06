@@ -43,8 +43,7 @@ class Coachs extends React.Component{
                             </p>
                             </div>
                         </div>
-                        </div>
-
+                    </div>
                 ))}
             </div>
     );
