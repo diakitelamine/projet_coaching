@@ -2,7 +2,7 @@ import React from 'react';
 
 const Home = (props)=>{ 
     return (
-        <div class='container-fluid'>
+        <div className='container-fluid'>
             
             <div className="container container-min">
                 <div className="row row-cols-1 row-cols-md-3 g-4">

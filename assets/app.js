@@ -7,7 +7,6 @@ import FormRegister from './components/modules/FormRegister';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Loader from './components/modules/loader';
 import HomePage from './components/HomePage';
-import NavBar from './components/modules/NavBar';
 import CoachsPage from './components/CoachsPage';
 const $ = require('jquery');
 require('bootstrap');
@@ -24,11 +23,11 @@ const App = () =>{
 
      return loader ? (
           <Loader></Loader>
-          
      ) : (
           <HashRouter>
                <Route exact path="/" component={HomePage}/>
                <Route path="/coachs" component={CoachsPage}/>
+               <Route path="/auth" component={FormRegister}/>
           </HashRouter>
      );
 }
