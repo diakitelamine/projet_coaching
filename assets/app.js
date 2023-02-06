@@ -27,7 +27,7 @@ const App = () =>{
           <HashRouter>
                <Route exact path="/" component={HomePage}/>
                <Route path="/coachs" component={CoachsPage}/>
-               <Route path="/auth" component={CoachsPage}/>
+               <Route path="/auth" component={FormRegister}/>
           </HashRouter>
      );
 }

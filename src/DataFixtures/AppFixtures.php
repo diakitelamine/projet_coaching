@@ -21,7 +21,7 @@ class AppFixtures extends Fixture
               $user = new User();
               $user->setFirstname($faker->firstName());
               $roles = $user->getRoles();
-              $roles[] = 'ROLE_USER';
+              $roles[] = 'ROLE_COACH';
               $user->setRoles($roles);
               $user->setLastname($faker->lastName());
               $user->setEmail($faker->email());
