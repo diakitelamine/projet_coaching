@@ -24,18 +24,22 @@ class Categorie
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $imageUrl = null;
-
     #[ORM\ManyToMany(targetEntity: Recette::class, inversedBy: 'categories')]
     private Collection $recettes;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
+    #[ORM\OneToOne(inversedBy: 'categorie', cascade: ['persist', 'remove'])]
+    private ?Image $image = null;
+
+    #[ORM\ManyToMany(targetEntity: Programme::class, inversedBy: 'categories')]
+    private Collection $programmes;
+
     public function __construct()
     {
         $this->recettes = new ArrayCollection();
+        $this->programmes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -66,19 +70,7 @@ class Categorie
 
         return $this;
     }
-
-    public function getImageUrl(): ?string
-    {
-        return $this->imageUrl;
-    }
-
-    public function setImageUrl(string $imageUrl): self
-    {
-        $this->imageUrl = $imageUrl;
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection<int, Recette>
      */
@@ -111,6 +103,42 @@ class Categorie
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getProgrammes(): Collection
+    {
+        return $this->programmes;
+    }
+
+    public function addProgramme(self $programme): self
+    {
+        if (!$this->programmes->contains($programme)) {
+            $this->programmes->add($programme);
+        }
+
+        return $this;
+    }
+
+    public function removeProgramme(self $programme): self
+    {
+        $this->programmes->removeElement($programme);
 
         return $this;
     }
