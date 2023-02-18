@@ -25,8 +25,8 @@ class Salle
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $created_at = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $deleted_by = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $deleted_by = null;
 
     #[ORM\OneToMany(mappedBy: 'salle', targetEntity: Reservation::class)]
     private Collection $reservations;
@@ -83,12 +83,12 @@ class Salle
         return $this;
     }
 
-    public function getDeletedBy(): ?string
+    public function getDeletedBy(): ?int
     {
         return $this->deleted_by;
     }
 
-    public function setDeletedBy(?string $deleted_by): self
+    public function setDeletedBy(?int $deleted_by): self
     {
         $this->deleted_by = $deleted_by;
 

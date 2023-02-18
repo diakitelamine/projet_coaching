@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\AvisRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AvisRepository::class)]
@@ -30,6 +31,15 @@ class Avis
 
     #[ORM\ManyToOne(inversedBy: 'avis')]
     private ?Recette $recette = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $created_at = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $deleted_at = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $deleted_by = null;
 
     public function getId(): ?int
     {
@@ -92,6 +102,42 @@ class Avis
     public function setRecette(?Recette $recette): self
     {
         $this->recette = $recette;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deleted_at;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deleted_at): self
+    {
+        $this->deleted_at = $deleted_at;
+
+        return $this;
+    }
+
+    public function getDeletedBy(): ?int
+    {
+        return $this->deleted_by;
+    }
+
+    public function setDeletedBy(?int $deleted_by): self
+    {
+        $this->deleted_by = $deleted_by;
 
         return $this;
     }

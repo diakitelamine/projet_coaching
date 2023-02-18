@@ -26,11 +26,11 @@ class Ville
     private ?\DateTimeInterface $deleted_at = null;
 
     #[ORM\OneToMany(mappedBy: 'ville', targetEntity: Salle::class)]
-    private Collection $Salles;
+    private Collection $salles;
 
     public function __construct()
     {
-        $this->Salles = new ArrayCollection();
+        $this->salles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,13 +79,13 @@ class Ville
      */
     public function getSalles(): Collection
     {
-        return $this->Salles;
+        return $this->salles;
     }
 
     public function addSalle(Salle $salle): self
     {
-        if (!$this->Salles->contains($salle)) {
-            $this->Salles->add($salle);
+        if (!$this->salles->contains($salle)) {
+            $this->salles->add($salle);
             $salle->setVille($this);
         }
 
@@ -94,7 +94,7 @@ class Ville
 
     public function removeSalle(Salle $salle): self
     {
-        if ($this->Salles->removeElement($salle)) {
+        if ($this->salles->removeElement($salle)) {
             // set the owning side to null (unless already changed)
             if ($salle->getVille() === $this) {
                 $salle->setVille(null);

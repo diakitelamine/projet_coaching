@@ -40,6 +40,9 @@ class Programme
     #[ORM\ManyToOne(inversedBy: 'programmes')]
     private ?User $user = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $deleted_by = null;
+
     public function __construct()
     {
         $this->avis = new ArrayCollection();
@@ -192,6 +195,18 @@ class Programme
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDeletedBy(): ?int
+    {
+        return $this->deleted_by;
+    }
+
+    public function setDeletedBy(?int $deleted_by): self
+    {
+        $this->deleted_by = $deleted_by;
 
         return $this;
     }

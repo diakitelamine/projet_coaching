@@ -46,14 +46,14 @@ class Recette
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $deleted_at = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $deleted_by = null;
-
     #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Avis::class)]
     private Collection $avis;
 
     #[ORM\ManyToMany(targetEntity: Programme::class, inversedBy: 'recettes')]
     private Collection $programmes;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $deleted_by = null;
 
     public function __construct()
     {
@@ -216,18 +216,6 @@ class Recette
         return $this;
     }
 
-    public function getDeletedBy(): ?string
-    {
-        return $this->deleted_by;
-    }
-
-    public function setDeletedBy(?string $deleted_by): self
-    {
-        $this->deleted_by = $deleted_by;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Avis>
      */
@@ -278,6 +266,18 @@ class Recette
     public function removeProgramme(Programme $programme): self
     {
         $this->programmes->removeElement($programme);
+
+        return $this;
+    }
+
+    public function getDeletedBy(): ?int
+    {
+        return $this->deleted_by;
+    }
+
+    public function setDeletedBy(?int $deleted_by): self
+    {
+        $this->deleted_by = $deleted_by;
 
         return $this;
     }

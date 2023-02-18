@@ -18,13 +18,13 @@ class Reservation
     private ?\DateTimeInterface $commence = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $fini = null;
+    private ?\DateTimeInterface $fin = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $deleted_at = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $deleted_by = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $deleted_by = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     private ?User $user = null;
@@ -51,12 +51,12 @@ class Reservation
 
     public function getFini(): ?\DateTimeInterface
     {
-        return $this->fini;
+        return $this->fin;
     }
 
-    public function setFini(?\DateTimeInterface $fini): self
+    public function setFini(?\DateTimeInterface $fin): self
     {
-        $this->fini = $fini;
+        $this->fin = $fin;
 
         return $this;
     }
@@ -73,12 +73,12 @@ class Reservation
         return $this;
     }
 
-    public function getDeletedBy(): ?string
+    public function getDeletedBy(): ?int
     {
         return $this->deleted_by;
     }
 
-    public function setDeletedBy(string $deleted_by): self
+    public function setDeletedBy(int $deleted_by): self
     {
         $this->deleted_by = $deleted_by;
 

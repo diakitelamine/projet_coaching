@@ -27,14 +27,20 @@ class Categorie
     #[ORM\ManyToMany(targetEntity: Recette::class, inversedBy: 'categories')]
     private Collection $recettes;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
-
     #[ORM\OneToOne(inversedBy: 'categorie', cascade: ['persist', 'remove'])]
     private ?Image $image = null;
 
     #[ORM\ManyToMany(targetEntity: Programme::class, inversedBy: 'categories')]
     private Collection $programmes;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $deleted_at = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $deleted_by = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $created_at = null;
 
     public function __construct()
     {
@@ -95,18 +101,6 @@ class Categorie
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getImage(): ?Image
     {
         return $this->image;
@@ -139,6 +133,42 @@ class Categorie
     public function removeProgramme(self $programme): self
     {
         $this->programmes->removeElement($programme);
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deleted_at;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deleted_at): self
+    {
+        $this->deleted_at = $deleted_at;
+
+        return $this;
+    }
+
+    public function getDeletedBy(): ?int
+    {
+        return $this->deleted_by;
+    }
+
+    public function setDeletedBy(?int $deleted_by): self
+    {
+        $this->deleted_by = $deleted_by;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }
