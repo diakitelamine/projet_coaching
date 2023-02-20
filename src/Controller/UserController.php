@@ -12,9 +12,10 @@ use Symfony\Component\Validator\Constraints\Json;
 
 class UserController extends AbstractController
 {
-    #[Route('api/coachs/{maxResult}', name: 'api_coachs')]
-    public function coachs($maxResult = null, UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
+    #[Route('api/coachs/{maxResult?null}', name: 'api_coachs')]
+    public function coachs($maxResult, UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
     {   
+        
         //On récupere tout les users avec un role coach
         $userCoachs = $userRepository->getUserByRole('ROLE_COACH', $maxResult);
        // dd($userCoachs);

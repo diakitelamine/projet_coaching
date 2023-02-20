@@ -9,6 +9,7 @@ const NavBar = (props)=>{
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarColor02">
+
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
               <a className="nav-link" href="/">Accueil
@@ -25,11 +26,16 @@ const NavBar = (props)=>{
               <a className="nav-link" href="">About</a>
             </li>
           </ul>
+
           <ul className="navbar-nav me-auto navbar-right">
             <li className="nav-item">
-                <a className="nav-link" href="#/auth" >Authentification</a>
+                <a className="nav-link" href="#/register" >Inscription</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#/login" >Connexion</a>
             </li>
           </ul>
+          
         </div>
       </div>
     </nav>

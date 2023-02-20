@@ -8,6 +8,7 @@ import Loader from './components/modules/loader';
 import HomePage from './components/HomePage';
 import CoachsPage from './components/CoachsPage';
 import RegisterPage from './components/RegisterPage';
+import LoginPage from './components/LoginPage';
 const $ = require('jquery');
 require('bootstrap');
 
@@ -27,7 +28,8 @@ const App = () =>{
           <HashRouter>
                <Route exact path="/" component={HomePage}/>
                <Route path="/coachs" component={CoachsPage}/>
-               <Route path="/auth" component={RegisterPage}/>
+               <Route path="/register" component={RegisterPage}/>
+               <Route path="/login" component={LoginPage}/>
           </HashRouter>
      );
 }

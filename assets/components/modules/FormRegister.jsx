@@ -3,16 +3,21 @@ import React from 'react';
 const FormRegister = (props)=>{
     return(
         <div className="card card-register">
-            <h1 className="title-register">Inscription</h1>
+            <h1 className="title-register">Inscrivez-Vous</h1>
             <form>
                 <input type="text" name="firstname" className='form-control' placeholder="Nom"/>
                 <input type="text" name="lastname" className='form-control' placeholder="Prénom" />
                 <input type="email" name="email" className='form-control' placeholder="Email"  />
                 <input type="password" name="password" className='form-control' placeholder="Mot de passe"/>
-                <input type="password" name="confoirmPassword" className='form-control' placeholder="Confirmer votre mot de passe" />
-                <input type="submit" value="Envoyer" className="btn btn-danger btn-send" />
+                <div className="select-container">
+                    <select className="select-option">
+                        <option value="coach">Coach</option>
+                        <option value="user">Utilisateur</option>
+                    </select>
+                </div>
+                <input type="submit" value="Inscription" className="btn btn-send"/>
             </form>
-            <p className="btn-connexion"> Vous avez déja un compte ? <a href="#">connectez-vous</a></p>
+            <p className="btn-connexion"> Déjà Inscrit ? <a href="#/login">Connectez-Vous</a></p>
         </div>
     )
 }
