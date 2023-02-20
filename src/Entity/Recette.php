@@ -27,15 +27,12 @@ class Recette
     #[ORM\Column]
     private ?float $dureeMoyen = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $imageUrl = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
+    private ?\DateTimeInterface $created_at = null;
 
     #[ORM\ManyToOne(inversedBy: 'recettes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $author = null;
+    private ?User $user = null;
 
     #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'recettes')]
     private Collection $categories;
@@ -43,10 +40,27 @@ class Recette
     #[ORM\ManyToMany(targetEntity: Ingredient::class, mappedBy: 'recettes')]
     private Collection $ingredients;
 
+    #[ORM\OneToOne(mappedBy: 'recette', cascade: ['persist', 'remove'])]
+    private ?Image $image = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $deleted_at = null;
+
+    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Avis::class)]
+    private Collection $avis;
+
+    #[ORM\ManyToMany(targetEntity: Programme::class, inversedBy: 'recettes')]
+    private Collection $programmes;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $deleted_by = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
+        $this->avis = new ArrayCollection();
+        $this->programmes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,38 +104,26 @@ class Recette
         return $this;
     }
 
-    public function getImageUrl(): ?string
-    {
-        return $this->imageUrl;
-    }
-
-    public function setImageUrl(string $imageUrl): self
-    {
-        $this->imageUrl = $imageUrl;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $created_at): self
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
 
         return $this;
     }
 
     public function getAuthor(): ?User
     {
-        return $this->author;
+        return $this->user;
     }
 
-    public function setAuthor(?User $author): self
+    public function setAuthor(?User $user): self
     {
-        $this->author = $author;
+        $this->user = $user;
 
         return $this;
     }
@@ -176,6 +178,106 @@ class Recette
         if ($this->ingredients->removeElement($ingredient)) {
             $ingredient->removeRecette($this);
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($image === null && $this->image !== null) {
+            $this->image->setRecette(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($image !== null && $image->getRecette() !== $this) {
+            $image->setRecette($this);
+        }
+
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deleted_at;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deleted_at): self
+    {
+        $this->deleted_at = $deleted_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Avis>
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): self
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis->add($avi);
+            $avi->setRecette($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): self
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getRecette() === $this) {
+                $avi->setRecette(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Programme>
+     */
+    public function getProgrammes(): Collection
+    {
+        return $this->programmes;
+    }
+
+    public function addProgramme(Programme $programme): self
+    {
+        if (!$this->programmes->contains($programme)) {
+            $this->programmes->add($programme);
+        }
+
+        return $this;
+    }
+
+    public function removeProgramme(Programme $programme): self
+    {
+        $this->programmes->removeElement($programme);
+
+        return $this;
+    }
+
+    public function getDeletedBy(): ?int
+    {
+        return $this->deleted_by;
+    }
+
+    public function setDeletedBy(?int $deleted_by): self
+    {
+        $this->deleted_by = $deleted_by;
 
         return $this;
     }

@@ -2,16 +2,14 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\IngredientRepository;
+use App\Repository\VilleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: IngredientRepository::class)]
-#[ApiResource()]
-class Ingredient
+#[ORM\Entity(repositoryClass: VilleRepository::class)]
+class Ville
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,21 +19,18 @@ class Ingredient
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Recette::class, inversedBy: 'ingredients')]
-    private Collection $recettes;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $deleted_at = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $deleted_by = null;
+    #[ORM\OneToMany(mappedBy: 'ville', targetEntity: Salle::class)]
+    private Collection $salles;
 
     public function __construct()
     {
-        $this->recettes = new ArrayCollection();
+        $this->salles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,30 +46,6 @@ class Ingredient
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Recette>
-     */
-    public function getRecettes(): Collection
-    {
-        return $this->recettes;
-    }
-
-    public function addRecette(Recette $recette): self
-    {
-        if (!$this->recettes->contains($recette)) {
-            $this->recettes->add($recette);
-        }
-
-        return $this;
-    }
-
-    public function removeRecette(Recette $recette): self
-    {
-        $this->recettes->removeElement($recette);
 
         return $this;
     }
@@ -103,14 +74,32 @@ class Ingredient
         return $this;
     }
 
-    public function getDeletedBy(): ?int
+    /**
+     * @return Collection<int, Salle>
+     */
+    public function getSalles(): Collection
     {
-        return $this->deleted_by;
+        return $this->salles;
     }
 
-    public function setDeletedBy(?int $deleted_by): self
+    public function addSalle(Salle $salle): self
     {
-        $this->deleted_by = $deleted_by;
+        if (!$this->salles->contains($salle)) {
+            $this->salles->add($salle);
+            $salle->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSalle(Salle $salle): self
+    {
+        if ($this->salles->removeElement($salle)) {
+            // set the owning side to null (unless already changed)
+            if ($salle->getVille() === $this) {
+                $salle->setVille(null);
+            }
+        }
 
         return $this;
     }
