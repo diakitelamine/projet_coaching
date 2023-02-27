@@ -18,17 +18,19 @@ const App = () =>{
      useEffect(()=> {
           setTimeout(()=>{
                setLoader(false);
-          }, 3000 );
+          }, 0 );
      }, []) ;
 
      return loader ? (
           <Loader></Loader>
      ) : (
-          <HashRouter>
-               <Route exact path="/" component={HomePage}/>
-               <Route path="/coachs" component={CoachsPage}/>
-               <Route path="/auth" component={RegisterPage}/>
-          </HashRouter>
+          <div className="light">
+               <HashRouter>
+                    <Route exact path="/" component={HomePage}/>
+                    <Route path="/coachs" component={CoachsPage}/>
+                    <Route path="/auth" component={RegisterPage}/>
+               </HashRouter>
+          </div>
      );
 }
 

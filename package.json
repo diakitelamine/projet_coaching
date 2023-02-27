@@ -27,6 +27,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "animate.css": "^4.1.1",
         "axios": "^1.2.2",
         "bootstrap-icons": "^1.10.3",
         "dotenv": "^16.0.3",

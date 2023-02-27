@@ -1,0 +1,98 @@
+.light {
+    .image-home{
+        height: 850px;
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+        div{
+            color: $black;
+            font-size: 151px;
+            position: absolute;
+            margin: auto;
+            text-align: center;
+            width: 100%;
+            font-family: 'Clean Sports Stencil', sans-serif;
+            line-height: 410px;
+            padding: 0 70px 0 70px;
+            box-sizing: border-box;
+        }
+        img{
+            object-fit: cover;
+            width: 500px;
+            z-index: 2;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .icon-home{
+        color: #000000;
+    }
+
+    .container-fluid{
+        .home-page-card{
+            background-color: #151515;
+            color: #c4c0c0;
+            transition: transform 0.5s;
+            cursor: pointer;
+            .card-body{
+                .round{
+                    background: #ffe8e85e;
+                    padding: 15px 15px 15px 15px;
+                    border-radius: 50px;
+                    width: 90px;
+                    height: 90px;
+                    margin: auto;
+                }
+            }
+        }
+        .home-page-card:hover{
+            transform: scale(1.1);
+            .card-body{
+                .round{
+                    background: linear-gradient(white,$pink);
+                }
+            }
+        }
+        .container-min{
+            max-width: 1100px;
+        }
+        .presentation{
+            margin-top: 150px;
+            padding :100px;
+            color: white;
+            .media{
+                margin: auto;
+                width: 350px;
+                border-radius: 500px;
+                height: 350px;
+            }
+            .fitness{
+                background: linear-gradient($pink, white);
+                img {
+                    width: 350px;
+                }
+            }
+            .fitness:hover{
+                background: linear-gradient($blue, white);
+            }
+            .coach{
+                background: linear-gradient($blue, white);
+                img {
+                    width: 320px;
+                }
+            }
+            .coach:hover{
+                background: linear-gradient($pink, white);
+            }
+        
+        }  
+    }
+    .voir-plus-coach{
+            text-decoration: none;
+            color: white;
+            float: right;
+    }
+}
