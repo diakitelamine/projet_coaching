@@ -8,7 +8,8 @@ import Loader from './components/modules/loader';
 import HomePage from './components/HomePage';
 import CoachsPage from './components/CoachsPage';
 import RegisterPage from './components/RegisterPage';
-const $ = require('jquery');
+import './config';
+//const $ = require('jquery');
 require('bootstrap');
 
 console.log("Hello word!!!")
