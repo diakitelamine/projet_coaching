@@ -79,22 +79,22 @@
                 height: 350px;
             }
             .fitness{
-                background: linear-gradient($pink, rgb(0, 0, 0));
+                background: linear-gradient($pink, rgba(0, 0, 0, 0));
                 img {
                     width: 350px;
                 }
             }
             .fitness:hover{
-                background: linear-gradient($blue, rgb(0, 0, 0));
+                background: linear-gradient($blue,rgba(0, 0, 0, 0));
             }
             .coach{
-                background: linear-gradient($blue, rgb(0, 0, 0));
+                background: linear-gradient($blue, rgba(0, 0, 0, 0));
                 img {
                     width: 320px;
                 }
             }
             .coach:hover{
-                background: linear-gradient($pink, rgb(7, 7, 7));
+                background: linear-gradient($pink, rgba(0, 0, 0, 0));
             }
         
         }  
