@@ -4,6 +4,8 @@
 @import './dark/home.scss';
 @import './dark/loader.scss';
 @import './dark/navbar.scss';
+@import './dark/base.scss';
+@import './light/base.scss';
 @import './light/home.scss';
 @import url('https://fonts.cdnfonts.com/css/clean-sports-stencil');
 @import 'animate.css';
@@ -19,7 +21,4 @@
 }
 .p-20{
     padding: 0 20em 0 20em;
-}
-h2{
-    color: white;
 }
