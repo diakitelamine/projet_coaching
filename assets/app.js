@@ -8,8 +8,9 @@ import Loader from './components/modules/loader';
 import HomePage from './components/HomePage';
 import CoachsPage from './components/CoachsPage';
 import RegisterPage from './components/RegisterPage';
-import './config';
-//const $ = require('jquery');
+import TestPage from './components/TestPage';
+//import './config';
+const $ = require('jquery');
 require('bootstrap');
 
 console.log("Hello word!!!")
@@ -30,6 +31,7 @@ const App = () =>{
                     <Route exact path="/" component={HomePage}/>
                     <Route path="/coachs" component={CoachsPage}/>
                     <Route path="/auth" component={RegisterPage}/>
+                    <Route path="/test" component={TestPage}/>
                </HashRouter>
           </div>
      );
