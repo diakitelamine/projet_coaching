@@ -56,6 +56,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
+    public function getUserByRole(string $role, $maxResult = null){
+        $query = $this->createQueryBuilder('user')
+        ->andWhere('user.roles LIKE :role')
+        ->setParameter(':role', '%'.$role.'%');
+        if (!is_null($maxResult)) {
+            $query->setMaxResults($maxResult);
+        }
+        return  $query->getQuery()->getResult();
+
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
