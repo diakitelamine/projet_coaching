@@ -23,6 +23,7 @@ class AppFixtures extends Fixture
               $user->setLastname($faker->lastName());
               $user->setEmail($faker->email());
               $user->setPassword($faker->password());
+              $user->setDescription($faker->text(49));
               $manager->persist($user);
               $users[] = $user;
         }

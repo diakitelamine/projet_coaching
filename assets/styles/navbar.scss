@@ -1,0 +1,21 @@
+.navbar-home {
+    z-index: 2;
+    border: 0px;
+    border: none !important;
+    background:linear-gradient(#000000ed, rgba(0, 0, 0, 0));
+}
+
+.navbar {
+    border-bottom: 1px solid;
+    .nav-link{
+        color: rgb(255, 255, 255);
+
+    }
+    .nav-link:hover{
+        color: $red;
+    }
+    .navbar-right {
+        flex: 1;
+        flex-direction: row-reverse !important;
+    }
+}

@@ -1,8 +1,18 @@
 @import "~bootstrap/scss/bootstrap";
 @import 'root.scss';
+@import 'register.scss';
+@import 'home.scss';
+@import 'loader.scss';
+@import 'navbar.scss';
 body{
     background-color : $black;
 }
-.navbar {
-    border-bottom: 1px solid;
+.min-opacity{
+    opacity: 0.30;
+}
+.p-20{
+    padding: 0 20em 0 20em;
+}
+h2{
+    color: white;
 }
