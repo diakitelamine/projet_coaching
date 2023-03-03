@@ -1,12 +1,12 @@
 import  ReactDOM  from 'react-dom';
 import React from 'react';
-import './styles/app.scss';
+import './styles/app.css';
 import './bootstrap';
 import NavBar from './components/NavBar';
-const $ = require('jquery');
-require('bootstrap');
+
 
 console.log("Hello word!!!")
+
 const App = () =>{
     return <> 
           <NavBar/>
