@@ -2,13 +2,15 @@ import  ReactDOM  from 'react-dom';
 import React, { useEffect,useState } from 'react';
 import './styles/app.scss';
 import './bootstrap';
-import NavBar from './components/NavBar';
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { HashRouter, Route } from 'react-router-dom';
+import Loader from './components/modules/loader';
 import HomePage from './components/HomePage';
-import FormRegister from './components/pages/FormRegister';
-import Coach from './components/pages/Coach';
-import { HashRouter, Route, Switch } from 'react-router-dom';
-import Loader from './components/pages/loader';
+import CoachsPage from './components/CoachsPage';
+import RegisterPage from './components/RegisterPage';
+import TestPage from './components/TestPage';
+import './config';
+import LoginPage from './components/LoginPage';
 const $ = require('jquery');
 require('bootstrap');
 
@@ -19,25 +21,23 @@ const App = () =>{
      useEffect(()=> {
           setTimeout(()=>{
                setLoader(false);
-          }, 3000 );
+          }, 0 );
      }, []) ;
 
      return loader ? (
-          <Loader></Loader>
-          
+          <div className="light">
+               <Loader></Loader>
+          </div>
      ) : (
-          <HashRouter>
-               <NavBar></NavBar>
-               <Switch>
-                    <Route path="/" Component={HomePage}>
-                         <HomePage />
-                    </Route>
-                    <Route path="/authentification" Component={FormRegister}>
-                         <FormRegister/>
-                    </Route>
-               </Switch>
-               <Coach></Coach>
-          </HashRouter>
+          <div className="light">
+               <HashRouter>
+                    <Route exact path="/" component={HomePage}/>
+                    <Route path="/coachs" component={CoachsPage}/>
+                    <Route path="/auth" component={LoginPage}/>
+                    <Route path="/register" component={RegisterPage}/>
+                    <Route path="/test" component={TestPage}/>
+               </HashRouter>
+          </div>
      );
 }
 
