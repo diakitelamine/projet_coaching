@@ -1,4 +1,5 @@
 import React from 'react';
+import { API_URL } from '../../config';
 
 const FormLogin = () => {
     const [email, setEmail] = React.useState("");
@@ -35,7 +36,7 @@ const FormLogin = () => {
             }),
           };
 
-        fetch('https://127.0.0.1:8000/api/auth/user', requestOptions)
+        fetch(API_URL+'auth/user', requestOptions)
         .then(res => res.json())
         .then((result) => {
             if (result.code == 200){

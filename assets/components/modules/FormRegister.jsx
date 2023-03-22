@@ -54,7 +54,7 @@ const FormRegister = () => {
             }),
           };
 
-        fetch('https://127.0.0.1:8000/api/register/user', requestOptions)
+        fetch(API_URL+'register/user', requestOptions)
         .then(res => res.json())
         .then((result) => {
             if (result.code == 200){

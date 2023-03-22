@@ -1,4 +1,5 @@
 import React from 'react';
+import { API_URL } from '../../config';
 class Coachs extends React.Component{
     // Constructor 
     constructor(props) {
@@ -16,7 +17,7 @@ class Coachs extends React.Component{
             maxResults = this.props.maxResults;
         }
         // Requete à l'api user
-        fetch('https://127.0.0.1:8000/api/coachs/'+maxResults)
+        fetch(API_URL+'coachs/'+maxResults)
         // Transforme les données en json
         .then((res) => res.json())
         .then((json) => {
@@ -39,7 +40,7 @@ class Coachs extends React.Component{
     }
 
     async getPathImageByCoach(id){
-        const path = await fetch('https://127.0.0.1:8000/api/image/user/'+id)
+        const path = await fetch(API_URL+'image/user/'+id)
         // Transforme les données en json
         .then((res) => res.json())
         .then((json) => {

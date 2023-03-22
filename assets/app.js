@@ -4,13 +4,15 @@ import './styles/app.scss';
 import './bootstrap';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { HashRouter, Route } from 'react-router-dom';
+
+import './config';
 import Loader from './components/modules/loader';
 import HomePage from './components/HomePage';
 import CoachsPage from './components/CoachsPage';
 import RegisterPage from './components/RegisterPage';
 import TestPage from './components/TestPage';
-import './config';
 import LoginPage from './components/LoginPage';
+import { API_URL } from './config';
 const $ = require('jquery');
 require('bootstrap');
 
