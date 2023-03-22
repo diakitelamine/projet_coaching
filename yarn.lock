@@ -4494,11 +4494,6 @@
     "tiny-invariant" "^1.0.2"
     "tiny-warning" "^1.0.0"
 
-"react-symfony-form@^0.0.1-alpha.10":
-  "integrity" "sha512-pntx7tCwVYpV8aDEFUHBR0+1iHMgrhsKE+4g57MFiwsOppiCbZ2wy9UJov+TZDYjlafNbczxJJtX9GnESPhrYw=="
-  "resolved" "https://registry.npmjs.org/react-symfony-form/-/react-symfony-form-0.0.1-alpha.10.tgz"
-  "version" "0.0.1-alpha.10"
-
 "react@^18.2.0", "react@>=15":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
