@@ -8,7 +8,7 @@ const HomePage = (props)=>{
         <div>
             <NavBar name="navbar-home"></NavBar>
             <div className="video-home">
-                <video src='./uploads/video/moc.mp4' autoPlay loop muted />
+                <video src='./uploads/video/MOC.mp4' autoPlay loop muted />
             </div>
             <Home></Home>
             <div className="p-5">
