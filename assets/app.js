@@ -6,7 +6,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { HashRouter, Route } from 'react-router-dom';
 
 import './config';
-import Loader from './components/modules/loader';
+import Loader from './components/modules/Loader';
 import HomePage from './components/HomePage';
 import CoachsPage from './components/CoachsPage';
 import RegisterPage from './components/RegisterPage';
@@ -41,8 +41,12 @@ const App = () =>{
                </HashRouter>
           </div>
      );
+
 }
+
 
 // Dans la div app rend moi le contenu de App
 const rootElement = document.querySelector("#app");
 ReactDOM.render(<App/>, rootElement);
+
+console.log(rootElement);

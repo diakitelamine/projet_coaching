@@ -1,7 +1,7 @@
 import React from 'react';
 import { API_URL } from '../../config';
 class Coachs extends React.Component{
-    // Constructor 
+    // Constructor
     constructor(props) {
         super(props);
         this.state = {
@@ -32,10 +32,10 @@ class Coachs extends React.Component{
                         DataisLoaded: true,
                     })
                 })
-                
+
             })
-           
-           
+
+
         });
     }
 
@@ -45,11 +45,11 @@ class Coachs extends React.Component{
         .then((res) => res.json())
         .then((json) => {
             if (json != null) {
-               return json.path;   
+               return json.path;
             }
             else{
-                return 'default.svg'; 
-            } 
+                return 'default.svg';
+            }
         });
         return path;
     }
@@ -59,15 +59,15 @@ class Coachs extends React.Component{
         return(
             /*Coachs */
             <div className="row row-cols-1 row-cols-md-6 g-4 coachs">
-                {coachs.map((coach) => ( 
-                    <div className="col" key={coach.id} >
-                        <div className="card h-100"  data-id={ coachs.id }>
-                            <div className="card card-coach">
-                                <img src={`./uploads/images/user/${coach.path}`} className="card-img-top"/>
-                                <div className="card-body">
-                                    <h5 className="card-title"> { coach.lastname } { coach.firstname }</h5>
-                                    <p className="card-text">{coach.description !== null ? `${coach.description.substring(0, 250)}...` : '' }</p>
-                                </div>
+                {coachs.map((coach) => (
+                    <div className="col">
+                        <div className="card text-bg-dark h-100"  aria-hidden={DataisLoaded} data-id = { coach.id }>
+                        <img src="./uploads/images/image-accueil-boxe.png" className="card-img  min-opacity" alt="..."/>
+                            <div className="card-img-overlay">
+                            <h5 className="card-title"> { coach.lastname } { coach.firstname }</h5>
+                            <p className="card-text">
+                            {coach.description !== null ? `${coach.description.substring(0, 90)}...` : '' }
+                            </p>
                             </div>
                         </div>
                     </div>

@@ -34,7 +34,7 @@ const FormRegister = () => {
             LastName: ${lastName}
         `);
         const requestOptions = {
-            method: "POST", 
+            method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
@@ -77,9 +77,9 @@ const FormRegister = () => {
         })
         .catch(function(err){
             console.log(err);
-        })      
+        })
     }
-  
+
     return (
      <div className="card card-register">
         <h1 className="title-register">Inscription</h1>

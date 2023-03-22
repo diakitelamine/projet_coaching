@@ -7,6 +7,8 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
     Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
 }
 
+console.log("toto");
+
 Encore
     // define the environment variables
     .configureDefinePlugin(options => {
