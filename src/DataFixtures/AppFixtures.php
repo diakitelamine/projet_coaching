@@ -21,12 +21,15 @@ class AppFixtures extends Fixture
               $user = new User();
               $user->setFirstname($faker->firstName());
               $roles = $user->getRoles();
-              $roles[] = 'ROLE_COACH';
+              //$roles[] = 'ROLE_COACH';
               $user->setRoles($roles);
               $user->setLastname($faker->lastName());
               $user->setEmail($faker->email());
               $user->setPassword($faker->password());
               $user->setDescription($faker->text(49));
+              $user->setCreatedAt(new \DateTime('now'));
+              $user->setDescription($faker->text(49));
+              $user->setCreatedAt(new \DateTime('now'));
               $manager->persist($user);
               $users[] = $user;
         }
@@ -38,8 +41,7 @@ class AppFixtures extends Fixture
                 $categorie= new Categorie();
                 $categorie->setName($faker->text(49));
                 $categorie->setDescription($faker->text(200));
-                $categorie->setImageUrl($faker->imageUrl());
-                $categorie->setCreatedAt(new DateTime());
+                $categorie->setCreatedAt(new \DateTime('now'));
                 $manager->persist($categorie);
                 $categories[] = $categorie;
             }
@@ -50,6 +52,8 @@ class AppFixtures extends Fixture
             
                 $ingredient= new Ingredient();
                 $ingredient->setName($faker->text(49));
+                $ingredient->setCreatedAt(new \DateTime('now'));
+                $ingredient->setCreatedAt(new \DateTime('now'));
                 $manager->persist($ingredient);
                 $ingredients[] = $ingredient;
             }
@@ -59,9 +63,9 @@ class AppFixtures extends Fixture
                 $recette= new  Recette();
                 $recette->setName($faker->text(49));
                 $recette->setDescription($faker->text(49));
-                $recette->setImageUrl($faker->imageUrl());
                 $recette->setDureeMoyen(rand(0, 100));
-                $recette->setCreatedAt(new \DateTime());
+                $recette->setCreatedAt(new \DateTime('now'));
+                $recette->setCreatedAt(new \DateTime('now'));
                 $recette->addCategory($categories[$faker->numberBetween(0,14)]);
                 $recette->addIngredient($ingredients[$faker->numberBetween(0,14)]);
                 $recette->setAuthor($users[$faker->numberBetween(0,49)]);

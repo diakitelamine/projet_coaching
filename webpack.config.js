@@ -10,19 +10,13 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 console.log("toto");
 
 Encore
-
     // define the environment variables
     .configureDefinePlugin(options => {
-        console.log("toto");
         const env = dotenv.config();
         console.log(env);
         if (env.error) {
             throw env.error;
         }
-
-        console.log(env.parsed.REACT_APP_API_URL);
-        console.log(JSON.stringify(env.parsed.REACT_APP_API_URL));
-        console.log(options);
         options['process.env.API_URL'] = JSON.stringify(env.parsed.REACT_APP_API_URL);
 
     })
@@ -51,7 +45,6 @@ Encore
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
-
     /*
      * FEATURE CONFIG
      *
