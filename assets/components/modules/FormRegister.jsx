@@ -4,7 +4,7 @@ const FormRegister = (props)=>{
     return(
         <div className="card card-register">
             <h1 className="title-register">Inscrivez-Vous</h1>
-            <form>
+            <form >
                 <input type="text" name="firstname" className='form-control' placeholder="Nom"/>
                 <input type="text" name="lastname" className='form-control' placeholder="Prénom" />
                 <input type="email" name="email" className='form-control' placeholder="Email"  />

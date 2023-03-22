@@ -48,7 +48,9 @@ class Programme
         $this->avis = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->recettes = new ArrayCollection();
+        $this->setCeatedAt(new \DateTime());
     }
+
 
     public function getId(): ?int
     {
@@ -91,12 +93,12 @@ class Programme
         return $this;
     }
 
-    public function getCreer(): ?\DateTimeInterface
+    public function getCeatedAt(): ?\DateTimeInterface
     {
         return $this->ceated_at;
     }
 
-    public function setCreer(\DateTimeInterface $ceated_at): self
+    public function setCeatedAt(\DateTimeInterface $ceated_at): self
     {
         $this->ceated_at = $ceated_at;
 
@@ -210,4 +212,6 @@ class Programme
 
         return $this;
     }
+
+
 }

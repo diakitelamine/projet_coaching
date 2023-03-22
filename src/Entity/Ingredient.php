@@ -36,6 +36,7 @@ class Ingredient
     public function __construct()
     {
         $this->recettes = new ArrayCollection();
+        $this->setCreatedAt(new \DateTime());
     }
 
     public function getId(): ?int
@@ -113,5 +114,11 @@ class Ingredient
         $this->deleted_by = $deleted_by;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+
     }
 }

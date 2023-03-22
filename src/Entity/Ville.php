@@ -31,6 +31,7 @@ class Ville
     public function __construct()
     {
         $this->salles = new ArrayCollection();
+        $this->setCreatedAt(new \DateTime());
     }
 
     public function getId(): ?int
@@ -102,5 +103,11 @@ class Ville
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+
     }
 }
