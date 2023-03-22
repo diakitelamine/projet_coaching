@@ -7,6 +7,7 @@ services:
     environment:
       MYSQL_DATABASE: project_coaching
       # You should definitely change the password in production
+      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - db-data:/var/lib/mysql:rw

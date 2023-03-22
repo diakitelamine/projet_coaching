@@ -10,6 +10,7 @@
         "bootstrap": "^5.2.3",
         "bs-custom-file-input": "^1.3.4",
         "core-js": "^3.23.0",
+        "dotenv-webpack": "^8.0.1",
         "jquery": "^3.6.3",
         "node-sass": "^8.0.0",
         "regenerator-runtime": "^0.13.9",
@@ -34,6 +35,8 @@
         "prop-types": "^15.8.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-router-dom": "^5.0.0"
+        "react-error-overlay": "^6.0.11",
+        "react-router-dom": "^5.0.0",
+        "react-symfony-form": "^0.0.1-alpha.10"
     }
 }

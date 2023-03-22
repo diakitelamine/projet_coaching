@@ -1,11 +1,32 @@
 const Encore = require('@symfony/webpack-encore');
+const dotenv = require('dotenv');
+
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
 if (!Encore.isRuntimeEnvironmentConfigured()) {
     Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
 }
 
+console.log("toto");
+
 Encore
+
+    // define the environment variables
+    .configureDefinePlugin(options => {
+        console.log("toto");
+        const env = dotenv.config();
+        console.log(env);
+        if (env.error) {
+            throw env.error;
+        }
+
+        console.log(env.parsed.REACT_APP_API_URL);
+        console.log(JSON.stringify(env.parsed.REACT_APP_API_URL));
+        console.log(options);
+        options['process.env.API_URL'] = JSON.stringify(env.parsed.REACT_APP_API_URL);
+
+    })
+
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
@@ -72,5 +93,5 @@ Encore
     //.autoProvidejQuery()
 ;
 
- 
+
 module.exports = Encore.getWebpackConfig();
