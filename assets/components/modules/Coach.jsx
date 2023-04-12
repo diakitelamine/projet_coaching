@@ -15,7 +15,7 @@ class Coachs extends React.Component{
             maxResults = this.props.maxResults;
         }
         // Requete à l'api user
-        fetch('https://localhost:8000/api/coachs/'+maxResults)
+        fetch('http://localhost:8000/api/coachs/'+maxResults)
             // Transforme les données en json
             .then((res) => res.json())
             .then((json) => {

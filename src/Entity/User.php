@@ -41,7 +41,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Recette::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Recette::class)]
     private Collection $recettes;
 
     #[ORM\Column(length: 900, nullable: true)]
