@@ -121,7 +121,7 @@ class Categorie
         return $this->programmes;
     }
 
-    public function addProgramme(self $programme): self
+    public function addProgramme(Programme $programme): self
     {
         if (!$this->programmes->contains($programme)) {
             $this->programmes->add($programme);
@@ -130,7 +130,7 @@ class Categorie
         return $this;
     }
 
-    public function removeProgramme(self $programme): self
+    public function removeProgramme(Programme $programme): self
     {
         $this->programmes->removeElement($programme);
 
