@@ -73,7 +73,7 @@ class UserController extends AbstractController
                 return new JsonResponse($message, 404, [], true);
             }
             $user = $userRepository->findOneBy(['email'=>$data['email']]);
-            if ($passwordHasher->isPasswordValid($user, $data['password'])) {
+            if ($user && $passwordHasher->isPasswordValid($user, $data['password'])) {
                 $message = $serializer->serialize(
                     [
                         'code' => 200,
