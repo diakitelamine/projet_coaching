@@ -12,6 +12,7 @@ class Coachs extends React.Component{
     }
 
     componentDidMount() {
+        console.log(API_URL);
         let maxResults = '';
         if (this.props.maxResults != undefined) {
             maxResults = this.props.maxResults;
