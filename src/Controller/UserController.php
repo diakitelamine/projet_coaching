@@ -5,14 +5,18 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Mime\Address;
 
 class UserController extends AbstractController
 {
@@ -103,7 +107,7 @@ class UserController extends AbstractController
     }
 
     #[Route('api/register/user', name: 'api_register_user', methods:'POST')]
-    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
+    public function register(MailerInterface $mailer, Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
     {
 
         //Récupere les données dans un tableau
@@ -157,6 +161,17 @@ class UserController extends AbstractController
                 );
                 return new JsonResponse($message, 401, [], true);
             }
+           
+            //Envoie d'un mail 
+            if (!MailController::sendEmailRegister($mailer, $data['email'])) {
+                $message = $serializer->serialize(
+                    [
+                        'code' => 404,
+                        'message' => 'Une erreur est survenue veuilliez réessayer ultérieurement.'
+                    ], 'json'
+                );
+                return new JsonResponse($message, 404, [], true);
+            }
             //On enregistre un nouvelle utilisateur
             $user = new User();
             $hashedPassword = $passwordHasher->hashPassword(
@@ -178,6 +193,7 @@ class UserController extends AbstractController
                     'message'=> 'Inscription réussie. Vous pouvez désormais vous connecter.'
                 ], 'json'
             );
+            
             return new JsonResponse($message, 200, [], true);
         }
         $message = $serializer->serialize(

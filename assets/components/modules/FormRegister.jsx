@@ -20,7 +20,8 @@ const FormRegister = () => {
         setConfirmPassword("");
         setFirstName("");
         setLastName("");
-        setRole("")
+        setRole("");
+
     }
 
 
@@ -89,7 +90,7 @@ const FormRegister = () => {
         </div>
 
         <form onSubmit={handleSubmit}>
-            <select name="role" className="form-select" onChange={e => setRole(e.target.value)}>
+            <select name="role" value={role} className="form-select" onChange={e => setRole(e.target.value)}>
                 <option value="">Vous êtes coach ou utilisateur ?</option>
                 <option value="ROLE_COACH">Coach</option>
                 <option value="ROLE_USER">Utilisateur</option>
