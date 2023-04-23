@@ -71,6 +71,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
     private Collection $reservations;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $key_register = null;
+
+    #[ORM\Column]
+    private ?bool $active = null;
+
     public function __construct()
     {
         $this->recettes = new ArrayCollection();
@@ -390,6 +396,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $reservation->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getKeyRegister(): ?string
+    {
+        return $this->key_register;
+    }
+
+    public function setKeyRegister(?string $key_register): self
+    {
+        $this->key_register = $key_register;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

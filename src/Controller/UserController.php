@@ -77,6 +77,17 @@ class UserController extends AbstractController
                 return new JsonResponse($message, 404, [], true);
             }
             $user = $userRepository->findOneBy(['email'=>$data['email']]);
+            //Si le compte n'est pas activé
+            if (!$user->isActive()) {
+                $message = $serializer->serialize(
+                    [
+                        'code' => 404,
+                        'message' => 'Votre adresse e-mail n\'as pas été vérifié'
+                    ], 'json'
+                );
+                return new JsonResponse($message, 404, [], true);
+            }
+
             if ($user && $passwordHasher->isPasswordValid($user, $data['password'])) {
                 $message = $serializer->serialize(
                     [
@@ -161,9 +172,10 @@ class UserController extends AbstractController
                 );
                 return new JsonResponse($message, 401, [], true);
             }
-           
+            //Génere une clé
+            $key = md5(uniqid(rand(), true));
             //Envoie d'un mail 
-            if (!MailController::sendEmailRegister($mailer, $data['email'])) {
+            if (!MailController::sendEmailRegister($mailer, $data['email'], $key)) {
                 $message = $serializer->serialize(
                     [
                         'code' => 404,
@@ -178,19 +190,21 @@ class UserController extends AbstractController
                 $user,
                 $data['password']
             );
-            $user->setEmail($data['email']);
+            $user->setKeyRegister($key);
+            $user->setEmail(strtolower($data['email']));
             $user->setRoles($data['roles']);
             $user->setPassword($hashedPassword);
-            $user->setFirstName($data['firstName']);
-            $user->setLastName($data['lastName']);
+            $user->setFirstName(ucfirst(strtolower($data['firstName'])));
+            $user->setLastName(ucfirst(strtolower($data['lastName'])));
             $user->setCreatedAt(new \DateTime($data['createdAt']));
+            $user->setActive(0);
             $entityManager->persist($user);
             $entityManager->flush();
             $message = $serializer->serialize(
                 [
                     'code' => 200,
                     'user' => $user, 
-                    'message'=> 'Inscription réussie. Vous pouvez désormais vous connecter.'
+                    'message'=> 'Inscription réussie. Veuilliez confirmer votre adresse e-mail.'
                 ], 'json'
             );
             
@@ -203,5 +217,19 @@ class UserController extends AbstractController
             ], 'json'
         );
         return new JsonResponse($message, 404, [], true);
+    }
+
+    #[Route('/register/confirm/{key}', name: 'confirm_account_user', methods:'GET')]
+    public function confirmAccount($key, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    {
+        //On récupere l'utilisateur liés à la clé 
+        $user = $userRepository->findOneBy(['key_register' => $key]);
+        if ($user) {
+            $user->setKeyRegister(NULL);
+            $user->setActive(1);
+            $entityManager->persist($user);
+            $entityManager->flush();
+        }
+        return $this->renderForm('user/register/confirm.html.twig', ['user' => $user, 'link' => $_ENV['APP_LOCAL'].'#/auth']);
     }
 }
