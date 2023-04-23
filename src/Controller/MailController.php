@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controller;
+
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -25,7 +27,7 @@ class MailController extends AbstractController
         <p>Si vous rencontrez des difficultés pour vous connecter à votre compte, contactez-nous à myonlinecoachcontact@gmail.com.</p>
 
         <p>Cordialement,</p>
-        
+
         <p>L’équipe du MOC</p>";
 
         //Configure l'envoie du mail
@@ -33,11 +35,45 @@ class MailController extends AbstractController
             ->from(new Address('support@moc.fr'))
             ->to(new Address($to))
             ->subject('Confirmez votre inscription MOC')
-            ->text($message)
-            ->html(strip_tags($message));
-        //Envoie le mail
-        $mailer->send($email);
+            ->text(strip_tags($message))
+            ->html($message);
         try {
+             //Envoie le mail
+            $mailer->send($email);
+            return True;
+        }
+        catch (\Exception $e){
+            return False;
+        }
+    }
+
+    #[Route('send/email/account/active', name: 'send_email_account_active')]
+    static function sendEmailAccountActive(MailerInterface $mailer, User $user): Bool
+    {
+        
+        //Message
+        $message = "<p>Bonjour, ".$user->getFirstName()." ".$user->getLastName()." </p>
+
+        <p>Nous vous remercions d’avoir complété votre inscription auprès de MOC.</p>
+
+        <p>Cet e-mail confirme que votre compte est activé et que vous faites officiellement partie de la famille de MOC.</p>
+       
+        <p>Bon sport !</p>
+
+        <p>Cordialement,</p>
+
+        <p> L’équipe de MOC </p>";
+
+        //Configure l'envoie du mail
+        $email = (new Email())
+            ->from(new Address('support@moc.fr'))
+            ->to(new Address($user->getEmail()))
+            ->subject('Merci d’avoir validé votre inscription')
+            ->text(strip_tags($message))
+            ->html($message);
+        try {
+             //Envoie le mail
+            $mailer->send($email);
             return True;
         }
         catch (\Exception $e){

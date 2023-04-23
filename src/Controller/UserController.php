@@ -220,7 +220,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/register/confirm/{key}', name: 'confirm_account_user', methods:'GET')]
-    public function confirmAccount($key, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    public function confirmAccount($key, UserRepository $userRepository, EntityManagerInterface $entityManager, MailerInterface $mailer,): Response
     {
         //On récupere l'utilisateur liés à la clé 
         $user = $userRepository->findOneBy(['key_register' => $key]);
@@ -229,6 +229,7 @@ class UserController extends AbstractController
             $user->setActive(1);
             $entityManager->persist($user);
             $entityManager->flush();
+            MailController::sendEmailAccountActive($mailer, $user);
         }
         return $this->renderForm('user/register/confirm.html.twig', ['user' => $user, 'link' => $_ENV['APP_LOCAL'].'#/auth']);
     }
