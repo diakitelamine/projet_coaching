@@ -15,11 +15,17 @@ class MailController extends AbstractController
         
         //Message
         $message = "<p>Bonjour,</p>
+
         <p>Merci d’avoir rejoint MOC.</p>
+
         <p>Nous aimerions vous confirmer que votre compte a été créé avec succès. Pour accéder au MOC, cliquez sur le lien ci-dessous.</p>
+
         <p>".$_ENV['APP_LOCAL']."register/confirm/$key</p>
+
         <p>Si vous rencontrez des difficultés pour vous connecter à votre compte, contactez-nous à myonlinecoachcontact@gmail.com.</p>
+
         <p>Cordialement,</p>
+        
         <p>L’équipe du MOC</p>";
 
         //Configure l'envoie du mail
