@@ -116,12 +116,12 @@ class Recette
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setAuthor(?User $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 

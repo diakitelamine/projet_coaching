@@ -210,7 +210,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->recettes->contains($recette)) {
             $this->recettes->add($recette);
-            $recette->setAuthor($this);
+            $recette->setUser($this);
         }
 
         return $this;
@@ -220,8 +220,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->recettes->removeElement($recette)) {
             // set the owning side to null (unless already changed)
-            if ($recette->getAuthor() === $this) {
-                $recette->setAuthor(null);
+            if ($recette->getUser() === $this) {
+                $recette->setUser(null);
             }
         }
 
