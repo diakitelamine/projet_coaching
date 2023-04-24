@@ -7,8 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: SalleRepository::class)]
+#[ApiResource()]
 class Salle
 {
     #[ORM\Id]
@@ -151,12 +153,6 @@ class Salle
         $this->ville = $ville;
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->name;
-
     }
 
     public function getName(): ?string
