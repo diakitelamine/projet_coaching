@@ -39,7 +39,6 @@ const App = () =>{
           </div>
      );
 }
-
 // Dans la div app rend moi le contenu de App
 const rootElement = document.querySelector("#app");
 ReactDOM.render(<App/>, rootElement);
