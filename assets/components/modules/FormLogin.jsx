@@ -25,7 +25,7 @@ const FormLogin = () => {
             Password: ${password}
         `);
         const requestOptions = {
-            method: "POST",
+            method: "POST", 
             headers: {
               "Content-Type": "application/json",
             },
@@ -62,9 +62,9 @@ const FormLogin = () => {
         })
         .catch(function(err){
             console.log(err);
-        })
+        })      
     }
-
+  
     return (
      <div className="card card-register">
         <h1 className="title-register">Connexion</h1>

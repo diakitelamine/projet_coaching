@@ -51,12 +51,12 @@ class Reservation
         return $this;
     }
 
-    public function getFin(): ?\DateTimeInterface
+    public function getFini(): ?\DateTimeInterface
     {
         return $this->fin;
     }
 
-    public function setFin(?\DateTimeInterface $fin): self
+    public function setFini(?\DateTimeInterface $fin): self
     {
         $this->fin = $fin;
 

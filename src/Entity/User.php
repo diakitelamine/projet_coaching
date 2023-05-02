@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource()]//tu me suis?
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -69,6 +70,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
     private Collection $reservations;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $key_register = null;
+
+    #[ORM\Column]
+    private ?bool $active = null;
 
     public function __construct()
     {
@@ -203,7 +210,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->recettes->contains($recette)) {
             $this->recettes->add($recette);
-            $recette->setAuthor($this);
+            $recette->setUser($this);
         }
 
         return $this;
@@ -213,8 +220,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->recettes->removeElement($recette)) {
             // set the owning side to null (unless already changed)
-            if ($recette->getAuthor() === $this) {
-                $recette->setAuthor(null);
+            if ($recette->getUser() === $this) {
+                $recette->setUser(null);
             }
         }
 
@@ -393,9 +400,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function __toString()
+    public function getKeyRegister(): ?string
     {
-        return $this->firstname;
+        return $this->key_register;
+    }
 
+    public function setKeyRegister(?string $key_register): self
+    {
+        $this->key_register = $key_register;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
     }
 }

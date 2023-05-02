@@ -1,4 +1,5 @@
 import React from 'react';
+import { API_URL } from '../../config';
 
 const FormRegister = () => {
     const [email, setEmail] = React.useState("");
@@ -19,7 +20,8 @@ const FormRegister = () => {
         setConfirmPassword("");
         setFirstName("");
         setLastName("");
-        setRole("")
+        setRole("");
+
     }
 
 
@@ -34,7 +36,7 @@ const FormRegister = () => {
             LastName: ${lastName}
         `);
         const requestOptions = {
-            method: "POST",
+            method: "POST", 
             headers: {
               "Content-Type": "application/json",
             },
@@ -77,9 +79,9 @@ const FormRegister = () => {
         })
         .catch(function(err){
             console.log(err);
-        })
+        })      
     }
-
+  
     return (
      <div className="card card-register">
         <h1 className="title-register">Inscription</h1>
@@ -88,7 +90,7 @@ const FormRegister = () => {
         </div>
 
         <form onSubmit={handleSubmit}>
-            <select name="role" className="form-select" onChange={e => setRole(e.target.value)}>
+            <select name="role" value={role} className="form-select" onChange={e => setRole(e.target.value)}>
                 <option value="">Vous êtes coach ou utilisateur ?</option>
                 <option value="ROLE_COACH">Coach</option>
                 <option value="ROLE_USER">Utilisateur</option>

@@ -39,13 +39,9 @@ class Salle
     #[ORM\ManyToOne(inversedBy: 'Salles')]
     private ?Ville $ville = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
-        $this->setCreatedAt(new \DateTime());
     }
 
     public function getId(): ?int
@@ -151,18 +147,6 @@ class Salle
     public function setVille(?Ville $ville): self
     {
         $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
 
         return $this;
     }

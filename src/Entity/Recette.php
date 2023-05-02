@@ -61,7 +61,6 @@ class Recette
         $this->ingredients = new ArrayCollection();
         $this->avis = new ArrayCollection();
         $this->programmes = new ArrayCollection();
-        $this->setCreatedAt(new \DateTime());
     }
 
     public function getId(): ?int
@@ -281,11 +280,5 @@ class Recette
         $this->deleted_by = $deleted_by;
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->name;
-
     }
 }
