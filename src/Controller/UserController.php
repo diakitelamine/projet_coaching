@@ -50,7 +50,19 @@ class UserController extends AbstractController
     {
         //On récupere l'image de l'utilisateur
         $user = $userRepository->find($userId);
-        $image = $imageRepository->findOneBy(['user' => $userId, 'detail' => 'profil']);
+        $image = $imageRepository->findOneBy(['user' => $userId, 'detail' => 'profil', 'deleted_at' => NULL]);
+        $response = $serializer->serialize(
+            $image, 'json'
+        );
+        return new JsonResponse($response, 200, [], true);
+    }
+
+    #[Route('api/image/cover/user/{userId}', name: 'api_image_cover_user')]
+    public function coverImage($userId, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer):JsonResponse
+    {
+        //On récupere l'image de l'utilisateur
+        $user = $userRepository->find($userId);
+        $image = $imageRepository->findOneBy(['user' => $userId, 'detail' => 'cover', 'deleted_at' => NULL]);
         $response = $serializer->serialize(
             $image, 'json'
         );
