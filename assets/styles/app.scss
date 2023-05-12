@@ -1,11 +1,28 @@
 @import "~bootstrap/scss/bootstrap";
 @import 'root.scss';
-@import 'register.scss';
-@import 'home.scss';
-@import 'loader.scss';
-@import 'navbar.scss';
-body{
-    background-color : $black;
+@import './dark/register.scss';
+@import './dark/home.scss';
+//@import './dark/loader.scss';
+@import './dark/navbar.scss';
+@import './dark/base.scss';
+@import './light/base.scss';
+@import './light/home.scss';
+@import './light/loader.scss';
+@import './light/coach.scss';
+@import './light/profil.scss';
+@import url('https://fonts.cdnfonts.com/css/clean-sports-stencil');
+@import 'animate.css';
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+}
+.dark{
+    background-color : $dark-bg;
+}
+.light{
+    background-color : $light-bg;
 }
 .min-opacity{
     opacity: 0.30;
@@ -13,6 +30,6 @@ body{
 .p-20{
     padding: 0 20em 0 20em;
 }
-h2{
-    color: white;
+.hidden{
+    visibility: collapse;
 }

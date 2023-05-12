@@ -8,6 +8,9 @@ import Loader from './components/modules/loader';
 import HomePage from './components/HomePage';
 import CoachsPage from './components/CoachsPage';
 import RegisterPage from './components/RegisterPage';
+import TestPage from './components/TestPage';
+import LoginPage from './components/LoginPage';
+import ProfilPage from './components/ProfilPage';
 const $ = require('jquery');
 require('bootstrap');
 
@@ -18,20 +21,28 @@ const App = () =>{
      useEffect(()=> {
           setTimeout(()=>{
                setLoader(false);
-          }, 3000 );
+          }, 0 );
      }, []) ;
 
      return loader ? (
-          <Loader></Loader>
+          <div className="light">
+               <Loader></Loader>
+          </div>
      ) : (
-          <HashRouter>
-               <Route exact path="/" component={HomePage}/>
-               <Route path="/coachs" component={CoachsPage}/>
-               <Route path="/auth" component={RegisterPage}/>
-          </HashRouter>
+          <div className="light">
+               <HashRouter>
+                    <Route exact path="/" component={HomePage}/>
+                    <Route path="/coachs" component={CoachsPage}/>
+                    <Route path="/auth" component={LoginPage}/>
+                    <Route path="/register" component={RegisterPage}/>
+                    <Route path="/test" component={TestPage}/>
+                    <Route path="/profil" component={ProfilPage}/>
+               </HashRouter>
+          </div>
      );
 }
-
 // Dans la div app rend moi le contenu de App
 const rootElement = document.querySelector("#app");
 ReactDOM.render(<App/>, rootElement);
+
+console.log(rootElement);

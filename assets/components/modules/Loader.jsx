@@ -2,7 +2,7 @@ import React from 'react';
 
 const Loader = (props)=>{
     return(
-        <div>
+        <div className="loader">
             <div className="box">
                 <div className="shadow"></div>
                 <div className="gravity">
