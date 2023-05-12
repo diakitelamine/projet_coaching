@@ -10,6 +10,7 @@ import CoachsPage from './components/CoachsPage';
 import RegisterPage from './components/RegisterPage';
 import TestPage from './components/TestPage';
 import LoginPage from './components/LoginPage';
+import ProfilPage from './components/ProfilPage';
 const $ = require('jquery');
 require('bootstrap');
 
@@ -35,6 +36,7 @@ const App = () =>{
                     <Route path="/auth" component={LoginPage}/>
                     <Route path="/register" component={RegisterPage}/>
                     <Route path="/test" component={TestPage}/>
+                    <Route path="/profil" component={ProfilPage}/>
                </HashRouter>
           </div>
      );

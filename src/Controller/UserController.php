@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\ImageRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -44,17 +45,41 @@ class UserController extends AbstractController
         return new JsonResponse($coachs, 200, [], true);
     }
 
-    #[Route('api/image/user/{userId}', name: 'api_image_user')]
-    public function image($userId, UserRepository $userRepository, SerializerInterface $serializer):JsonResponse
+    #[Route('api/image/profil/user/{userId}', name: 'api_image_profil_user')]
+    public function profilImage($userId, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer):JsonResponse
     {
         //On récupere l'image de l'utilisateur
         $user = $userRepository->find($userId);
-        $image = $user->getImage(); 
+        $image = $imageRepository->findOneBy(['user' => $userId, 'detail' => 'profil', 'deleted_at' => NULL]);
         $response = $serializer->serialize(
             $image, 'json'
         );
         return new JsonResponse($response, 200, [], true);
     }
+
+    #[Route('api/image/cover/user/{userId}', name: 'api_image_cover_user')]
+    public function coverImage($userId, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer):JsonResponse
+    {
+        //On récupere l'image de l'utilisateur
+        $user = $userRepository->find($userId);
+        $image = $imageRepository->findOneBy(['user' => $userId, 'detail' => 'cover', 'deleted_at' => NULL]);
+        $response = $serializer->serialize(
+            $image, 'json'
+        );
+        return new JsonResponse($response, 200, [], true);
+    }
+
+    #[Route('api/user/{userId}', name: 'api_user')]
+    public function user($userId, UserRepository $userRepository, SerializerInterface $serializer):JsonResponse
+    {
+        //On récupere l'utilisateur pas supprimer
+        $user = $userRepository->findOneBy(['id' => $userId, 'deleted_at' => NULL]);
+        $response = $serializer->serialize(
+            $user, 'json'
+        );
+        return new JsonResponse($response, 200, [], true);
+    }
+
     #[Route('api/auth/user', name: 'api_auth_user', methods:'POST')]
     public function tryToLogin(Request $request, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
     {

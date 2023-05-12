@@ -12,7 +12,6 @@ class Coachs extends React.Component{
     }
 
     componentDidMount() {
-        console.log(API_URL);
         let maxResults = '';
         if (this.props.maxResults != undefined) {
             maxResults = this.props.maxResults;
@@ -34,13 +33,11 @@ class Coachs extends React.Component{
                 })
                 
             })
-           
-           
         });
     }
 
     async getPathImageByCoach(id){
-        const path = await fetch(API_URL+'image/user/'+id)
+        const path = await fetch(API_URL+'image/profil/user/'+id)
         // Transforme les données en json
         .then((res) => res.json())
         .then((json) => {
