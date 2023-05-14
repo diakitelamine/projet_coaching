@@ -64,7 +64,7 @@ class AppFixtures extends Fixture
                 $recette->setCreatedAt(new \DateTime('now'));
                 $recette->addCategory($categories[$faker->numberBetween(0,14)]);
                 $recette->addIngredient($ingredients[$faker->numberBetween(0,14)]);
-                $recette->setAuthor($users[$faker->numberBetween(0,49)]);
+                $recette->setUser($users[$faker->numberBetween(0,49)]);
                 $manager->persist($recette);
             }
         $manager->flush();

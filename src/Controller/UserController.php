@@ -74,9 +74,7 @@ class UserController extends AbstractController
     {
         //On récupere l'utilisateur pas supprimer
         $user = $userRepository->findOneBy(['id' => $userId, 'deleted_at' => NULL]);
-        $response = $serializer->serialize(
-            $user, 'json'
-        );
+        $response = $serializer->serialize($user, 'json');
         return new JsonResponse($response, 200, [], true);
     }
 
