@@ -81,9 +81,15 @@ const Profil = () => {
                             <p className={`${classLoader} label`} >Déscription</p>
                             <p className={`${classLoader} description`}>{user.description}</p>
                         </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <p className={`${classLoader} label`} >Email</p>
+                            <p className={`${classLoader} email`}>{user.email}</p>
+                        </div>
                         <div className="col">
                             <p className={`${classLoader} label`}>Adresse</p>
-                            <p className={`${classLoader}`}>{user.adress}</p>
+                            <p className={`${classLoader}`}>{user.address}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -99,7 +105,8 @@ const Profil = () => {
                 </div>
 
             </div>
-            <button className="btn btn-danger mt-5"><i className="bi bi-pen"></i> Modifier</button>
+            <a className="btn btn-danger mt-5" href="#/edit/profil"><i className="bi bi-pen"></i> Modifier votre profil</a>
+            <a className="btn btn-secondary mt-5" href="#/edit/profil"><i className="bi bi-pen"></i> Modifier votre mot de passe</a>
         </div>
     )
 }
