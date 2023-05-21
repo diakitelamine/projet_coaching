@@ -19,7 +19,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
 {
-    #[Route('/admin', name: 'admin')]
+    #[Route('/moc_admin', name: 'admin')]
     public function index(): Response
     {
         // return parent::index();

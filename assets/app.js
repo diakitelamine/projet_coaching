@@ -11,10 +11,10 @@ import RegisterPage from './components/RegisterPage';
 import TestPage from './components/TestPage';
 import LoginPage from './components/LoginPage';
 import ProfilPage from './components/ProfilPage';
+import EditProfilPage from './components/EditProfilpage';
 const $ = require('jquery');
 require('bootstrap');
 
-console.log("Hello word!!!")
 const App = () =>{
      const [loader, setLoader] = useState(true);
 
@@ -37,6 +37,7 @@ const App = () =>{
                     <Route path="/register" component={RegisterPage}/>
                     <Route path="/test" component={TestPage}/>
                     <Route path="/profil" component={ProfilPage}/>
+                    <Route path="/edit/profil" component={EditProfilPage}/>
                </HashRouter>
           </div>
      );

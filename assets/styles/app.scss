@@ -5,17 +5,19 @@
 //@import './dark/loader.scss';
 @import './dark/navbar.scss';
 @import './dark/base.scss';
+@import './light/navbar.scss';
 @import './light/base.scss';
 @import './light/home.scss';
 @import './light/loader.scss';
 @import './light/coach.scss';
 @import './light/profil.scss';
+@import './light/profil-edit.scss';
 @import url('https://fonts.cdnfonts.com/css/clean-sports-stencil');
 @import 'animate.css';
 html {
     height: 100%;
 }
-body {
+body, #app {
     height: 100%;
 }
 .dark{
@@ -23,6 +25,7 @@ body {
 }
 .light{
     background-color : $light-bg;
+    min-height: 100%;
 }
 .min-opacity{
     opacity: 0.30;

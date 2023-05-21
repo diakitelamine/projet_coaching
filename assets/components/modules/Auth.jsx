@@ -19,6 +19,10 @@ const Auth = () => {
                     //Set la redirection
                     setRedirect(true)
                 }
+                //Si la session ne correspond pas
+                else if(json.id != sessionStorage.getItem("id") || json.userIdentifier != sessionStorage.getItem("email") || json.password != sessionStorage.getItem("password")){
+                    setRedirect(true)
+                }
             });
         }
     }, [])

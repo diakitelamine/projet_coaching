@@ -3,9 +3,13 @@ import Auth from './Auth';
 import { API_URL } from '../../config';
 const Profil = () => {
     const [id, setId] = React.useState("");
-    const [user, setUser] = React.useState("");
+    const [user, setUser] = React.useState([]);
     const [imageProfil, setImageProfil] = React.useState('');
     const [imageCover, setImageCover] = React.useState('');
+    const [loader, setLoader] = React.useState(true); // Chargement
+    const [classLoader, setClassLoader] = React.useState('placeholder'); // class de chargement du text
+    const [classLoaderImageCover, setClassLoaderImageCover] = React.useState('placeholder'); // class de chargement de la photo de couverture
+    const [classLoaderImageProfil, setClassLoaderImageProfil] = React.useState('placeholder');// class de chargement de la photo de profil
 
     useEffect(() => {
         // Requete à l'api user
@@ -14,7 +18,7 @@ const Profil = () => {
         .then((res) => res.json())
         .then((json) => {
             setId(json.id);
-            setUser(json)
+            setUser(json);
             let imageProfil = getImageProfilByUser(id);
             imageProfil.then((value) => {
                 setImageProfil(value)
@@ -23,6 +27,8 @@ const Profil = () => {
             imageCover.then((value) => {
                 setImageCover(value)
             })
+            setLoader(false);
+            setClassLoader('');
         });
     }, [])
 
@@ -38,7 +44,8 @@ const Profil = () => {
                 return 'default.svg'; 
             } 
         });
-        return path;
+        setClassLoaderImageProfil('');
+        return './uploads/images/user/'+path;
     }
 
     async function getImageCoverByUser(id) {
@@ -53,19 +60,53 @@ const Profil = () => {
                 return 'default.svg'; 
             } 
         });
-        return path;
+        setClassLoaderImageCover('');
+        return './uploads/images/user/'+path;
     }
 
     return(
-        <div>
+        <div className="container">
             <Auth></Auth>
             <div className='profil'>
-                <div className="images">
-                    <img src={`./uploads/images/user/${imageCover}`} className="profil-image-cover"/>
-                    <img src={`./uploads/images/user/${imageProfil}`} className="profil-image"/>
-                    <p className="profil-text"><span className="lastname">{user.lastname}</span> <span className="firstName">{user.firstname}</span></p> 
+                    <div className="images">
+                        <img src={`${imageCover}`} className={`${classLoaderImageCover} profil-image-cover`}/>
+                        <img src={`${imageProfil}`} className={`${classLoaderImageProfil} profil-image`}/>
+                        <p className={`${classLoader} profil-text`}><span className="lastname">{user.lastname}</span> <span className="firstName">{user.firstname}</span></p> 
+                    </div>
+                
+                <div className={`placeholder-glow card`}>
+
+                    <div className="row">
+                        <div className="col">
+                            <p className={`${classLoader} label`} >Déscription</p>
+                            <p className={`${classLoader} description`}>{user.description}</p>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <p className={`${classLoader} label`} >Email</p>
+                            <p className={`${classLoader} email`}>{user.email}</p>
+                        </div>
+                        <div className="col">
+                            <p className={`${classLoader} label`}>Adresse</p>
+                            <p className={`${classLoader}`}>{user.address}</p>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <p className={`${classLoader} label`}>Ville</p>
+                            <p className={`${classLoader} description`}> {user.city} </p>
+                        </div>
+                        <div className="col">
+                            <p className={`${classLoader} label`}>Code Postal</p>
+                            <p className={`${classLoader} `}> {user.postalCode} </p>
+                        </div>
+                    </div>
                 </div>
+
             </div>
+            <a className="btn btn-danger mt-5" href="#/edit/profil"><i className="bi bi-pen"></i> Modifier votre profil</a>
+            <a className="btn btn-secondary mt-5" href="#/edit/profil"><i className="bi bi-pen"></i> Modifier votre mot de passe</a>
         </div>
     )
 }

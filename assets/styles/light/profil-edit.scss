@@ -1,0 +1,11 @@
+.edit-profil{
+    form{
+        padding: 20px;
+        .input-image-cover,.input-profil-image{
+            width:100%;
+            object-fit: cover;
+            height: 265px;
+            border-radius: 10px;
+        }  
+    }
+}
