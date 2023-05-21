@@ -54,7 +54,7 @@ export default function EditProfil() {
                 return 'default.svg'; 
             } 
         });
-        return './uploads/images/user/'+path;
+        return path;
     }
 
     async function getImageCoverByUser(id) {
@@ -69,17 +69,22 @@ export default function EditProfil() {
                 return 'default.svg'; 
             } 
         });
-        return './uploads/images/user/'+path;
+        return path;
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log(imageCover);
+        console.log(imageProfil);
         const requestOptions = {
             method: "POST", 
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
+                id: sessionStorage.getItem("id"),
+                imageProfil: imageProfil,
+                imageCover: imageCover,
                 email: email,
                 address : address,
                 city: city,
@@ -90,7 +95,7 @@ export default function EditProfil() {
             }),
           };
 
-        fetch(API_URL+'edit/user/', requestOptions)
+        fetch(API_URL+'edit/user', requestOptions)
             .then(async response => {
                 console.log(response.json());
                 console.log(requestOptions);
@@ -107,12 +112,16 @@ export default function EditProfil() {
             <Auth></Auth>
             <form className="card" onSubmit={handleSubmit}>
                 <h4>Modifier votre profil <i className="bi bi-pen"></i></h4>
-                <div className="row mb-1">
+                <div className="row mb-4">
                     <div className="col">
-                        <img src={`${imageCover}`} className="input-image-cover"/>
+                        <img src={`./uploads/images/user/${imageCover}`} className="input-image-cover"/>
+                        <label className='form-label'> Changer l'image de couverture: </label>
+                        <input name="img-cover" className="form-control" type="file" accept="image/png, image/jpeg" onChange={e => setImageCover(e.target.value)}/>
                     </div>
                     <div className="col">
-                        <img src={`${imageProfil}`} className="input-profil-image"/>
+                        <img src={`./uploads/images/user/${imageProfil}`} className="input-profil-image"/>
+                        <label className='form-label'> Changer l'image de profil: </label>
+                        <input name="img-profil" className="form-control" type="file" accept="image/png, image/jpeg" onChange={e => setImageProfil(e.target.value)} />
                     </div>
                 </div>
                 <div className="row mb-1">

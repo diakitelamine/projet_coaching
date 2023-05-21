@@ -48,8 +48,8 @@ class UserController extends AbstractController
     #[Route('api/image/profil/user/{userId}', name: 'api_image_profil_user')]
     public function profilImage($userId, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer):JsonResponse
     {
-        //On récupere l'image de l'utilisateur
-        $user = $userRepository->find($userId);
+        //On récupere l'image de profil de l'utilisateur
+       // $user = $userRepository->find($userId);
         $image = $imageRepository->findOneBy(['user' => $userId, 'detail' => 'profil', 'deleted_at' => NULL]);
         $response = $serializer->serialize(
             $image, 'json'
@@ -60,13 +60,27 @@ class UserController extends AbstractController
     #[Route('api/image/cover/user/{userId}', name: 'api_image_cover_user')]
     public function coverImage($userId, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer):JsonResponse
     {
-        //On récupere l'image de l'utilisateur
-        $user = $userRepository->find($userId);
+        //On récupere l'image de couverture de l'utilisateur
+        //$user = $userRepository->find($userId);
         $image = $imageRepository->findOneBy(['user' => $userId, 'detail' => 'cover', 'deleted_at' => NULL]);
         $response = $serializer->serialize(
             $image, 'json'
         );
         return new JsonResponse($response, 200, [], true);
+    }
+
+    #[Route('api/edit/user', name: 'api_edit_user', methods:'POST')]
+    public function edit(Request $request, UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
+    {
+        //Récupere les données dans un tableau
+        $data = json_decode($request->getContent(), true);
+        dd($data);
+        //https://127.0.0.1:8000/api/edit/user/
+        //https://127.0.0.1:8000/api/edit/user
+        /*$response = $serializer->serialize(
+            $image, 'json'
+        );
+        return new JsonResponse($response, 200, [], true);*/
     }
 
     #[Route('api/user/{userId}', name: 'api_user')]

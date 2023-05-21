@@ -16,6 +16,7 @@ const FormLogin = () => {
         sessionStorage.setItem("firstName", user.firstname);
         sessionStorage.setItem("lastName", user.lastname);
         sessionStorage.setItem("id", user.id);
+        sessionStorage.setItem("password", user.password);
     }
 
     const handleSubmit = (event) => {
