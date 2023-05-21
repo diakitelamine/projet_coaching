@@ -1,10 +1,13 @@
+@import './root.scss';
+
+
 .card-register{
     width: 600px;
     padding: 50px;
     margin: auto;
     margin-top: 100px;
     border-radius: 3%;
-    box-shadow: #999;
+    box-shadow: red;
     
     .form-control{
         margin-top: 15px;

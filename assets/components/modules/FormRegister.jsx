@@ -1,5 +1,6 @@
 import React from 'react';
 import { API_URL } from '../../config';
+import '../../styles/register.scss';
 
 const FormRegister = () => {
     const [email, setEmail] = React.useState("");
