@@ -54,7 +54,7 @@ export default function EditProfil() {
                 return 'default.svg'; 
             } 
         });
-        return path;
+        return './uploads/images/user/'+path;
     }
 
     async function getImageCoverByUser(id) {
@@ -69,8 +69,30 @@ export default function EditProfil() {
                 return 'default.svg'; 
             } 
         });
-        return path;
+        return './uploads/images/user/'+path;
     }
+
+    const handleChangeImageCover = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        //Transforme l'image en base 64
+        reader.readAsDataURL(file)
+        reader.onloadend = () => {
+            //Remplace l'image de couverture
+            setImageCover(reader.result);
+        };
+    };
+
+    const handleChangeImageProfil = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        //Transforme l'image en base 64
+        reader.readAsDataURL(file)
+        reader.onloadend = () => {
+            //Remplace l'image de profil
+            setImageProfil(reader.result);
+        };
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -83,8 +105,8 @@ export default function EditProfil() {
             },
             body: JSON.stringify({
                 id: sessionStorage.getItem("id"),
-                imageProfil: imageProfil,
-                imageCover: imageCover,
+                imageProfil: editFileProfil,
+                imageCover: editFileCover,
                 email: email,
                 address : address,
                 city: city,
@@ -98,7 +120,6 @@ export default function EditProfil() {
         fetch(API_URL+'edit/user', requestOptions)
             .then(async response => {
                 console.log(response.json());
-                console.log(requestOptions);
             })
             .then((data) => {
                  console.log(data);
@@ -109,19 +130,18 @@ export default function EditProfil() {
         <Loader></Loader>
    ) : (
         <div className="container edit-profil">
-            <Auth></Auth>
             <form className="card" onSubmit={handleSubmit}>
                 <h4>Modifier votre profil <i className="bi bi-pen"></i></h4>
                 <div className="row mb-4">
                     <div className="col">
-                        <img src={`./uploads/images/user/${imageCover}`} className="input-image-cover"/>
+                        <img src={`${imageCover}`} className="input-image-cover"/>
                         <label className='form-label'> Changer l'image de couverture: </label>
-                        <input name="img-cover" className="form-control" type="file" accept="image/png, image/jpeg" onChange={e => setImageCover(e.target.value)}/>
+                        <input name="img-cover" className="form-control" type="file" accept="image/png, image/jpeg" onChange={handleChangeImageCover}/>
                     </div>
                     <div className="col">
-                        <img src={`./uploads/images/user/${imageProfil}`} className="input-profil-image"/>
+                        <img src={`${imageProfil}`} className="input-profil-image"/>
                         <label className='form-label'> Changer l'image de profil: </label>
-                        <input name="img-profil" className="form-control" type="file" accept="image/png, image/jpeg" onChange={e => setImageProfil(e.target.value)} />
+                        <input name="img-profil" className="form-control" type="file" accept="image/png, image/jpeg" onChange={handleChangeImageProfil} />
                     </div>
                 </div>
                 <div className="row mb-1">

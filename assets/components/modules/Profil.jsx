@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Auth from './Auth';
 import { API_URL } from '../../config';
 const Profil = () => {
     const [id, setId] = React.useState("");
@@ -66,7 +65,6 @@ const Profil = () => {
 
     return(
         <div className="container">
-            <Auth></Auth>
             <div className='profil'>
                     <div className="images">
                         <img src={`${imageCover}`} className={`${classLoaderImageCover} profil-image-cover`}/>

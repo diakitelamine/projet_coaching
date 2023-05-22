@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Repository\ImageRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,9 +14,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Mime\Address;
 
 class UserController extends AbstractController
 {
@@ -46,7 +43,7 @@ class UserController extends AbstractController
     }
 
     #[Route('api/image/profil/user/{userId}', name: 'api_image_profil_user')]
-    public function profilImage($userId, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer):JsonResponse
+    public function profilImage($userId, ImageRepository $imageRepository, SerializerInterface $serializer):JsonResponse
     {
         //On récupere l'image de profil de l'utilisateur
        // $user = $userRepository->find($userId);
@@ -58,7 +55,7 @@ class UserController extends AbstractController
     }
 
     #[Route('api/image/cover/user/{userId}', name: 'api_image_cover_user')]
-    public function coverImage($userId, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer):JsonResponse
+    public function coverImage($userId, ImageRepository $imageRepository, SerializerInterface $serializer):JsonResponse
     {
         //On récupere l'image de couverture de l'utilisateur
         //$user = $userRepository->find($userId);
@@ -70,11 +67,18 @@ class UserController extends AbstractController
     }
 
     #[Route('api/edit/user', name: 'api_edit_user', methods:'POST')]
-    public function edit(Request $request, UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
+    public function edit(Request $request, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer): JsonResponse
     {
         //Récupere les données dans un tableau
         $data = json_decode($request->getContent(), true);
-        dd($data);
+        $user = $userRepository->findOneBy(['id' => $data['id'], 'deleted_at' => NULL]);
+        $imageCover = $imageRepository->findOneBy(['user' =>$data['id'], 'detail' => 'cover', 'deleted_at' => NULL]);
+        $imageProfil = $imageRepository->findOneBy(['user' =>$data['id'], 'detail' => 'profil', 'deleted_at' => NULL]);
+        //Si on a changer la photo de couverture;
+        if ($imageCover->getPath() != $data['imageCover']) {
+           var_dump($data['imageCover']);
+        }
+        dd($data, $imageCover, $imageProfil);
         //https://127.0.0.1:8000/api/edit/user/
         //https://127.0.0.1:8000/api/edit/user
         /*$response = $serializer->serialize(
