@@ -96,8 +96,6 @@ export default function EditProfil() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(imageCover);
-        console.log(imageProfil);
         const requestOptions = {
             method: "POST", 
             headers: {
@@ -105,8 +103,8 @@ export default function EditProfil() {
             },
             body: JSON.stringify({
                 id: sessionStorage.getItem("id"),
-                imageProfil: editFileProfil,
-                imageCover: editFileCover,
+                imageProfil: imageProfil,
+                imageCover: imageCover,
                 email: email,
                 address : address,
                 city: city,

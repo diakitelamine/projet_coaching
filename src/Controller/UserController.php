@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\User;
 use App\Repository\ImageRepository;
 use App\Repository\UserRepository;
@@ -67,7 +68,7 @@ class UserController extends AbstractController
     }
 
     #[Route('api/edit/user', name: 'api_edit_user', methods:'POST')]
-    public function edit(Request $request, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer): JsonResponse
+    public function edit(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer): JsonResponse
     {
         //Récupere les données dans un tableau
         $data = json_decode($request->getContent(), true);
@@ -75,10 +76,67 @@ class UserController extends AbstractController
         $imageCover = $imageRepository->findOneBy(['user' =>$data['id'], 'detail' => 'cover', 'deleted_at' => NULL]);
         $imageProfil = $imageRepository->findOneBy(['user' =>$data['id'], 'detail' => 'profil', 'deleted_at' => NULL]);
         //Si on a changer la photo de couverture;
-        if ($imageCover->getPath() != $data['imageCover']) {
-           var_dump($data['imageCover']);
+        $dataImgCover  = substr($data['imageCover'], 0, 4);
+        if ($dataImgCover == 'data') {
+            //Importe la photo
+            $response = ImageController::importImageBase64($data['imageCover'], $this->getParameter('images_directory'));
+            if($response['code'] == 200){
+                $data['imageCover'] = $response['file'];
+                //Si il existe déjà un image on la supprime
+                if($imageCover){
+                    //Supprime dans la bdd la photo de couverture
+                    $imageCover->setDeletedAt(new \DateTime());
+                    $imageCover->setDeletedBy($user->getId());
+                    $entityManager->persist($imageCover);
+                    $entityManager->flush();
+                }
+                //Creer une nouvelle image en bdd
+                $imageCover = new Image();
+                $imageCover->setUser($user);
+                $imageCover->setCreatedAt(new \DateTime());
+                $imageCover->setDetail('cover');
+                $imageCover->setPath($data['imageCover']);
+                $entityManager->persist($imageCover);
+                $entityManager->flush();
+            }
+            else{
+                return new JsonResponse($response['message'], $response['code'], [], true);
+            }
         }
-        dd($data, $imageCover, $imageProfil);
+        //Si on a changer la photo de profil;
+        $dataImgProfil  = substr($data['imageProfil'], 0, 4);
+        if ($dataImgProfil == 'data') {
+            //Importe la photo
+            $response = ImageController::importImageBase64($data['imageProfil'], $this->getParameter('images_directory'));
+            if($response['code'] == 200){
+                $data['imageProfil'] = $response['file'];
+                //Si il existe déjà un image on la supprime
+                if($imageProfil){
+                    //Supprime dans la bdd la photo de profil
+                    $imageProfil->setDeletedAt(new \DateTime());
+                    $imageProfil->setDeletedBy($user->getId());
+                    $entityManager->persist($imageProfil);
+                    $entityManager->flush();
+                }
+                
+                //Creer une nouvelle image en bdd
+                $imageProfil = new Image();
+                $imageProfil->setUser($user);
+                $imageProfil->setCreatedAt(new \DateTime());
+                $imageProfil->setDetail('profil');
+                $imageProfil->setPath($data['imageProfil']);
+                $entityManager->persist($imageProfil);
+                $entityManager->flush();
+            }
+            else{
+                return new JsonResponse($response['message'], $response['code'], [], true);
+            }
+        }
+        dd($data['imageProfil'], $data['imageCover']);
+        /*if () {
+            # code...
+        }*/
+       // dd($data['imageCover'], $dataImg);
         //https://127.0.0.1:8000/api/edit/user/
         //https://127.0.0.1:8000/api/edit/user
         /*$response = $serializer->serialize(
