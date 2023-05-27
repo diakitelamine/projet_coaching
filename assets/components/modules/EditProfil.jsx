@@ -15,6 +15,13 @@ export default function EditProfil() {
     
     const [imageProfil, setImageProfil] = React.useState('');
     const [imageCover, setImageCover] = React.useState('');
+    const [contentBtn, setContentBtn] = React.useState('Enregistrer');
+    const [disabledBtn, setDisabledBtn] = React.useState(false);
+    const [message, setMessage] = React.useState({
+        bgColor : '',
+        text : '',
+        class : 'hidden'
+    });
     
     useEffect(() => {
         // Requete à l'api user
@@ -96,6 +103,10 @@ export default function EditProfil() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        //Chargement du btn 
+        setContentBtn(<span> <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement... </span>);
+        setDisabledBtn(true);
+
         const requestOptions = {
             method: "POST", 
             headers: {
@@ -116,11 +127,26 @@ export default function EditProfil() {
           };
 
         fetch(API_URL+'edit/user', requestOptions)
-            .then(async response => {
-                console.log(response.json());
-            })
+            .then(data => data.json())
             .then((data) => {
-                 console.log(data);
+                
+                console.log(data)
+                if (data.code == 200) {
+                    setMessage({
+                        bgColor : 'alert-success',
+                        text : data.message,
+                        class : ''
+                    });
+                }
+                else{
+                    setMessage({
+                        bgColor : 'alert-danger',
+                        text : data.message,
+                        class : ''
+                    }); 
+                }
+                setContentBtn('Enregistrer');
+                setDisabledBtn(false);
             }
         )
     }
@@ -128,8 +154,12 @@ export default function EditProfil() {
         <Loader></Loader>
    ) : (
         <div className="container edit-profil">
-            <form className="card" onSubmit={handleSubmit}>
+            <a href="#/profil" className="btn btn-secondary btn-sm mt-1"> <i className="bi bi-arrow-left "></i> Retour </a>
+            <form className="card mt-3" onSubmit={handleSubmit}>
                 <h4>Modifier votre profil <i className="bi bi-pen"></i></h4>
+                <div className={`alert ${message.bgColor} ${message.class}`} role="alert">
+                    {message.text}
+                </div>
                 <div className="row mb-4">
                     <div className="col">
                         <img src={`${imageCover}`} className="input-image-cover"/>
@@ -178,7 +208,7 @@ export default function EditProfil() {
                         <textarea name="description" type="text" className="form-control" value={description} onChange={e => setDescription(e.target.value)} required></textarea>
                     </div>
                 </div>
-                <button className="btn btn-success">Enregistrer</button>
+                <button className="btn btn-success" disabled={disabledBtn} > {contentBtn}</button>
             </form>
         </div>
     );

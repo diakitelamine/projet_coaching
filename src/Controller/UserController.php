@@ -68,13 +68,23 @@ class UserController extends AbstractController
     }
 
     #[Route('api/edit/user', name: 'api_edit_user', methods:'POST')]
-    public function edit(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer): JsonResponse
+    public function edit(Request $request, EntityManagerInterface $entityManager,  MailerInterface $mailer, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer): JsonResponse
     {
         //Récupere les données dans un tableau
         $data = json_decode($request->getContent(), true);
         $user = $userRepository->findOneBy(['id' => $data['id'], 'deleted_at' => NULL]);
         $imageCover = $imageRepository->findOneBy(['user' =>$data['id'], 'detail' => 'cover', 'deleted_at' => NULL]);
         $imageProfil = $imageRepository->findOneBy(['user' =>$data['id'], 'detail' => 'profil', 'deleted_at' => NULL]);
+
+        //Traitement des données
+        $data['email'] = strip_tags(trim($data['email']));
+        $data['address'] = strip_tags(trim($data['address']));
+        $data['city'] = strip_tags(trim($data['city']));
+        $data['postalCode'] = strip_tags(trim($data['postalCode']));
+        $data['firstname'] = strip_tags(trim($data['firstname']));
+        $data['lastname'] = strip_tags(trim($data['lastname']));
+        $data['description'] = strip_tags(trim($data['description']));
+        $messageEmail = '';
         //Si on a changer la photo de couverture;
         $dataImgCover  = substr($data['imageCover'], 0, 4);
         if ($dataImgCover == 'data') {
@@ -132,17 +142,77 @@ class UserController extends AbstractController
                 return new JsonResponse($response['message'], $response['code'], [], true);
             }
         }
-        dd($data['imageProfil'], $data['imageCover']);
-        /*if () {
-            # code...
-        }*/
-       // dd($data['imageCover'], $dataImg);
-        //https://127.0.0.1:8000/api/edit/user/
-        //https://127.0.0.1:8000/api/edit/user
-        /*$response = $serializer->serialize(
-            $image, 'json'
+
+        //Si l'email à été modifié
+        if($user->getEmail() != $data['email']){
+
+            //Effectue une verifaction sur l'email
+            if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                $message = $serializer->serialize(
+                    [
+                        'code' => 400,
+                        'message' => 'Cette adresse email n\'est pas valide'
+                    ], 'json'
+                );
+                return new JsonResponse($message, 400, [], true);
+            }
+
+            //Si un utilisateur n'as pas déja cette email 
+            $userExist = $userRepository->findOneBy(['email' => $data['email'], 'deleted_at' => NULL]);
+            if (!is_null($userExist)) {
+                $message = $serializer->serialize(
+                    [
+                        'code' => 401,
+                        'message' => 'Cette adresse email est déjà utilisé'
+                    ], 'json'
+                );
+                return new JsonResponse($message, 401, [], true);
+            }
+            //Envoie du mail pour prouver son identité et désactive son compte en attendant 
+            //Génere une clé
+            $key = md5(uniqid(rand(), true));
+            $user->setEmail($data['email']);
+            $user->setActive(0);
+            $user->setKeyRegister($key);
+            //Envoie d'un mail 
+            if (!MailController::sendEmailVerify($mailer, $data['email'], $key)) {
+                $message = $serializer->serialize(
+                    [
+                        'code' => 404,
+                        'message' => 'Une erreur est survenue lors de la modification du mail. Veuilliez réessayer ultérieurement.'
+                    ], 'json'
+                );
+                return new JsonResponse($message, 404, [], true);
+            }
+            $messageEmail = 'Veuilliez confirmer votre adresse e-mail.';
+        }
+        if ($user->getAddress() != $data['address']) {
+            $user->setAddress($data['address']);
+        }
+        if ($user->getCity() != $data['city']) {
+            $user->setCity($data['city']);
+        }
+        if ($user->getPostalCode() != $data['postalCode']) {
+            $user->setPostalCode($data['postalCode']);
+        }
+        if ($user->getFirstname() != $data['firstname']) {
+            $user->setFirstname($data['firstname']);
+        }
+        if ($user->getLastname() != $data['lastname']) {
+            $user->setLastname($data['lastname']);
+        }
+        if ($user->getDescription() != $data['description']) {
+            $user->setDescription($data['description']);
+        }
+        $entityManager->persist($user);
+        $entityManager->flush();
+        $response = $serializer->serialize(
+            [
+                'code' => 200,
+                'message'=> 'Modification réussie. '.$messageEmail
+            ], 'json'
         );
-        return new JsonResponse($response, 200, [], true);*/
+        return new JsonResponse($response, 200, [], true);
     }
 
     #[Route('api/user/{userId}', name: 'api_user')]
@@ -176,6 +246,17 @@ class UserController extends AbstractController
                 return new JsonResponse($message, 404, [], true);
             }
             $user = $userRepository->findOneBy(['email'=>$data['email']]);
+
+            //Si il n'a pas trouvé d'user
+            if(!$user){
+                $message = $serializer->serialize(
+                    [
+                        'code' => 404,
+                        'message' => 'Votre adresse e-mail n\'est pas correct. '
+                    ], 'json'
+                );
+                return new JsonResponse($message, 404, [], true);
+            }
             //Si le compte n'est pas activé
             if (!$user->isActive()) {
                 $message = $serializer->serialize(
@@ -241,7 +322,7 @@ class UserController extends AbstractController
                 return new JsonResponse($message, 404, [], true);
             }
             //Effectue une verifaction sur l'email
-            $userExist = $userRepository->findOneBy(['email' => $data['email']]);
+            $userExist = $userRepository->findOneBy(['email' => $data['email'], 'deleted_at' => NULL]);
             if (!is_null($userExist)) {
                 $message = $serializer->serialize(
                     [
@@ -319,7 +400,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/register/confirm/{key}', name: 'confirm_account_user', methods:'GET')]
-    public function confirmAccount($key, UserRepository $userRepository, EntityManagerInterface $entityManager, MailerInterface $mailer,): Response
+    public function confirmAccount($key, UserRepository $userRepository, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         //On récupere l'utilisateur liés à la clé 
         $user = $userRepository->findOneBy(['key_register' => $key]);

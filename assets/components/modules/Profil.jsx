@@ -103,8 +103,8 @@ const Profil = () => {
                 </div>
 
             </div>
-            <a className="btn btn-danger mt-5" href="#/edit/profil"><i className="bi bi-pen"></i> Modifier votre profil</a>
-            <a className="btn btn-secondary mt-5" href="#/edit/profil"><i className="bi bi-pen"></i> Modifier votre mot de passe</a>
+            <a className="btn btn-danger mt-5 mr-5" href="#/edit/profil"><i className="bi bi-pen"></i> Modifier votre profil</a>
+            <a className="btn btn-secondary mt-5" href="#/edit/profil"><i className="bi bi-lock"></i> Modifier votre mot de passe</a>
         </div>
     )
 }
