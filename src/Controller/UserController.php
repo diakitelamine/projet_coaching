@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Image;
 use App\Entity\User;
 use App\Repository\ImageRepository;
@@ -31,12 +30,29 @@ class UserController extends AbstractController
         return new JsonResponse($coachs, 200, [], true);
     }
 
-    #[Route('api/coachs/{maxResult}', name: 'api_coachs_limited')]
-    public function coachsLimited($maxResult, UserRepository $userRepository, SerializerInterface $serializer):JsonResponse
+    #[Route('api/coachs', name: 'api_coachs_limited', methods:'POST')]
+    public function coachsLimited(Request $request, UserRepository $userRepository, SerializerInterface $serializer):JsonResponse
     {   
+        //Récupere les données dans un tableau
+        $data = json_decode($request->getContent(), true);
         //On récupere tout les users avec un role coach
-        $userCoachs = $userRepository->getUserByRole('ROLE_COACH', $maxResult);
-        
+        $userCoachs = $userRepository->getUserByRole('ROLE_COACH', $data['maxResults']);
+        if(isset($data['postalCode']) && !is_null($data['postalCode'])){
+            $villes = VilleController::getVillesVoisin($data['postalCode'], $data['rayon']);
+            $codePostal = [];
+            //Recupere le code postale de chaque ville du rayon données
+            foreach ($villes as $ville) {
+                $codePostal[] = $ville->code_postal;
+            }
+            //Si le coach ne fait pas partie de ce code postal on le supprime du tableau 
+            foreach ($userCoachs as $key => $coach) {
+                if(!in_array($coach->getPostalCode(), $codePostal)){
+                    unset($userCoachs[$key]);
+                }
+            }
+            //Recalcul les clés du tableau 
+            $userCoachs = array_values($userCoachs);
+        }
         $coachs = $serializer->serialize(
             $userCoachs, 'json'
         );
