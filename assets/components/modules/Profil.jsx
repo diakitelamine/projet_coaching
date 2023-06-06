@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { API_URL } from '../../config';
+
 const Profil = () => {
     const [id, setId] = React.useState("");
     const [user, setUser] = React.useState([]);
@@ -63,6 +64,15 @@ const Profil = () => {
         return './uploads/images/user/'+path;
     }
 
+    //Si un compte user est trouver
+    if (user.id) {
+        user.roles.forEach(role => { 
+            // Et qu'il a le role coach
+            if (role == 'ROLE_COACH') {
+                user.isCoach = true; 
+            }    
+        })
+    }
     return(
         <div className="container">
             <div className='profil'>
@@ -103,8 +113,12 @@ const Profil = () => {
                 </div>
 
             </div>
-            <a className="btn btn-danger mt-5 mr-5" href="#/edit/profil"><i className="bi bi-pen"></i> Modifier votre profil</a>
-            <a className="btn btn-secondary mt-5" href="#/edit/profil"><i className="bi bi-lock"></i> Modifier votre mot de passe</a>
+            {user.id &&
+                <div>
+                    <a className="btn btn-danger mt-5 mr-5" href="#/edit/profil"><i className="bi bi-pen"></i> Modifier votre profil</a>
+                    {/*<a className="btn btn-secondary mt-5" href="#/edit/profil"><i className="bi bi-lock"></i> Modifier votre mot de passe</a>*/}
+                </div>
+            }
         </div>
     )
 }

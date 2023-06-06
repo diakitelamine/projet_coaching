@@ -62,6 +62,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ->setParameter(':role', '%'.$role.'%')
         ->andWhere('user.active = :active')
         ->setParameter(':active', 1)
+        ->andWhere('user.deleted_at IS NULL')
         ;
         if (!is_null($maxResult)) {
             $query->setMaxResults($maxResult);

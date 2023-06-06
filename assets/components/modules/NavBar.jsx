@@ -1,6 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import getUserAuth from '../fonctions/getUserAuth';
 
 const NavBar = (props)=>{
+  const [user, setUser] = React.useState([]);
+
+  useEffect(() => {
+    getUserAuth().then(result => {
+      result.roles.forEach(role => { 
+        // Et qu'il a le role coach
+        if (role == 'ROLE_COACH') {
+          result.isCoach = true; 
+        }    
+      })
+      setUser(result)
+    });
+  }, [])
 
   return(
     <nav className={`navbar navbar-expand-lg ${props.name}`} >
@@ -27,11 +41,26 @@ const NavBar = (props)=>{
           </li>
         </ul>
        
-        {sessionStorage.getItem("id") &&   //Si l'utilisateur est connecter
+        {user.id &&   //Si l'utilisateur est connecter
           <ul className="navbar-nav me-auto navbar-right">   
+          {user.isCoach &&
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Profil
+                </a>
+                <ul className="dropdown-menu">
+                  <li><a className="dropdown-item" href="#/profil">Mes informations</a></li>
+                  <li><a className="dropdown-item" href="#/my/recettes">Mes recettes</a></li>
+                  <li><a className="dropdown-item" href="#/my/programmes">Mes programmes</a></li>
+                </ul>
+              </li>
+          }
+
+          {!user.isCoach &&
             <li className="nav-item">
               <a className="nav-link" href="#/profil" >Profil</a>
             </li>
+          }
             <li className="nav-item">
               <a className="nav-link" href="#/logout" >Déconnexion</a>
             </li>    
