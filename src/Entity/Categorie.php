@@ -42,6 +42,12 @@ class Categorie
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
 
+    #[ORM\Column]
+    private ?bool $isRecette = null;
+
+    #[ORM\Column]
+    private ?bool $isProgramme = null;
+
     public function __construct()
     {
         $this->recettes = new ArrayCollection();
@@ -178,5 +184,29 @@ class Categorie
     {
         return $this->name;
 
+    }
+
+    public function isIsRecette(): ?bool
+    {
+        return $this->isRecette;
+    }
+
+    public function setIsRecette(bool $isRecette): self
+    {
+        $this->isRecette = $isRecette;
+
+        return $this;
+    }
+
+    public function isIsProgramme(): ?bool
+    {
+        return $this->isProgramme;
+    }
+
+    public function setIsProgramme(bool $isProgramme): self
+    {
+        $this->isProgramme = $isProgramme;
+
+        return $this;
     }
 }

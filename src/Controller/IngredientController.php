@@ -11,10 +11,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class IngredientController extends AbstractController
 {
-    #[Route('api/ingredients', name: 'app_ingredient')]
+    #[Route('api/ingredients', name: 'app_ingredients')]
     public function ingredients(IngredientRepository $ingredientRepository, SerializerInterface $serializer): JsonResponse
     {
-        $ingredients = $ingredientRepository->findAll(['deleted_at' => NULL]);
+        $ingredients = $ingredientRepository->findBy(['deleted_at' => NULL]);
         $response = $serializer->serialize(
             $ingredients, 'json'
         );
