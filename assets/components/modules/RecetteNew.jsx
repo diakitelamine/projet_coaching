@@ -82,6 +82,49 @@ const RecetteNew = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        //Chargement du btn 
+        /*setContentBtn(<span> <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Chargement... </span>);
+        setDisabledBtn(true);*/
+
+        const requestOptions = {
+            method: "POST", 
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idUser: sessionStorage.getItem("id"),
+                categories : categories,
+                name : name,
+                ingredients:ingredients,
+                description: description,
+                duree: duree,
+                image: image
+            }),
+          };
+
+        fetch(API_URL+'new/recette', requestOptions)
+            .then(data => data.json())
+            .then((data) => {
+                
+                console.log(data)
+                if (data.code == 200) {
+                    setMessage({
+                        bgColor : 'alert-success',
+                        text : data.message,
+                        class : ''
+                    });
+                }
+                else{
+                    setMessage({
+                        bgColor : 'alert-danger',
+                        text : data.message,
+                        class : ''
+                    }); 
+                }
+                setContentBtn('Enregistrer');
+                setDisabledBtn(false);
+            }
+        )
     }
 
     return loader ? (
@@ -94,12 +137,22 @@ const RecetteNew = () => {
         </div>
 
         <form onSubmit={handleSubmit}>
-            <img src={image} className="input-image-cover"/>
+
+             <label className="mt-3">Nom*</label>
+            <input type="text" name="name" className='form-control'  value={name}  onChange={e => setName(e.target.value)} placeholder="Tartiflette"  />
+            
+
+            {image !='' &&
+            <div class="container-img-recette mt-3">
+                <img src={image} className="image"/>
+            </div>
+            }
+
             <label className='form-label'> Ajouter une image: </label>
             <input name="img-recette" className="form-control" type="file" accept="image/png, image/jpeg" onChange={handleChangeImage}/>
 
             <label className="mt-3">Categories*</label>
-            <select name="role" className="form-select" onChange={handleChangeCategories} multiple>
+            <select name="role" className="form-select" id="categorie" onChange={handleChangeCategories} multiple>
              {allCategories != '' &&
               allCategories.map(categorie => (  
                 <option key={categorie.id} value={categorie.id}>{categorie.name}</option>
@@ -107,11 +160,8 @@ const RecetteNew = () => {
             }
             </select> 
 
-            <label className="mt-3"c>Nom*</label>
-            <input type="text" name="name" className='form-control'  value={name}  onChange={e => setName(e.target.value)} placeholder="Tartiflette"/>
-            
-            <label className="mt-3">Ingredient</label>
-            <select name="role" className="form-select" onChange={handleChangeIngredients} multiple>
+            <label className="mt-3">Ingredients*</label>
+            <select name="role" className="form-select" onChange={handleChangeIngredients} multiple  >
              {allIngredients != '' &&
               allIngredients.map(ingredient => (  
                 <option key={ingredient.id} value={ingredient.id}>{ingredient.name}</option>
@@ -120,10 +170,10 @@ const RecetteNew = () => {
             </select> 
             
             <label className="mt-3">Déscription*</label>
-            <textarea name="description" className='form-control' onChange={e => setDescription(e.target.value)} value={description} ></textarea>
+            <textarea name="description" className='form-control' onChange={e => setDescription(e.target.value)} value={description}   placeholder="Dans une grande casserole d'eau bouillante salée, faites cuire les pommes de terre préalablement épluchées. Égouttez-les et réservez-les une fois qu'elles sont bien cuites, c'est-à-dire lorsque l'on peut y enfoncer une lame de couteau sans qu'elles ne se cassent pour autant..."></textarea>
             
             <label className="mt-3">Durée moyenne (en minute)*</label>
-            <input type="number" name="duree_moyen" className='form-control' value={duree}  onChange={e => setDuree(e.target.value)} placeholder="20"/>
+            <input type="number" name="duree_moyen" className='form-control' value={duree}  onChange={e => setDuree(e.target.value)} placeholder="20"  />
             
 
             <button type="submit" value="Envoyer"  disabled={disabledBtn} className="btn btn-success mt-3 mb-3">{contentBtn}</button>

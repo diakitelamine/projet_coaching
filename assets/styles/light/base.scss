@@ -4,4 +4,7 @@
         background-color: $red;
         border-color: #C73120;
     }
+    input:focus, select:focus, textarea:focus{
+        box-shadow: 0 0 0 0.15rem #cdc9f863;
+    }
 }
