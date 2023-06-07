@@ -1,12 +1,13 @@
 import React from 'react';
 import { API_URL } from '../../config';
+import Loader from './loader';
 class Coachs extends React.Component{
     // Constructor 
     constructor(props) {
         super(props);
         this.state = {
             coachs: [],
-            DataisLoaded: false,
+            DataisLoaded: true,
             image:[]
         };
     }
@@ -32,17 +33,16 @@ class Coachs extends React.Component{
             // Transforme les données en json
             .then((json) => json.json())
             .then((json) => {
-                json.map((coach) => {
+                let requests = json.map((coach) => {
                     let path = this.getPathImageByCoach(coach.id);
                     path.then((value) => {
                         coach.path = value;
-                        //Change la valeur des attributs
+                            //Change la valeur des attributs
                         this.setState({
                             coachs: json,
-                            DataisLoaded: true,
+                            DataisLoaded: false,
                         })
                     })
-                    
                 })
             });
         });
@@ -104,18 +104,16 @@ class Coachs extends React.Component{
 
     render() {
         const { DataisLoaded, coachs } = this.state;
-        return(
+        return (
             /*Coachs */
-            <div className="row row-cols-1 row-cols-md-6 g-4 coachs">
+            <div className="coachs">
                 {coachs.map((coach) => ( 
-                    <div className="col" key={coach.id} >
-                        <div className="card h-100"  data-id={ coachs.id }>
-                            <div className="card card-coach">
-                                <img src={`./uploads/images/user/${coach.path}`} className="card-img-top"/>
-                                <div className="card-body">
-                                    <h5 className="card-title"> { coach.lastname } { coach.firstname }</h5>
-                                    <p className="card-text">{coach.description !== null ? `${coach.description.substring(0, 250)}...` : '' }</p>
-                                </div>
+                    <div className="container-coach h-100"  data-id={ coachs.id }>
+                        <div className="card card-coach">
+                            <img src={`./uploads/images/user/${coach.path}`} className="card-img-top"/>
+                            <div className="card-body">
+                                <h5 className="card-title"> { coach.lastname } { coach.firstname }</h5>
+                                <p className="card-text">{coach.description}</p>
                             </div>
                         </div>
                     </div>

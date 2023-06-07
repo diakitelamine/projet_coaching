@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from './modules/NavBar';
 import AuthCoach from './modules/AuthCoach';
 import Auth from './modules/Auth';
-import RecettesProfil from './modules/RecettesProfil';
+import Recettes from './modules/Recettes';
 
 const RecettesProfilPage = (props)=>{ 
     return (
@@ -10,7 +10,7 @@ const RecettesProfilPage = (props)=>{
             <Auth></Auth>
             <AuthCoach></AuthCoach>
             <NavBar name="navbar-home"></NavBar>
-            <RecettesProfil></RecettesProfil>
+            <Recettes myRecette="1"></Recettes>
         </div>
     )
 }

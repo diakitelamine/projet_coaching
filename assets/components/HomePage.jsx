@@ -20,7 +20,7 @@ const HomePage = (props)=>{
                         <a href="#/coachs" className="voir-plus-coach">Voir plus <i className="bi bi-arrow-right"></i></a> 
                     </div>
                 </div>
-                <Coachs maxResults="6"></Coachs>
+                <Coachs maxResults="5"></Coachs>
                 <Footer></Footer>
             </div>
         </div>

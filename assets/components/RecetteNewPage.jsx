@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from './modules/NavBar';
 import AuthCoach from './modules/AuthCoach';
 import Auth from './modules/Auth';
-import RecettesProfil from './modules/RecettesProfil';
+import RecettesProfil from './modules/Recettes';
 import RecetteNew from './modules/RecetteNew';
 
 const RecetteNewPage = (props)=>{ 

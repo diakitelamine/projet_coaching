@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Image;
 use App\Entity\Recette;
 use App\Repository\CategorieRepository;
+use App\Repository\ImageRepository;
 use App\Repository\IngredientRepository;
 use App\Repository\RecetteRepository;
 use App\Repository\UserRepository;
@@ -19,12 +20,31 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RecetteController extends AbstractController
 {
+    #[Route('api/recettes/user/{idUser}', name: 'app_all_recettes', methods:'GET')]
+    public function show($idUser, RecetteRepository $recetteRepository, SerializerInterface $serializer): JsonResponse
+    {
+        $recettes = $recetteRepository->findBy(['deleted_at' => NULL, 'user' => $idUser]);
+        $response = $serializer->serialize(
+            $recettes, 'json'
+        );
+        return new JsonResponse($response, 200, [], true);
+    }
+
+    #[Route('api/image/reccette/{id}', name: 'app_recettes', methods:'GET')]
+    public function imageRecette($id = null, ImageRepository $imageRepository, SerializerInterface $serializer): JsonResponse
+    {
+        $image = $imageRepository->findOneBy(['recette' => $id, 'deleted_at' => NULL]);
+        $response = $serializer->serialize(
+            $image, 'json'
+        );
+        return new JsonResponse($response, 200, [], true);
+    }
+
     #[Route('api/new/recette', name: 'app_new_recette', methods:'POST')]
-    public function categories(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, IngredientRepository $ingredientRepository, CategorieRepository $categorieRepository, RecetteRepository $recetteRepository, SerializerInterface $serializer): JsonResponse
+    public function newRecette(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, IngredientRepository $ingredientRepository, CategorieRepository $categorieRepository, RecetteRepository $recetteRepository, SerializerInterface $serializer): JsonResponse
     {
         //Récupere les données dans un tableau
         $data = json_decode($request->getContent(), true);
-        
         
         $recette = new Recette();
 
@@ -74,24 +94,20 @@ class RecetteController extends AbstractController
         //Nom
         $name = ucfirst(strtolower($data['name']));
         $recette->setName($name);
-
         //Description
         $recette->setDescription($data['description']);
         //Duree moyen
         $recette->setDureeMoyen($data['duree']);
-        
         $recette->setCreatedAt(new \DateTime('now'));
-
         $entityManager->persist($recette);
         $entityManager->flush();
-       
 
-         //Image
-         $dataImg  = substr($data['image'], 0, 4);
-         if ($dataImg == 'data') {
+        //Image
+        $dataImg  = substr($data['image'], 0, 4);
+        if ($dataImg == 'data') {
              $response = ImageController::importImageBase64($data['image'], $this->getParameter('recette_images_directory'));
             //Si l'image a bien été importer
-             if($response['code'] == 200){
+            if($response['code'] == 200){
                  $path = $response['file'];
                  $image = new Image();
                  $image->setRecette($recette);
@@ -112,7 +128,8 @@ class RecetteController extends AbstractController
                 'message'=> 'Recette ajouté avec succées.'
             ], 'json'
         );
-
         return new JsonResponse($response, 200, [], true);
     }
+
+    
 }
