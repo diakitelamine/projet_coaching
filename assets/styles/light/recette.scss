@@ -1,5 +1,6 @@
 .light{
     .container-recette{
+        padding-bottom: 50px;
         .bandeau{
             min-height: 550px;
             position: relative;
@@ -79,11 +80,10 @@
             position: absolute;
         }
         .container{
-            padding-bottom: 150px;
             .container-description{
                 padding : 20px;
                 border-color: rgba(255, 0, 0, 0.096);
-                box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+                box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
                 .duree{
                     margin-right: 20px;
                     width: fit-content;
@@ -96,6 +96,10 @@
                     color: $red;
                 }
             }
+        }
+        .container-programmes{
+            display: flex;
+            flex-wrap: wrap;
         }
     }
 }

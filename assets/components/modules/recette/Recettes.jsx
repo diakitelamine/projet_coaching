@@ -3,6 +3,7 @@ import Auth from '../Auth';
 import { API_URL } from '../../../config';
 import Loader from '../layout/Loader';
 import getPathRecetteImage from '../../fonctions/getPathRecetteImage';
+import ShowRecette from './ShowRecette';
 
 export default function Recettes(params) {
     const [loader, setLoader] = React.useState(true);
@@ -41,14 +42,7 @@ export default function Recettes(params) {
             <div className="container-recettes mt-4">
                 {recettes != '' &&
                     recettes.map(recette => (  
-                        <div className="card">
-                            <img src={recette.path} className="card-img-top" alt=""/>
-                            <div className="card-body">
-                                <h5 className="card-title">{recette.name}</h5>
-                                <p className="card-text">{recette.description}</p>
-                                <a href={`#/recette/${recette.id}`} className="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
+                        <ShowRecette recette={recette}></ShowRecette>
                     ))
                 }
             </div>

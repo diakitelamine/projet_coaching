@@ -11,6 +11,8 @@ const RecetteNew = () => {
     const [allIngredients, setAllIngredients] = React.useState("");
     const [categories, setCategories] = React.useState([]);
     const [allCategories, setAllCategories] = React.useState("");
+    const [programmes, setProgrammes] = React.useState([]);
+    const [allProgrammes, setAllProgrammes] = React.useState("");
 
     const [contentBtn, setContentBtn] = React.useState(<span><i className="bi bi-check-lg"></i> Ajouter cette recette</span>);
     const [disabledBtn, setDisabledBtn] = React.useState(false);
@@ -36,7 +38,12 @@ const RecetteNew = () => {
             setLoader(false);
         })
         //Récupere tout les programmes l'utilisateur
-
+        fetch(API_URL+'programmes/user/'+sessionStorage.getItem("id"))
+        .then((json) => json.json())
+        .then((json) => {
+            setAllProgrammes(json)
+            setLoader(false);
+        })
         
     }, []);
 
@@ -74,6 +81,18 @@ const RecetteNew = () => {
         
     };
 
+    const handleChangeProgrammes = (e) => {
+        var options = e.target.options;
+        var value = [];
+        for (var i = 0, l = options.length; i < l; i++) {
+          if (options[i].selected) {
+            value.push(options[i].value);
+          }
+        }
+        setProgrammes(value);
+        
+    };
+
     const handleChangeImage = (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -104,7 +123,8 @@ const RecetteNew = () => {
                 ingredients:ingredients,
                 description: description,
                 duree: duree,
-                image: image
+                image: image,
+                programmes : programmes
             }),
           };
 
@@ -152,7 +172,7 @@ const RecetteNew = () => {
                 
 
                 {image !='' &&
-                <div class="container-img-recette mt-3">
+                <div className="container-img-recette mt-3">
                     <img src={image} className="image"/>
                 </div>
                 }
@@ -184,6 +204,14 @@ const RecetteNew = () => {
                 <label className="mt-3">Durée moyenne (en minute)*</label>
                 <input type="number" name="duree_moyen" className='form-control' value={duree}  onChange={e => setDuree(e.target.value)} placeholder="20"  />
                 
+                <label className="mt-3">Programmes</label>
+                <select name="role" className="form-select" id="programmes" onChange={handleChangeProgrammes} multiple>
+                {allProgrammes != '' &&
+                allProgrammes.map(programme => (  
+                    <option key={programme.id} value={programme.id}>{programme.name}</option>
+                ))
+                }
+                </select> 
 
                 <button type="submit" value="Envoyer"  disabled={disabledBtn} className="btn btn-success mt-3 mb-3">{contentBtn}</button>
             </form>

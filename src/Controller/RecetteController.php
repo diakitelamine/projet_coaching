@@ -7,6 +7,7 @@ use App\Entity\Recette;
 use App\Repository\CategorieRepository;
 use App\Repository\ImageRepository;
 use App\Repository\IngredientRepository;
+use App\Repository\ProgrammeRepository;
 use App\Repository\RecetteRepository;
 use App\Repository\UserRepository;
 use DateTime;
@@ -30,18 +31,10 @@ class RecetteController extends AbstractController
         return new JsonResponse($response, 200, [], true);
     }
 
-    #[Route('api/image/reccette/{id}', name: 'app_recettes', methods:'GET')]
-    public function imageRecette($id = null, ImageRepository $imageRepository, SerializerInterface $serializer): JsonResponse
-    {
-        $image = $imageRepository->findOneBy(['recette' => $id, 'deleted_at' => NULL]);
-        $response = $serializer->serialize(
-            $image, 'json'
-        );
-        return new JsonResponse($response, 200, [], true);
-    }
+    
 
     #[Route('api/new/recette', name: 'app_new_recette', methods:'POST')]
-    public function newRecette(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, IngredientRepository $ingredientRepository, CategorieRepository $categorieRepository, RecetteRepository $recetteRepository, SerializerInterface $serializer): JsonResponse
+    public function newRecette(Request $request, EntityManagerInterface $entityManager,ProgrammeRepository $programmeRepository, UserRepository $userRepository, IngredientRepository $ingredientRepository, CategorieRepository $categorieRepository, RecetteRepository $recetteRepository, SerializerInterface $serializer): JsonResponse
     {
         //Récupere les données dans un tableau
         $data = json_decode($request->getContent(), true);
@@ -91,6 +84,12 @@ class RecetteController extends AbstractController
             $recette->addIngredient($ingredient);
         }
 
+        if (!empty($data['programmes'])) {
+            foreach ($data['programmes'] as $idProgramme){
+                $programme = $programmeRepository->findOneBy(['id' => $idProgramme]);
+                $recette->addProgramme($programme);
+            }
+        }
         //Nom
         $name = ucfirst(strtolower($data['name']));
         $recette->setName($name);

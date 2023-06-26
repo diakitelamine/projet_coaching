@@ -59,30 +59,6 @@ class UserController extends AbstractController
         return new JsonResponse($coachs, 200, [], true);
     }
 
-    #[Route('api/image/profil/user/{userId}', name: 'api_image_profil_user')]
-    public function profilImage($userId, ImageRepository $imageRepository, SerializerInterface $serializer):JsonResponse
-    {
-        //On récupere l'image de profil de l'utilisateur
-       // $user = $userRepository->find($userId);
-        $image = $imageRepository->findOneBy(['user' => $userId, 'detail' => 'profil', 'deleted_at' => NULL]);
-        $response = $serializer->serialize(
-            $image, 'json'
-        );
-        return new JsonResponse($response, 200, [], true);
-    }
-
-    #[Route('api/image/cover/user/{userId}', name: 'api_image_cover_user')]
-    public function coverImage($userId, ImageRepository $imageRepository, SerializerInterface $serializer):JsonResponse
-    {
-        //On récupere l'image de couverture de l'utilisateur
-        //$user = $userRepository->find($userId);
-        $image = $imageRepository->findOneBy(['user' => $userId, 'detail' => 'cover', 'deleted_at' => NULL]);
-        $response = $serializer->serialize(
-            $image, 'json'
-        );
-        return new JsonResponse($response, 200, [], true);
-    }
-
     #[Route('api/edit/user', name: 'api_edit_user', methods:'POST')]
     public function edit(Request $request, EntityManagerInterface $entityManager,  MailerInterface $mailer, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer): JsonResponse
     {

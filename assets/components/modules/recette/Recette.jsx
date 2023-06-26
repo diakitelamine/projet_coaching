@@ -1,17 +1,19 @@
 import React, {useEffect} from "react";
 import { API_URL } from "../../../config";
 import Loader from "../layout/Loader";
+import ShowProgramme from "../programme/ShowProgramme";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import getPathRecetteImage from '../../fonctions/getPathRecetteImage';
 import getPathUserImage from '../../fonctions/getPathUserImage';
+import getPathProgrammeImage from '../../fonctions/getPathProgrammeImage';
 import getCatgorie from "../../fonctions/getCatgorie";
-import { array } from "prop-types";
 
 export default function Recette(params){
     const [recette, setRecette] = React.useState('');
     const [ingredients, setIngredients] = React.useState([]);
     const [coach, setCoach] = React.useState();
     const [categories, setCategories] =  React.useState([]);
+    const [programmes, setProgrammes] = React.useState([]);
     const [ready, setReady] = React.useState(0);
     const [avis, setAvis]= React.useState([1,2,3,4,5]);
     const {id} = useParams(); //Pour un objet
@@ -50,17 +52,39 @@ export default function Recette(params){
                     })
                 })
 
+                getProgrammes(recette.id).then((programmes) => {
+                    let tabProgrammes = [];
+                    let path = '';
+                    programmes.map(programme => (
+                        path = getPathProgrammeImage(programme.id),
+                        path.then((value) => {
+                            programme.path = value,
+                            console.log(programme);
+                            tabProgrammes.push(programme)
+
+                            
+                            //Si tout les programmes on été trouver
+                            if (programmes.length == tabProgrammes.length) {
+                                setProgrammes(tabProgrammes);
+                                num += 1;
+                                setReady(num)
+                            }
+                        })
+                    ));
+                    
+                })
+
                 let idCategorie = 0;
-                let tab = [];
+                let tabRecettes = [];
                 let loop = recette.categories.map(categorie => (  
                     console.log(categorie),
                     idCategorie = categorie.replace("/api/categories/", ""),
                     getCatgorie(idCategorie).then((value) => {
-                        tab.push(value);
+                        tabRecettes.push(value);
                     })
                 ))
                 if(loop){
-                    setCategories(tab);
+                    setCategories(tabRecettes);
                     num += 1;
                     setReady(num)
                 }
@@ -78,6 +102,16 @@ export default function Recette(params){
         return ingredients;
     }
 
+    async function getProgrammes(id){
+        const programmes = await fetch(API_URL+'programmes/recette/'+id)
+        // Transforme les données en json
+        .then((res) => res.json())
+        .then((json) => {
+            return json; 
+        });
+        return programmes;
+    }
+
     async function getCoach(url){
         var url = url.replace("/api/", "");
         const coach = await fetch(API_URL+url)
@@ -89,7 +123,7 @@ export default function Recette(params){
         return coach;
     }
     
-    return ready != 4 ? (
+    return ready != 5 ? (
         <Loader></Loader>
    ) : (
         <div className="container-recette">
@@ -128,15 +162,24 @@ export default function Recette(params){
                                 <div>{recette.dureeMoyen} min</div>
                             </div>
                         }
-                    <p className="h3"><i class="bi bi-chat-square-dots fs-5"></i> Description</p>
+                    <p className="h3"><i className="bi bi-chat-square-dots fs-5"></i> Description</p>
                     {recette.description}
-                    <p className="h3 mt-5"><i class="bi bi-grid fs-5"></i> Catégories</p>
+                    <p className="h3 mt-5"><i className="bi bi-grid fs-5"></i> Catégories</p>
                     <ul>
                         {categories.map(categorie => (  
                             <li key={categorie.id}>{categorie.name}</li>
                         ))}
                     </ul>
                 </div>
+            </div>
+
+            <div className="container mt-5">
+                <p className="h3">Programmes</p>
+                <div className="container-programmes">
+                    {programmes.map(programme => ( 
+                        <ShowProgramme key={programme.id} programme={programme}></ShowProgramme>
+                    ))}     
+                </div>  
             </div>
         </div>
    )

@@ -3,9 +3,10 @@ import Coachs from './modules/coach/Coach';
 import Footer from './modules/layout/Footer';
 import Home from './modules/layout/Home';
 import NavBar from './modules/layout/NavBar';
+import ShowProgramme from './modules/programme/ShowProgramme';
 const HomePage = (props)=>{ 
     return (
-        <div>
+        <div>  
             <NavBar name="navbar-home"></NavBar>
             <div className="video-home">
                 <video src='./uploads/video/moc.mp4' autoPlay loop muted />

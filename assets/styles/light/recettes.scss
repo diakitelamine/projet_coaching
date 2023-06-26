@@ -3,23 +3,23 @@
         .container-recettes{
             display: flex;
             flex-flow: wrap;
-            .card{
-                max-width: 350px !important;
-                margin: 10px;
-                .card-img-top {
-                    height: 348px;
-                    object-fit: cover;
-                  }
-                p{
-                    display: -webkit-box;
-                    max-width: 100%;
-                    height: 75px;
-                    -webkit-line-clamp: 3;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-            }
+        }
+    }
+    .card-recette{
+        max-width: 350px !important;
+        margin: 10px;
+        .card-img-top {
+            height: 348px;
+            object-fit: cover;
+          }
+        p{
+            display: -webkit-box;
+            max-width: 100%;
+            height: 75px;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 }

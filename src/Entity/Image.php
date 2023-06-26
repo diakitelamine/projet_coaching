@@ -40,6 +40,9 @@ class Image
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $detail = null;
 
+    #[ORM\OneToOne(inversedBy: 'image', cascade: ['persist', 'remove'])]
+    private ?Programme $programme = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -147,6 +150,18 @@ class Image
     public function setDetail(?string $detail): self
     {
         $this->detail = $detail;
+
+        return $this;
+    }
+
+    public function getProgramme(): ?Programme
+    {
+        return $this->programme;
+    }
+
+    public function setProgramme(?Programme $programme): self
+    {
+        $this->programme = $programme;
 
         return $this;
     }
