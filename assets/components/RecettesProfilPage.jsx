@@ -1,8 +1,8 @@
 import React from 'react';
-import NavBar from './modules/NavBar';
+import NavBar from './modules/layout/NavBar';
 import AuthCoach from './modules/AuthCoach';
 import Auth from './modules/Auth';
-import Recettes from './modules/Recettes';
+import Recettes from './modules/recette/Recettes';
 
 const RecettesProfilPage = (props)=>{ 
     return (

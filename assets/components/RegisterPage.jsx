@@ -1,6 +1,6 @@
 import React from 'react';
-import FormRegister from './modules/FormRegister';
-import NavBar from './modules/NavBar';
+import FormRegister from './modules/user/FormRegister';
+import NavBar from './modules/layout/NavBar';
 
 const RegisterPage = (props)=>{ 
     return (

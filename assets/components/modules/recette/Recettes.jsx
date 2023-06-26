@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import Auth from './Auth';
-import { API_URL } from '../../config';
-import Loader from './loader';
+import Auth from '../Auth';
+import { API_URL } from '../../../config';
+import Loader from '../layout/Loader';
+import getPathRecetteImage from '../../fonctions/getPathRecetteImage';
 
 export default function Recettes(params) {
     const [loader, setLoader] = React.useState(true);
@@ -15,7 +16,7 @@ export default function Recettes(params) {
             .then((recettes) => {
                 console.log(recettes)
                 let requests = recettes.map(recette => (
-                    getPathImage(recette.id).then((value) => {
+                    getPathRecetteImage(recette.id).then((value) => {
                         console.log(value)
                         recette.path = value
                     })
@@ -29,23 +30,6 @@ export default function Recettes(params) {
             //Si non on affiche toutes les recettes
         }
     }, [])
-
-    async function getPathImage(id){
-        const path = await fetch(API_URL+'image/reccette/'+id)
-        // Transforme les données en json
-        .then((res) => res.json())
-        .then((json) => {
-            let path = './uploads/images/recette/';
-            if (json != null) {
-               return path+json.path;   
-            }
-            else{
-                return path+'default.svg'; 
-            } 
-        });
-        console.log(path);
-        return path;
-    }
 
     console.log(recettes);
     return loader ? (
@@ -62,7 +46,7 @@ export default function Recettes(params) {
                             <div className="card-body">
                                 <h5 className="card-title">{recette.name}</h5>
                                 <p className="card-text">{recette.description}</p>
-                                <a href="#" className="btn btn-primary">Go somewhere</a>
+                                <a href={`#/recette/${recette.id}`} className="btn btn-primary">Go somewhere</a>
                             </div>
                         </div>
                     ))

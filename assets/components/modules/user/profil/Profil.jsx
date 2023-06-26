@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { API_URL } from '../../config';
+import { API_URL } from '../../../../config';
+import getPathUserImage from '../../../fonctions/getPathUserImage';
 
 const Profil = () => {
     const [id, setId] = React.useState("");
@@ -19,9 +20,10 @@ const Profil = () => {
         .then((json) => {
             setId(json.id);
             setUser(json);
-            let imageProfil = getImageProfilByUser(id);
+            let imageProfil = getPathUserImage(sessionStorage.getItem("id"));
             imageProfil.then((value) => {
-                setImageProfil(value)
+                setImageProfil(value);
+                setClassLoaderImageProfil('');
             })
             let imageCover = getImageCoverByUser(id);
             imageCover.then((value) => {
@@ -32,23 +34,7 @@ const Profil = () => {
         });
     }, [])
 
-    async function getImageProfilByUser(id) {
-        const path = await fetch(API_URL+'image/profil/user/'+sessionStorage.getItem("id"))
-        // Transforme les données en json
-        .then((res) => res.json())
-        .then((json) => {
-            if (json != null) {
-               return json.path;   
-            }
-            else{
-                return 'default.svg'; 
-            } 
-        });
-        setClassLoaderImageProfil('');
-        return './uploads/images/user/'+path;
-    }
-
-    async function getImageCoverByUser(id) {
+    async function getImageCoverByUser() {
         const path = await fetch(API_URL+'image/cover/user/'+sessionStorage.getItem("id"))
         // Transforme les données en json
         .then((res) => res.json())
@@ -83,10 +69,9 @@ const Profil = () => {
                     </div>
                 
                 <div className={`placeholder-glow card`}>
-
                     <div className="row">
                         <div className="col">
-                            <p className={`${classLoader} label`} >Déscription</p>
+                            <p className={`${classLoader} label`} >Description</p>
                             <p className={`${classLoader} description`}>{user.description}</p>
                         </div>
                     </div>

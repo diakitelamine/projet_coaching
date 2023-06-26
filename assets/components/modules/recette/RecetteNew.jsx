@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { API_URL } from '../../config';
-import Loader from './loader';
+import { API_URL } from '../../../config';
+import Loader from '../layout/Loader';
 
 const RecetteNew = () => {
     const [name, setName] = React.useState("");
@@ -35,6 +35,7 @@ const RecetteNew = () => {
             setAllCategories(json)
             setLoader(false);
         })
+        //Récupere tout les programmes l'utilisateur
 
         
     }, []);

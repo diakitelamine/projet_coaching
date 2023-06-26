@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import Auth from './Auth';
-import { API_URL } from '../../config';
-import Loader from './loader';
+import Auth from '../../Auth';
+import { API_URL } from '../../../../config';
+import Loader from '../../layout/Loader';
 
 export default function EditProfil() {
     const [email, setEmail] = React.useState("");
@@ -204,7 +204,7 @@ export default function EditProfil() {
                 </div>
                 <div className="row mb-1">
                     <div className="col">
-                        <label className='form-label' > Déscription: </label>
+                        <label className='form-label' > Description: </label>
                         <textarea name="description" type="text" className="form-control" value={description} onChange={e => setDescription(e.target.value)} required></textarea>
                     </div>
                 </div>

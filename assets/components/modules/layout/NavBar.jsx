@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react';
-import getUserAuth from '../fonctions/getUserAuth';
+import getUserAuth from '../../fonctions/getUserAuth';
 
 const NavBar = (props)=>{
   const [user, setUser] = React.useState([]);
 
   useEffect(() => {
     getUserAuth().then(result => {
-      result.roles.forEach(role => { 
-        // Et qu'il a le role coach
-        if (role == 'ROLE_COACH') {
-          result.isCoach = true; 
-        }    
-      })
-      setUser(result)
+      if (result) {
+        result.roles.forEach(role => { 
+          // Et qu'il a le role coach
+          if (role == 'ROLE_COACH') {
+            result.isCoach = true; 
+          }    
+        })
+        setUser(result)
+      }
     });
   }, [])
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import NavBar from './modules/NavBar';
+import NavBar from './modules/layout/NavBar';
 import AuthCoach from './modules/AuthCoach';
 import Auth from './modules/Auth';
-import RecettesProfil from './modules/Recettes';
-import RecetteNew from './modules/RecetteNew';
+import RecettesProfil from './modules/recette/Recettes';
+import RecetteNew from './modules/recette/RecetteNew';
 
 const RecetteNewPage = (props)=>{ 
     return (

@@ -1,8 +1,8 @@
 import React from 'react';
-import Coachs from './modules/Coach';
-import Footer from './modules/Footer';
-import Home from './modules/Home';
-import NavBar from './modules/NavBar';
+import Coachs from './modules/coach/Coach';
+import Footer from './modules/layout/Footer';
+import Home from './modules/layout/Home';
+import NavBar from './modules/layout/NavBar';
 const HomePage = (props)=>{ 
     return (
         <div>

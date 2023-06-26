@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_URL } from '../../config';
+import { API_URL } from '../../../config';
 
 const FormLogin = () => {
     const [email, setEmail] = React.useState("");

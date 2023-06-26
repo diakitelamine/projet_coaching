@@ -7,7 +7,7 @@ async function getUserAuth(){
     .then((res) => res.json())
     .then((json) => {
         //Si la session ne correspond pas
-        if(json.id == sessionStorage.getItem("id") && json.userIdentifier == sessionStorage.getItem("email") && json.password == sessionStorage.getItem("password")){
+        if(json && json.id == sessionStorage.getItem("id") && json.userIdentifier == sessionStorage.getItem("email") && json.password == sessionStorage.getItem("password")){
              return json;
         }
         else{

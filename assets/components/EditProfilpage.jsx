@@ -1,6 +1,6 @@
 import React from 'react';
-import NavBar from './modules/NavBar';
-import EditProfil from './modules/EditProfil';
+import NavBar from './modules/layout/NavBar';
+import EditProfil from './modules/user/profil/EditProfil';
 import Auth from './modules/Auth';
 //import Profil from './modules/EditProfil';
 

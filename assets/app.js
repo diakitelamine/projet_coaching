@@ -4,7 +4,7 @@ import './styles/app.scss';
 import './bootstrap';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { HashRouter, Route } from 'react-router-dom';
-import Loader from './components/modules/loader';
+import Loader from './components/modules/layout/Loader';
 import HomePage from './components/HomePage';
 import CoachsPage from './components/CoachsPage';
 import RegisterPage from './components/RegisterPage';
@@ -15,6 +15,8 @@ import EditProfilPage from './components/EditProfilpage';
 import RecettesProfilPage from './components/RecettesProfilPage';
 import ProgrammesProfilPage from './components/ProgrammesProfilPage';
 import RecetteNewPage from './components/RecetteNewPage';
+import RecettePage from './components/RecettePage';
+
 const $ = require('jquery');
 require('bootstrap');
 
@@ -44,6 +46,7 @@ const App = () =>{
                     <Route path="/my/recettes" component={RecettesProfilPage}/>
                     <Route path="/new/recette" component={RecetteNewPage}/>
                     <Route path="/my/programmes" component={ProgrammesProfilPage}/>
+                    <Route path="/recette/:id" component={RecettePage}/>
                </HashRouter>
           </div>
      );

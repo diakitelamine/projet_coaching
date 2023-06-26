@@ -1,15 +1,15 @@
 import React from 'react';
 import NavBar from './modules/layout/NavBar';
-import Profil from './modules/user/profil/Profil';
 import Auth from './modules/Auth';
+import Recette from './modules/recette/Recette';
 
-const ProfilPage = (props)=>{ 
+const RecettePage= (props)=>{ 
     return (
         <div>
             <Auth></Auth>
             <NavBar name="navbar-home"></NavBar>
-            <Profil></Profil>
+            <Recette></Recette>
         </div>
     )
 }
-export default ProfilPage;
+export default RecettePage;
