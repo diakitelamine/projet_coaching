@@ -1,12 +1,13 @@
 import React, {useEffect} from "react";
 import { API_URL } from "../../../config";
 import Loader from "../layout/Loader";
-import ShowProgramme from "../programme/ShowProgramme";
+import ShowProgramme from "../programme/showProgramme";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import getPathRecetteImage from '../../fonctions/getPathRecetteImage';
 import getPathUserImage from '../../fonctions/getPathUserImage';
 import getPathProgrammeImage from '../../fonctions/getPathProgrammeImage';
 import getCatgorie from "../../fonctions/getCatgorie";
+import { isEmptyObject } from "jquery";
 
 export default function Recette(params){
     const [recette, setRecette] = React.useState('');
@@ -43,6 +44,7 @@ export default function Recette(params){
                 })
 
                 getCoach(recette.user).then((coach) => {
+                    
                     let path = getPathUserImage(coach.id);
                     path.then((value) => {
                         coach.path = value;
@@ -53,6 +55,10 @@ export default function Recette(params){
                 })
 
                 getProgrammes(recette.id).then((programmes) => {
+                    if (programmes.length == 0) {
+                        num += 1;
+                        setReady(num)
+                    }
                     let tabProgrammes = [];
                     let path = '';
                     programmes.map(programme => (
@@ -123,6 +129,7 @@ export default function Recette(params){
         return coach;
     }
     
+    console.log(ready);
     return ready != 5 ? (
         <Loader></Loader>
    ) : (
@@ -172,15 +179,16 @@ export default function Recette(params){
                     </ul>
                 </div>
             </div>
-
-            <div className="container mt-5">
-                <p className="h3">Programmes</p>
-                <div className="container-programmes">
-                    {programmes.map(programme => ( 
-                        <ShowProgramme key={programme.id} programme={programme}></ShowProgramme>
-                    ))}     
-                </div>  
-            </div>
+            {programmes.length != 0 && 
+                <div className="container mt-5">
+                    <p className="h3">Programmes</p>
+                    <div className="container-programmes">
+                            {programmes.map(programme => ( 
+                                <ShowProgramme programme={programme}></ShowProgramme>
+                            ))}
+                    </div>  
+                </div>
+            } 
         </div>
    )
 }
