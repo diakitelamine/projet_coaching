@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ImageRepository;
+use App\Repository\ProgrammeRepository;
 use App\Repository\RecetteRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,5 +38,14 @@ class ProgrammeController extends AbstractController
         return new JsonResponse($response, 200, [], true);
     }
 
+    #[Route('api/programmes/user/{idUser}', name: 'app_all_programmes_coach', methods:'GET')]
+    public function ProgrammesCoach($idUser, ProgrammeRepository $programmesRepository, SerializerInterface $serializer): JsonResponse
+    {
+        $programmes = $programmesRepository->findBy(['deleted_at' => NULL, 'user' => $idUser]);
+        $response = $serializer->serialize(
+            $programmes, 'json'
+        );
+        return new JsonResponse($response, 200, [], true);
+    }
     
 }

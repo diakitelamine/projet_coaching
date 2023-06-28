@@ -2,9 +2,8 @@ import React, {useEffect} from "react";
 import { Player } from 'video-react';
 
 const ShowProgramme = (props) => {
-    //console.log(props.programme.path.substring(props.programme.path.length -4));
     return (
-        <div key={props.programme.id} className="card card-programme-coach">
+        <div className="card card-programme-coach"  key={props.programme.id}>
             {props.programme.path.substring(props.programme.path.length -4) == '.mp4' &&
                 <Player playsInline  poster="" src={props.programme.path} />
             }

@@ -10,3 +10,10 @@
     margin: 10px;
     width: 100%;
 }
+.container-programmes{
+    display:flex;
+    flex-wrap: wrap;
+    .card-programme-coach{
+        max-width: 350px !important;
+    }
+}

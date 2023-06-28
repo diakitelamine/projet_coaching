@@ -7,7 +7,6 @@ import getPathRecetteImage from '../../fonctions/getPathRecetteImage';
 import getPathUserImage from '../../fonctions/getPathUserImage';
 import getPathProgrammeImage from '../../fonctions/getPathProgrammeImage';
 import getCatgorie from "../../fonctions/getCatgorie";
-import { isEmptyObject } from "jquery";
 
 export default function Recette(params){
     const [recette, setRecette] = React.useState('');
