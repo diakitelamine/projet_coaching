@@ -84,7 +84,7 @@ const FormRegister = () => {
     }
   
     return (
-     <div className="card card-register">
+     <div className="card card-register mt-5 mb-2 mx-auto">
         <h1 className="title-register">Inscription</h1>
         <div className={`alert ${message.bgColor} ${message.class}`} role="alert">
             {message.text}
@@ -101,7 +101,10 @@ const FormRegister = () => {
             <input type="email" name="email" className='form-control'  value={email}  onChange={e => setEmail(e.target.value)} placeholder="Email"  />
             <input type="password" name="password" className='form-control'  value={password}  onChange={e => setPassword(e.target.value)} placeholder="Mot de passe"/>
             <input type="password" name="confirmPassword" className='form-control' value={confirmPassword}  onChange={e => setConfirmPassword(e.target.value)}  placeholder="Confirmer votre mot de passe" />
-            <input type="submit" value="Envoyer" className="btn btn-danger btn-send" />
+            <div className="text-center">
+                <input type="submit" value="Envoyer" className="btn btn-danger btn-send" />
+            </div>
+            
         </form>
         <p className="btn-connexion"> Vous avez déja un compte ? <a href="#/auth">connectez-vous</a></p>
     </div>
