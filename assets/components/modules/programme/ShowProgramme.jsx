@@ -3,9 +3,9 @@ import { Player } from 'video-react';
 
 const ShowProgramme = (props) => {
     return (
-        <div className="card card-programme-coach"  key={props.programme.id}>
+        <div className="card card-programme-coach" key={props.programme.id}>
             {props.programme.path.substring(props.programme.path.length -4) == '.mp4' &&
-                <Player playsInline  poster="" src={props.programme.path} />
+                <Player playsInline className="card-img-top"  poster="" src={props.programme.path} />
             }
             {props.programme.path.substring(props.programme.path.length -4) != '.mp4' &&
                 <img src={props.programme.path} className="card-img-top" alt=""/>

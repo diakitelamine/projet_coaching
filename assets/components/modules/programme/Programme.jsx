@@ -4,11 +4,14 @@ import Loader from "../layout/Loader";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import getPathProgrammeImage from "../../fonctions/getPathProgrammeImage";
 import { Player } from "video-react";
+import getPathRecetteImage from "../../fonctions/getPathRecetteImage";
+import ShowRecette from "../recette/ShowRecette";
 
 export default function Programme(params){
     const [programme, setProgramme] = React.useState('');
     const [coach, setCoach] = React.useState();
     const [ready, setReady] = React.useState(0);
+    const [recettes, setRecettes] = React.useState([]);
     const [avis, setAvis]= React.useState([1,2,3,4,5]);
     const {id} = useParams(); //Pour un objet
 
@@ -30,19 +33,40 @@ export default function Programme(params){
                     num += 1;
                     setReady(num)
                 })
+                
+                getRecettes(programme.id).then((recettes) => {
+                    let requests = recettes.map(recette => (
+                            getPathRecetteImage(recette.id).then((value) => {
+                            console.log(value)
+                            recette.path = value
+                        })
+                    ))
+                    Promise.all(requests).then(() => {
+                        setRecettes(recettes);
+                        console.log(recettes);
+                        num += 1;
+                        setReady(num)
+                    })
+                })
+                /*getPathProgrammeImage(programme.id).then((value) => {
+                    programme.path = value
+                    setProgramme(programme);
+                    num += 1;
+                    setReady(num)
+                })*/
             })
         }
     }, [])
 
-   /* async function getIngredients(id){
-        const ingredients = await fetch(API_URL+'ingredients/recette/'+id)
+    async function getRecettes(id){
+        const recettes = await fetch(API_URL+'recettes/programme/'+id)
         // Transforme les données en json
         .then((res) => res.json())
         .then((json) => {
             return json; 
         });
-        return ingredients;
-    }*/
+        return recettes;
+    }
 
     /*async function getProgrammes(id){
         const programmes = await fetch(API_URL+'programmes/recette/'+id)
@@ -66,7 +90,7 @@ export default function Programme(params){
     }
     
     console.log(ready);
-    return ready != 1 ? (
+    return ready != 2 ? (
         <Loader></Loader>
    ) : (
         <div className="container-programme">
@@ -87,6 +111,20 @@ export default function Programme(params){
 
                 </div>
             </div>
+            <div className="container container-description mt-5">
+                <p className="h3"> <i className="bi bi-chat-square-dots fs-5"></i> Description</p>
+                {programme.description}
+            </div>
+            {recettes.length != 0 &&
+                <div className="container mt-5">
+                    <p className="h3">Recettes</p>
+                    <div className="container-recettes p-1">
+                            {recettes.map(recette => ( 
+                                <ShowRecette recette={recette}></ShowRecette>
+                            ))}
+                    </div>  
+                </div>
+            }
         </div>
    )
 }

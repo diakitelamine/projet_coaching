@@ -39,6 +39,22 @@ class ProgrammeRepository extends ServiceEntityRepository
         }
     }
 
+     /**
+    * @return Recette[] Returns an array of Recette objects
+    */
+   public function findProgrammesByRecette($idRecette): array
+   {
+       return $this->createQueryBuilder('p')
+           ->andWhere('p.deleted_at IS NULL')
+           ->join('p.recettes', 'r')
+           ->andWhere('r.id = :idRecette')
+           ->setParameter('idRecette', $idRecette)
+           ->andWhere('r.deleted_at IS NULL')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    /**
 //     * @return Programme[] Returns an array of Programme objects
 //     */

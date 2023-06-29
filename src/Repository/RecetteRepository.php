@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Recette;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Null_;
 
 /**
  * @extends ServiceEntityRepository<Recette>
@@ -39,6 +40,21 @@ class RecetteRepository extends ServiceEntityRepository
         }
     }
 
+   /**
+    * @return Recette[] Returns an array of Recette objects
+    */
+   public function findRecettesByProgramme($idProgramme): array
+   {
+       return $this->createQueryBuilder('r')
+           ->andWhere('r.deleted_at IS NULL')
+           ->join('r.programmes', 'p')
+           ->andWhere('p.id = :idProgramme')
+           ->setParameter('idProgramme', $idProgramme)
+           ->andWhere('p.deleted_at IS NULL')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 //    /**
 //     * @return Recette[] Returns an array of Recette objects
 //     */

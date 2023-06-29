@@ -1,3 +1,4 @@
+@import "~video-react/styles/scss/video-react";
 @import "~bootstrap/scss/bootstrap";
 @import 'root.scss';
 @import './dark/register.scss';
@@ -23,7 +24,6 @@
 
 @import url('https://fonts.cdnfonts.com/css/clean-sports-stencil');
 @import 'animate.css';
-@import "~video-react/styles/scss/video-react";
 html {
     height: 100%;
 }

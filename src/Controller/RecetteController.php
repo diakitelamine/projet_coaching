@@ -31,7 +31,15 @@ class RecetteController extends AbstractController
         return new JsonResponse($response, 200, [], true);
     }
 
-    
+    #[Route('api/recettes/programme/{idProgramme}', name: 'app_recettes_programme', methods:'GET')]
+    public function recettesProgramme($idProgramme, RecetteRepository $recetteRepository, SerializerInterface $serializer): JsonResponse
+    {
+        $recettes = $recetteRepository->findRecettesByProgramme($idProgramme);
+        $response = $serializer->serialize(
+            $recettes, 'json'
+        );
+        return new JsonResponse($response, 200, [], true);
+    }
 
     #[Route('api/new/recette', name: 'app_new_recette', methods:'POST')]
     public function newRecette(Request $request, EntityManagerInterface $entityManager,ProgrammeRepository $programmeRepository, UserRepository $userRepository, IngredientRepository $ingredientRepository, CategorieRepository $categorieRepository, RecetteRepository $recetteRepository, SerializerInterface $serializer): JsonResponse

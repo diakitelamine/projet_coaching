@@ -161,13 +161,13 @@ export default function Recette(params){
                 </div>
             </div>
             <div className="container  mt-5">
-                <div className="card container-description">
-                        {recette.dureeMoyen &&
-                            <div className="duree mb-4">
-                                <i className="bi bi-clock"></i> 
-                                <div>{recette.dureeMoyen} min</div>
-                            </div>
-                        }
+                <div className="container-description">
+                    {recette.dureeMoyen &&
+                        <div className="duree mb-4">
+                            <i className="bi bi-clock"></i> 
+                            <div>{recette.dureeMoyen} min</div>
+                        </div>
+                    }
                     <p className="h3"><i className="bi bi-chat-square-dots fs-5"></i> Description</p>
                     {recette.description}
                     <p className="h3 mt-5"><i className="bi bi-grid fs-5"></i> Catégories</p>

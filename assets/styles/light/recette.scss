@@ -80,10 +80,8 @@
             position: absolute;
         }
         .container{
+            padding-bottom : 20px;
             .container-description{
-                padding : 20px;
-                border-color: rgba(255, 0, 0, 0.096);
-                box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
                 .duree{
                     margin-right: 20px;
                     width: fit-content;
@@ -100,6 +98,9 @@
         .container-programmes{
             display: flex;
             flex-wrap: wrap;
+            .card-programmes-coach{
+                
+            }
         }
     }
 }

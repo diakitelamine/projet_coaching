@@ -28,10 +28,9 @@ class ProgrammeController extends AbstractController
     }
 
     #[Route('api/programmes/recette/{idRecette}', name: 'app_programmes_recette')]
-    public function programmeRecette($idRecette, RecetteRepository $recetteRepository, SerializerInterface $serializer): JsonResponse
+    public function programmeRecette($idRecette, ProgrammeRepository $programmeRepository, SerializerInterface $serializer): JsonResponse
     {
-        $recette = $recetteRepository->find(['id' => $idRecette]);
-        $programmes = $recette->getProgrammes();
+        $programmes = $programmeRepository->findProgrammesByRecette($idRecette);
         $response = $serializer->serialize(
             $programmes, 'json'
         );
@@ -47,5 +46,4 @@ class ProgrammeController extends AbstractController
         );
         return new JsonResponse($response, 200, [], true);
     }
-    
 }
