@@ -15,6 +15,15 @@
                 border-radius: 15px;
                 object-fit: cover;
             }
+            .video-react{
+                padding-top: 40% !important;
+                max-width: 500px;
+                background: none;
+                video{
+                    object-fit: cover;
+                    border-radius: 15px;
+                }
+            }
         }
     }
 }
