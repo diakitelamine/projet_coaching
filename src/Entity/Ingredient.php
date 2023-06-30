@@ -36,6 +36,7 @@ class Ingredient
     public function __construct()
     {
         $this->recettes = new ArrayCollection();
+        $this->setCreatedAt(new \DateTime());
     }
 
     public function getId(): ?int

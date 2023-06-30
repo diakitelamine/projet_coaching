@@ -18,7 +18,6 @@ Encore
             throw env.error;
         }
         options['process.env.API_URL'] = JSON.stringify(env.parsed.REACT_APP_API_URL);
-
     })
 
     // directory where compiled assets will be stored

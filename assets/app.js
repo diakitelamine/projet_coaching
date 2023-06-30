@@ -4,15 +4,13 @@ import './styles/app.scss';
 import './bootstrap';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { HashRouter, Route } from 'react-router-dom';
-
-import './config';
-import Loader from './components/modules/Loader';
+import Loader from './components/modules/loader';
 import HomePage from './components/HomePage';
 import CoachsPage from './components/CoachsPage';
 import RegisterPage from './components/RegisterPage';
 import TestPage from './components/TestPage';
 import LoginPage from './components/LoginPage';
-import { API_URL } from './config';
+import ProfilPage from './components/ProfilPage';
 const $ = require('jquery');
 require('bootstrap');
 
@@ -38,13 +36,11 @@ const App = () =>{
                     <Route path="/auth" component={LoginPage}/>
                     <Route path="/register" component={RegisterPage}/>
                     <Route path="/test" component={TestPage}/>
+                    <Route path="/profil" component={ProfilPage}/>
                </HashRouter>
           </div>
      );
-
 }
-
-
 // Dans la div app rend moi le contenu de App
 const rootElement = document.querySelector("#app");
 ReactDOM.render(<App/>, rootElement);

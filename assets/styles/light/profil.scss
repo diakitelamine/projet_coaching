@@ -1,0 +1,29 @@
+.profil{
+    .images{
+        display: flex;
+        justify-content: center;
+        position: relative;
+        .profil-image-cover{
+            width: 100%;
+            max-width: 1500px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 13px;
+            filter: brightness(50%);
+        }
+        .profil-image{
+            max-width: 200px;
+            height: 200px;
+            border-radius: 100px;
+            position: absolute;
+            top: 25px;
+        }
+        .profil-text{
+            position: absolute;
+            top: 70%;
+            color: white;
+            font-size: 47px;
+            font-weight: bolder;
+        }
+    }
+}
