@@ -42,7 +42,7 @@ class RecetteController extends AbstractController
     }
 
     #[Route('api/new/recette', name: 'app_new_recette', methods:'POST')]
-    public function newRecette(Request $request, EntityManagerInterface $entityManager,ProgrammeRepository $programmeRepository, UserRepository $userRepository, IngredientRepository $ingredientRepository, CategorieRepository $categorieRepository, RecetteRepository $recetteRepository, SerializerInterface $serializer): JsonResponse
+    public function new(Request $request, EntityManagerInterface $entityManager,ProgrammeRepository $programmeRepository, UserRepository $userRepository, IngredientRepository $ingredientRepository, CategorieRepository $categorieRepository, RecetteRepository $recetteRepository, SerializerInterface $serializer): JsonResponse
     {
         //Récupere les données dans un tableau
         $data = json_decode($request->getContent(), true);
@@ -137,6 +137,5 @@ class RecetteController extends AbstractController
         );
         return new JsonResponse($response, 200, [], true);
     }
-
     
 }

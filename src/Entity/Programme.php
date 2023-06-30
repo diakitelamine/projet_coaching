@@ -145,7 +145,7 @@ class Programme
     {
         return $this->categories;
     }
-
+    
     public function addCategory(Categorie $category): self
     {
         if (!$this->categories->contains($category)) {

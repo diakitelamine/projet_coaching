@@ -14,7 +14,7 @@ class ImageController extends AbstractController
     static function importImageBase64($base64, $path){
         //Recupere l'etension de l'image
         $extension = explode('/', mime_content_type($base64))[1];
-        if(!in_array($extension, ['png', 'gif', 'jpeg', 'jpg'])){
+        if(!in_array($extension, ['png', 'gif', 'jpeg', 'jpg', 'mp4'])){
             return ['code'=> 400, 'message'=> 'Merci d\'importer des images au format png, jpeg ou gif'];
         }
         //Creer l'image dans le bon dossier
