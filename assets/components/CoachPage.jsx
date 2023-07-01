@@ -1,13 +1,13 @@
 import React from 'react';
-import Coachs from './modules/coach/Coachs';
+import Coach from './modules/coach/Coach';
 import NavBar from './modules/layout/NavBar';
 
-const CoachsPage = (props)=>{ 
+const CoachPage = (props)=>{ 
     return (
         <div>
             <NavBar name="navbar-home"></NavBar>
-            <Coachs></Coachs>
+            <Coach></Coach>
         </div>
     )
 }
-export default CoachsPage;
+export default CoachPage;

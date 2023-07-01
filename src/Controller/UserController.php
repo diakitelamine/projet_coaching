@@ -59,6 +59,24 @@ class UserController extends AbstractController
         return new JsonResponse($coachs, 200, [], true);
     }
 
+    #[Route('api/coach/{id}', name: 'api_coach', methods:'GET')]
+    public function coach($id, UserRepository $userRepository, SerializerInterface $serializer):JsonResponse
+    {
+        $coach = $userRepository->findOneCoach($id);
+        if ($coach) {
+            $response = $serializer->serialize(
+                $coach, 'json'
+            );
+            $code = 200;        }
+        else{
+            $response = $serializer->serialize(
+                $coach, 'json'
+            );
+            $code = 400;
+        }
+        return new JsonResponse($response, $code, [], true);
+    }
+
     #[Route('api/edit/user', name: 'api_edit_user', methods:'POST')]
     public function edit(Request $request, EntityManagerInterface $entityManager,  MailerInterface $mailer, UserRepository $userRepository, ImageRepository $imageRepository, SerializerInterface $serializer): JsonResponse
     {

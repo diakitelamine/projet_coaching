@@ -39,7 +39,7 @@ export default function Recettes(params) {
         <div className="container-fluid recettes">
             <h1>Vos recettes</h1>
             <a href="#/new/recette" className="btn btn-primary"><i className="bi bi-plus-lg"></i> Nouvelle recette</a>
-            <div className="container-recettes mt-4">
+            <div className="container-all-recettes mt-4">
                 {recettes != '' &&
                     recettes.map(recette => (  
                         <ShowRecette recette={recette}></ShowRecette>

@@ -93,14 +93,14 @@
                 .h3{
                     color: $red;
                 }
+                a{
+                    width: 100%;
+                }
             }
         }
         .container-programmes{
             display: flex;
             flex-wrap: wrap;
-            .card-programmes-coach{
-                
-            }
         }
     }
 }

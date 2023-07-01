@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { API_URL } from '../../../../config';
 import getPathUserImage from '../../../fonctions/getPathUserImage';
+import getImageCoverByUser from '../../../fonctions/getPathUserImageCover';
 
 const Profil = () => {
     const [id, setId] = React.useState("");
@@ -25,30 +26,16 @@ const Profil = () => {
                 setImageProfil(value);
                 setClassLoaderImageProfil('');
             })
-            let imageCover = getImageCoverByUser(id);
+            let imageCover = getPathUserImageCover(sessionStorage.getItem("id"));
             imageCover.then((value) => {
+                
+                setClassLoaderImageCover('');
                 setImageCover(value)
             })
             setLoader(false);
             setClassLoader('');
         });
     }, [])
-
-    async function getImageCoverByUser() {
-        const path = await fetch(API_URL+'image/cover/user/'+sessionStorage.getItem("id"))
-        // Transforme les données en json
-        .then((res) => res.json())
-        .then((json) => {
-            if (json != null) {
-               return json.path;   
-            }
-            else{
-                return 'default.svg'; 
-            } 
-        });
-        setClassLoaderImageCover('');
-        return './uploads/images/user/'+path;
-    }
 
     //Si un compte user est trouver
     if (user.id) {

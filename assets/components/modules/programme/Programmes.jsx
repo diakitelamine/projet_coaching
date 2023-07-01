@@ -37,7 +37,7 @@ export default function Programmes(params) {
         <div className="container-fluid programmes">
             <h1>Vos programmes</h1>
             <a href="#/new/programme" className="btn btn-primary"><i className="bi bi-plus-lg"></i> Nouveau programme</a>
-            <div className="container-programmes mt-4">
+            <div className="container-all-programmes mt-4">
                 {programmes != '' &&
                     programmes.map(programme => (  
                         <ShowProgramme programme={programme}></ShowProgramme>

@@ -18,6 +18,7 @@ import RecetteNewPage from './components/RecetteNewPage';
 import RecettePage from './components/RecettePage';
 import ProgrammePage from './components/ProgrammePage';
 import ProgrammeNewPage from './components/ProgrammeNewPage';
+import CoachPage from './components/CoachPage';
 
 const $ = require('jquery');
 require('bootstrap');
@@ -40,6 +41,7 @@ const App = () =>{
                <HashRouter>
                     <Route exact path="/" component={HomePage}/>
                     <Route path="/coachs" component={CoachsPage}/>
+                    <Route path="/coach/:id" component={CoachPage}/>
                     <Route path="/auth" component={LoginPage}/>
                     <Route path="/register" component={RegisterPage}/>
                     <Route path="/test" component={TestPage}/>

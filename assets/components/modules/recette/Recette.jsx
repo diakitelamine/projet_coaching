@@ -145,7 +145,7 @@ export default function Recette(params){
                         <div className="coach">
                             <img src={coach.path}/>
                             <p>{coach.firstname} {coach.lastname}</p>
-                            <a className="btn btn-sm btn-primary" href={`#/profil/coach/${coach.id}`}>Voir profil</a>
+                            <a className="btn btn-sm btn-primary" href={`#/coach/${coach.id}`}>Voir profil</a>
                         </div>
                         
                         <p className="h3 mt-2">Ingredients</p>

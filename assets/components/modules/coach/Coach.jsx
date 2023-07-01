@@ -1,94 +1,150 @@
-import React from 'react';
-import { API_URL } from '../../../config';
-import Loader from '../layout/Loader';
-import getUserAuth from '../../fonctions/getUserAuth';
-import getPathUserImage from '../../fonctions/getPathUserImage';
-class Coachs extends React.Component{
-    // Constructor 
-    constructor(props) {
-        super(props);
-        this.state = {
-            coachs: [],
-            DataisLoaded: true,
-            image:[],
-            postalCode : null
-        };
-    }
+import React, {useEffect} from "react";
+import { API_URL } from "../../../config";
+import Loader from "../layout/Loader";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import getPathProgrammeImage from "../../fonctions/getPathProgrammeImage";
+import { Player } from "video-react";
+import getPathRecetteImage from "../../fonctions/getPathRecetteImage";
+import ShowRecette from "../recette/ShowRecette";
+import getPathUserImage from "../../fonctions/getPathUserImage";
+import getPathUserImageCover from "../../fonctions/getPathUserImageCover";
+import ShowProgramme from "../programme/showProgramme";
 
-    getCoachs(maxResults){
-       
-        // Requete à l'api user
-        const requestOptions = {
-            method: "POST", 
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                maxResults : maxResults,
-                postalCode: this.state.postalCode,
-                rayon : null
-            }),
-        };
-        fetch(API_URL+'coachs', requestOptions)
-        // Transforme les données en json
-        .then((json) => json.json())
-        .then((json) => {
-            json.map((coach, i) => {
-                let path = getPathUserImage(coach.id);
-                path.then((value) => {
-                    coach.path = value;
-                    //Change la valeur des attributs
-                    this.setState({
-                        coachs: json,
-                    })
-                    if (i == json.length -1) {
-                        this.setState({
-                           DataisLoaded: false,
+export default function Coach(params){
+    const [coach, setCoach] = React.useState();
+    const [ready, setReady] = React.useState(0);
+    const [recettes, setRecettes] = React.useState('');
+    const [programmes, setProgrammes] = React.useState('');
+    const [avis, setAvis]= React.useState([1,2,3,4,5]);
+    const {id} = useParams(); //Pour un objet
+
+    useEffect(() => {
+        //Si un id à été identifié
+        if (id) {
+            let num = 0;
+            //Récupère la recette
+            fetch(API_URL+'coach/'+id)
+            .then((json) => json.json())
+            .then((coach) => {
+                //Si un coach n'existe pas
+                if (!coach) {
+                    location.href = `#/coachs/`
+                }
+                getPathUserImage(coach.id).then((path) => {
+                    coach.profil = path
+                    num += 1;
+                    setReady(num);
+                })
+                getPathUserImageCover(coach.id).then((path) => {
+                    coach.cover = path
+                    setCoach(coach);
+                    num += 1;
+                    setReady(num);
+                })
+
+                fetch(API_URL+'recettes/user/'+coach.id)
+                .then((json) => json.json())
+                .then((recettes) => {
+                    console.log(recettes)
+                    let requests = recettes.map(recette => (
+                        getPathRecetteImage(recette.id).then((value) => {
+                            console.log(value)
+                            recette.path = value
                         })
-                    }
+                    ))
+                    Promise.all(requests).then(() => {
+                        setRecettes(recettes);
+                        num += 1;
+                        setReady(num);
+                    })
+                })
+
+                fetch(API_URL+'programmes/user/'+coach.id)
+                .then((json) => json.json())
+                .then((programmes) => {
+                    console.log(programmes);
+                    let requests = programmes.map(programme => (
+                        getPathProgrammeImage(programme.id).then((value) => {
+                            programme.path = value
+                        })
+                    ))
+                    Promise.all(requests).then(() => {
+                        setProgrammes(programmes);
+                        num += 1;
+                        setReady(num);
+                    })
                 })
                 
+
             })
-        });
-    }
-    
-    componentDidMount() {
-        let maxResults = null;
-        if (this.props.maxResults != undefined) {
-            maxResults = this.props.maxResults;
         }
-        let auth = getUserAuth();
-        auth.then((value) => {
-            this.setState({
-                postalCode: value.postalCode,
-            })
-            this.getCoachs(maxResults)
-        });
-        
-    }
+        else{
+            location.href = `#/coachs/`
+        }
+    }, [])
 
-
-    render() {
-        const { DataisLoaded, coachs } = this.state;
-        return DataisLoaded && !this.props.maxResults ? (
-            <Loader></Loader>
-        ) :  (
-            /*Coachs */
-            <div className="coachs">
-                {coachs.map((coach) => ( 
-                    <div key={coach.id} className="container-coach h-100"  data-id={ coachs.id }>
-                        <div className="card card-coach">
-                            <img src={coach.path} className="card-img-top"/>
-                            <div className="card-body">
-                                <h5 className="card-title"> { coach.lastname } { coach.firstname }</h5>
-                                <p className="card-text">{coach.description}</p>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+    console.log(coach);
+    return ready != 4 ? (
+        <Loader></Loader>
+   ) : (
+        <div className="container-coach">
+           <div className="bandeau">
+                <h1>{coach.firstname} {coach.lastname}</h1>
+                <div className="avis"> 
+                    {avis.map(avi => (
+                        <i key={avi} className="bi bi-star-fill"> </i>  
+                    ))}
+                </div>
+                <div className="container-media">
+                    <img className="image-cover" src={coach.cover}/>
+                    <img className="image-profil" src={coach.profil}/>
+                </div>
+           </div>
+           <div className="container rdv">
+                <a href="#" className="btn btn-primary mt-5 mb-5"> <i className="bi bi-calendar-day"></i> Demander une seance</a>
             </div>
-        )
-    }
-}
+            <div className="container container-detail ">
+                {coach.city != '' &&
+                    <div className="city mb-4">
+                        <i className="bi bi-house"></i>
+                        <div>{coach.city} {coach.postalCode}</div>
+                    </div>
+                }
+                {coach.description != '' &&
+                    <div className="container-description">
 
-export default Coachs;
+                        <p className="h3"><i className="bi bi-chat-square-dots fs-5"></i> Description</p>
+                        {coach.description}
+                    </div>
+                }
+                
+            </div>
+
+            {programmes != '' &&
+                <div className="container  programmes mt-4">
+                    <p className="h3">Programmes</p>
+                    <div className="container-programmes">
+                        {programmes != '' &&
+                            programmes.map(programme => (  
+                                <ShowProgramme programme={programme}></ShowProgramme>
+                            ))
+                        }
+                    </div>
+                </div>
+            }
+
+            {recettes != '' &&
+                <div className="container recettes mt-4">
+                    <p className="h3">Recettes</p>
+                    <div className="container-recettes">
+                        {recettes != '' &&
+                            recettes.map(recette => (  
+                                <ShowRecette recette={recette}></ShowRecette>
+                            ))
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+   )
+}

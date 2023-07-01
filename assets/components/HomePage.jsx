@@ -1,5 +1,5 @@
 import React from 'react';
-import Coachs from './modules/coach/Coach';
+import Coachs from './modules/coach/Coachs';
 import Footer from './modules/layout/Footer';
 import Home from './modules/layout/Home';
 import NavBar from './modules/layout/NavBar';

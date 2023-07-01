@@ -6,7 +6,7 @@
     background: $pink;
 }
 .card-programme-coach{
-    max-width: 350px !important;
+    max-width: 304px  !important;
     width: 100%;
     margin: 10px; 
     .video-react.video-react-fluid{
@@ -32,4 +32,11 @@
 .container-programmes{
     display:flex;
     flex-wrap: wrap;
+}
+.container-all-programmes{
+    display: flex;
+    flex-flow: wrap;
+    .card-programme-coach{
+        max-width: 350px !important;
+    }
 }

@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { API_URL } from '../../config';
 
 async function getPathUserImage(id){
@@ -18,3 +17,4 @@ async function getPathUserImage(id){
 }
 
 export default getPathUserImage;
+
