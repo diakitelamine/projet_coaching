@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { API_URL } from '../../../../config';
 import getPathUserImage from '../../../fonctions/getPathUserImage';
-import getImageCoverByUser from '../../../fonctions/getPathUserImageCover';
+import getPathUserImageCover from '../../../fonctions/getPathUserImageCover';
 
 const Profil = () => {
     const [id, setId] = React.useState("");

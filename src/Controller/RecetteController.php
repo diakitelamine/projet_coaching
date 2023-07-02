@@ -21,6 +21,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RecetteController extends AbstractController
 {
+    #[Route('api/recettes/', name: 'app_all_recettes', methods:'GET')]
+    public function recettes(RecetteRepository $recetteRepository, SerializerInterface $serializer): JsonResponse
+    {
+        $recettes = $recetteRepository->findBy(['deleted_at' => NULL]);
+        $response = $serializer->serialize(
+            $recettes, 'json'
+        );
+        return new JsonResponse($response, 200, [], true);
+    }
+
     #[Route('api/recettes/user/{idUser}', name: 'app_all_recettes_coach', methods:'GET')]
     public function recettesCoach($idUser, RecetteRepository $recetteRepository, SerializerInterface $serializer): JsonResponse
     {

@@ -83,6 +83,7 @@ class Coachs extends React.Component{
         ) :  (
             /*Coachs */
             <div className="coachs">
+                <h1>Découvrez nos coachs</h1>
                 {coachs.map((coach) => ( 
                     <div key={coach.id}   onClick={this.handleCoachClick.bind(this, coach.id)} className="container-coach h-100"  data-id={ coachs.id }>
                         <div className="card card-coach">

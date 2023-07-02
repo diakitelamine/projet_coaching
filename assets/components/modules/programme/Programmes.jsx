@@ -8,9 +8,19 @@ export default function Programmes(params) {
     const [programmes, setProgrammes] = React.useState('');
     
     useEffect(() => {
+        let url ='';
+        
+        console.log(url);
         if(params.myProgramme == 1){
             //Si on affiche les programme du coach connecté
-            fetch(API_URL+'programmes/user/'+sessionStorage.getItem("id"))
+            url = 'programmes/user/'+sessionStorage.getItem("id");
+            
+        }else{
+            //Si non on affiche toutes les recettes
+            url = 'programmes';
+        }
+        console.log(url);
+        fetch(API_URL+url)
             .then((json) => json.json())
             .then((programmes) => {
                 console.log(programmes);
@@ -25,9 +35,6 @@ export default function Programmes(params) {
                     setLoader(false);
                 })
             })
-        }else{
-            //Si non on affiche toutes les recettes
-        }
     }, [])
 
     console.log(programmes);
@@ -35,8 +42,15 @@ export default function Programmes(params) {
         <Loader></Loader>
    ) : (
         <div className="container-fluid programmes">
-            <h1>Vos programmes</h1>
-            <a href="#/new/programme" className="btn btn-primary"><i className="bi bi-plus-lg"></i> Nouveau programme</a>
+            {params.myProgramme == 1 &&
+                <div>
+                    <h1>Vos programmes</h1>
+                    <a href="#/new/programme" className="btn btn-primary"><i className="bi bi-plus-lg"></i> Nouveau programme</a>
+                </div>
+            }
+            {params.myProgramme != 1 &&
+                <h1>Découvrez de nouveau programme</h1>
+            }
             <div className="container-all-programmes mt-4">
                 {programmes != '' &&
                     programmes.map(programme => (  

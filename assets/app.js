@@ -19,6 +19,8 @@ import RecettePage from './components/RecettePage';
 import ProgrammePage from './components/ProgrammePage';
 import ProgrammeNewPage from './components/ProgrammeNewPage';
 import CoachPage from './components/CoachPage';
+import RecettesPage from './components/RecettesPage';
+import ProgrammesPage from './components/ProgrammesPage';
 
 const $ = require('jquery');
 require('bootstrap');
@@ -48,11 +50,13 @@ const App = () =>{
                     <Route path="/profil" component={ProfilPage}/>
                     <Route path="/edit/profil" component={EditProfilPage}/>
                     <Route path="/my/recettes" component={RecettesProfilPage}/>
+                    <Route path="/recettes" component={RecettesPage}/>
                     <Route path="/new/recette" component={RecetteNewPage}/>
                     <Route path="/recette/:id" component={RecettePage}/>
                     <Route path="/programme/:id" component={ProgrammePage}/>
                     <Route path="/my/programmes" component={ProgrammesProfilPage}/>
                     <Route path="/new/programme" component={ProgrammeNewPage}/>
+                    <Route path="/programmes" component={ProgrammesPage}/>
                </HashRouter>
           </div>
      );

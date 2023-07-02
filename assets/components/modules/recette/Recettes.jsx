@@ -10,26 +10,29 @@ export default function Recettes(params) {
     const [recettes, setRecettes] = React.useState('');
     
     useEffect(() => {
+        let url = '';
         if(params.myRecette == 1){
             //Si on affiche les recettes du coach connecté
-            fetch(API_URL+'recettes/user/'+sessionStorage.getItem("id"))
-            .then((json) => json.json())
-            .then((recettes) => {
-                console.log(recettes)
-                let requests = recettes.map(recette => (
-                    getPathRecetteImage(recette.id).then((value) => {
-                        console.log(value)
-                        recette.path = value
-                    })
-                ))
-                Promise.all(requests).then(() => {
-                    setRecettes(recettes);
-                    setLoader(false);
-                })
-            })
+            url = 'recettes/user/'+sessionStorage.getItem("id");
         }else{
             //Si non on affiche toutes les recettes
+            url = 'recettes';
         }
+        fetch(API_URL+url)
+        .then((json) => json.json())
+        .then((recettes) => {
+            console.log(recettes)
+            let requests = recettes.map(recette => (
+                getPathRecetteImage(recette.id).then((value) => {
+                    console.log(value)
+                    recette.path = value
+                })
+            ))
+            Promise.all(requests).then(() => {
+                setRecettes(recettes);
+                setLoader(false);
+            })
+        })
     }, [])
 
     console.log(recettes);
@@ -37,8 +40,15 @@ export default function Recettes(params) {
         <Loader></Loader>
    ) : (
         <div className="container-fluid recettes">
-            <h1>Vos recettes</h1>
-            <a href="#/new/recette" className="btn btn-primary"><i className="bi bi-plus-lg"></i> Nouvelle recette</a>
+            {params.myRecette == 1 && 
+            <div>
+                <h1>Vos recettes</h1>
+                <a href="#/new/recette" className="btn btn-primary"><i className="bi bi-plus-lg"></i> Nouvelle recette</a>
+            </div>
+            }
+            {params.myRecette != 1 && 
+                <h1>Découvrez de nouvelle recettes</h1>
+            }
             <div className="container-all-recettes mt-4">
                 {recettes != '' &&
                     recettes.map(recette => (  

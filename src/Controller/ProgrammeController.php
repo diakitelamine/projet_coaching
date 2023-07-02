@@ -20,13 +20,20 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class ProgrammeController extends AbstractController
 {
-    #[Route('api/programmes/user/{idUser}', name: 'app_programmes_user')]
-    public function programmesUser($idUser, UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
+    #[Route('api/programmes', name: 'app_programmes')]
+    public function programmes(ProgrammeRepository $programmeRepository, SerializerInterface $serializer): JsonResponse
     {
-        //Cherche l'utilisateur liés a cette id
-        $user = $userRepository->find($idUser);
-        //Récupere les programmes de cette utiklisateur
-        $programmes = $user->getProgrammes();
+        $programmes = $programmeRepository->findBy(['deleted_at' => NULL]);
+        $response = $serializer->serialize(
+            $programmes, 'json'
+        );
+        return new JsonResponse($response, 200, [], true);
+    }
+
+    #[Route('api/programmes/user/{idUser}', name: 'app_programmes_user')]
+    public function programmesUser($idUser, ProgrammeRepository $programmeRepository, SerializerInterface $serializer): JsonResponse
+    {
+        $programmes = $programmeRepository->findBy(['deleted_at' => NULL, 'user' => $idUser]);
         $response = $serializer->serialize(
             $programmes, 'json'
         );
