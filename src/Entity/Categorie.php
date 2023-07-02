@@ -46,6 +46,7 @@ class Categorie
     {
         $this->recettes = new ArrayCollection();
         $this->programmes = new ArrayCollection();
+        $this->setCreatedAt(new \DateTime());
     }
 
     public function getId(): ?int
@@ -121,14 +122,14 @@ class Categorie
         return $this->programmes;
     }
 
-    public function addProgramme(self $programme): self
+    public function addProgramme(Programme $programme): self
     {
         if (!$this->programmes->contains($programme)) {
             $this->programmes->add($programme);
         }
-
+    
         return $this;
-    }
+    }    
 
     public function removeProgramme(self $programme): self
     {

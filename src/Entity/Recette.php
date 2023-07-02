@@ -8,9 +8,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: RecetteRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    collectionOperations: ["get", "post"],
+    itemOperations: ["get", "put", "delete"],
+    // normalizationContext: [
+    //     'groups' => ['recettes_read'],
+    // ]
+)]
 class Recette
 {
     #[ORM\Id]
@@ -19,12 +26,15 @@ class Recette
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    // #[Groups(["recettes_read", "user_read"])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    // #[Groups(["recettes_read"])]
     private ?string $description = null;
 
     #[ORM\Column]
+    // #[Groups(["recettes_read"])]
     private ?float $dureeMoyen = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -35,9 +45,11 @@ class Recette
     private ?User $user = null;
 
     #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'recettes')]
+    // #[Groups(["recettes_read"])]
     private Collection $categories;
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class, mappedBy: 'recettes')]
+    // #[Groups(["recettes_read"])]
     private Collection $ingredients;
 
     #[ORM\OneToOne(mappedBy: 'recette', cascade: ['persist', 'remove'])]
@@ -61,6 +73,7 @@ class Recette
         $this->ingredients = new ArrayCollection();
         $this->avis = new ArrayCollection();
         $this->programmes = new ArrayCollection();
+        $this->setCreatedAt(new \DateTime());
     }
 
     public function getId(): ?int
@@ -280,5 +293,11 @@ class Recette
         $this->deleted_by = $deleted_by;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+
     }
 }

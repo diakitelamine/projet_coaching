@@ -22,9 +22,9 @@ class CategorieCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             TextField::new('description'),
-            DateTimeField::new('created_At'),
-            DateTimeField::new('deleted_At'),
-            IntegerField::new('deleted_By')
+            DateTimeField::new('created_At')->hideOnForm(),
+            DateTimeField::new('deleted_At')->hideOnForm(),
+            IntegerField::new('deleted_By')->hideOnForm()
             
         ];
     }

@@ -3,7 +3,8 @@ import Coachs from './modules/Coach';
 import Footer from './modules/Footer';
 import Home from './modules/Home';
 import NavBar from './modules/NavBar';
-const HomePage = (props)=>{ 
+
+const HomePage = (props) => { 
     return (
         <div>
             <NavBar name="navbar-home"></NavBar>
@@ -20,10 +21,12 @@ const HomePage = (props)=>{
                         <a href="#/coachs" className="voir-plus-coach">Voir plus <i className="bi bi-arrow-right"></i></a> 
                     </div>
                 </div>
-                <Coachs maxResults="6"></Coachs>
+                {/* Passage de la variable showSearchInput avec la valeur false */}
+                <Coachs maxResults="6" showSearchInput={false}></Coachs>
                 <Footer></Footer>
             </div>
         </div>
     )
 }
+
 export default HomePage;

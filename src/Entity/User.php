@@ -15,7 +15,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ApiResource()]//tu me suis?
+#[ApiResource(
+    // normalizationContext: [
+    //     'groups' => ['user_read'],
+    // ]
+)]//tu me suis?
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -456,5 +460,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->firstname;
     }
 }

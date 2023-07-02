@@ -23,7 +23,6 @@ class SalleCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('name'),
             AssociationField::new('ville'),
             TextField::new('description'),
             TextField::new('adresse'),
