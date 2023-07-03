@@ -101,7 +101,7 @@ export default function Coach(params){
                 </div>
            </div>
            <div className="container rdv">
-                <a href="#" className="btn btn-primary mt-5 mb-5"> <i className="bi bi-calendar-day"></i> Demander une seance</a>
+                <a href={`#/reservation/${id}`} className="btn btn-primary mt-5 mb-5"> <i className="bi bi-calendar-day"></i> Demander une seance</a>
             </div>
             <div className="container container-detail ">
                 {coach.city != '' &&
