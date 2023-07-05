@@ -8,7 +8,6 @@ import Loader from './components/modules/layout/Loader';
 import HomePage from './components/HomePage';
 import CoachsPage from './components/CoachsPage';
 import RegisterPage from './components/RegisterPage';
-import TestPage from './components/TestPage';
 import LoginPage from './components/LoginPage';
 import ProfilPage from './components/ProfilPage';
 import EditProfilPage from './components/EditProfilpage';

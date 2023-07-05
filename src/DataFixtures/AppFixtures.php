@@ -21,7 +21,8 @@ class AppFixtures extends Fixture
               $user = new User();
               $user->setFirstname($faker->firstName());
               $roles = $user->getRoles();
-              //$roles[] = 'ROLE_COACH';
+              $roles[] = 'ROLE_COACH';
+              $user->setActive(1);
               $user->setRoles($roles);
               $user->setLastname($faker->lastName());
               $user->setEmail($faker->email());
@@ -30,6 +31,7 @@ class AppFixtures extends Fixture
               $user->setCreatedAt(new \DateTime('now'));
               $manager->persist($user);
               $users[] = $user;
+
         }
 
             $categories =[];
