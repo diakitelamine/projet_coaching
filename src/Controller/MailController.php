@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Reservation;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
@@ -116,4 +117,67 @@ class MailController extends AbstractController
             return False;
         }
     }
+
+    #[Route('send/reservation/confirm', name: 'send_email_confirm')]
+    static function sendReservationConfirmation(MailerInterface $mailer, $to, Reservation $reservation, User $coach): Bool
+    {
+        
+        //Message
+        $message = "<p>Bonjour,</p>
+
+        <p>Nous somme heureux de vous annoncer que votre seance du ".$reservation->getCommence()->format('m/d/Y H:i')." à été confirmer
+         par ".$coach->getFirstname()." ".$coach->getLastname()."</p>
+
+        <p>Cordialement,</p>
+
+        <p>L’équipe du MOC</p>";
+
+        //Configure l'envoie du mail
+        $email = (new Email())
+            ->from(new Address('support@moc.fr'))
+            ->to(new Address($to))
+            ->subject('Confirmez votre inscription MOC')
+            ->text(strip_tags($message))
+            ->html($message);
+        try {
+             //Envoie le mail
+            $mailer->send($email);
+            return True;
+        }
+        catch (\Exception $e){
+            return False;
+        }
+    }
+
+    #[Route('send/reservation/decline', name: 'send_email_decline')]
+    static function sendReservationDecline(MailerInterface $mailer, $to, Reservation $reservation, User $coach): Bool
+    {
+        //Message
+        $message = "<p>Bonjour,</p>
+
+        <p>Votre seance du ".$reservation->getCommence()->format('m/d/Y H:i')." à été délciner
+         par ".$coach->getFirstname()." ".$coach->getLastname()."</p>
+
+        <p>Cordialement,</p>
+
+        <p>L’équipe du MOC</p>";
+
+        //Configure l'envoie du mail
+        $email = (new Email())
+            ->from(new Address('support@moc.fr'))
+            ->to(new Address($to))
+            ->subject('Confirmez votre inscription MOC')
+            ->text(strip_tags($message))
+            ->html($message);
+        try {
+             //Envoie le mail
+            $mailer->send($email);
+            return True;
+        }
+        catch (\Exception $e){
+            return False;
+        }
+    }
+
+
 }

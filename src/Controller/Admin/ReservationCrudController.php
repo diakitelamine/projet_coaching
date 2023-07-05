@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 
 class ReservationCrudController extends AbstractCrudController
 {
@@ -30,6 +31,7 @@ class ReservationCrudController extends AbstractCrudController
             DateTimeField::new('fin'),
             DateTimeField::new('deleted_at')->hideOnForm(),
             IntegerField::new('deleted_by')->hideOnForm(),
+            BooleanField::new('confirm')
         ];
     }
     

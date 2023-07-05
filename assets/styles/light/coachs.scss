@@ -1,8 +1,11 @@
 .light {
+    .input-search{
+        max-width: 426px;
+        margin: 10px;
+    }
     .coachs{
         display: flex;
         flex-wrap: wrap;
-        padding: 0 5% 0 5%;
         .container-coach{
             max-width: 350px;
             width: 100%;

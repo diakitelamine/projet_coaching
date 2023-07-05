@@ -28,7 +28,7 @@ class Programme
     private ?\DateTimeInterface $deleted_at = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $ceated_at = null;
+    private ?\DateTimeInterface $created_at = null;
 
     #[ORM\OneToMany(mappedBy: 'programme', targetEntity: Avis::class)]
     private Collection $avis;
@@ -53,6 +53,7 @@ class Programme
         $this->avis = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->recettes = new ArrayCollection();
+        $this->setCreatedAt(new \DateTime());
     }
 
     public function getId(): ?int
@@ -84,26 +85,26 @@ class Programme
         return $this;
     }
 
-    public function getSupprimer(): ?\DateTimeInterface
+    public function getDeletedAt(): ?\DateTimeInterface
     {
         return $this->deleted_at;
     }
 
-    public function setSupprimer(?\DateTimeInterface $deleted_at): self
+    public function setDeletedAt(?\DateTimeInterface $deleted_at): self
     {
         $this->deleted_at= $deleted_at;
 
         return $this;
     }
 
-    public function getCreer(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->ceated_at;
+        return $this->created_at;
     }
 
-    public function setCreer(\DateTimeInterface $ceated_at): self
+    public function setCreatedAt(\DateTimeInterface $created_at): self
     {
-        $this->ceated_at = $ceated_at;
+        $this->created_at = $created_at;
 
         return $this;
     }

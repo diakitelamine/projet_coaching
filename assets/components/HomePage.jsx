@@ -20,10 +20,12 @@ const HomePage = (props)=>{
                         <a href="#/coachs" className="voir-plus-coach">Voir plus <i className="bi bi-arrow-right"></i></a> 
                     </div>
                 </div>
-                <Coachs maxResults="5"></Coachs>
+                {/* Passage de la variable showSearchInput avec la valeur false */}
+                <Coachs maxResults="5" showSearchInput={false}></Coachs>
                 <Footer></Footer>
             </div>
         </div>
     )
 }
+
 export default HomePage;

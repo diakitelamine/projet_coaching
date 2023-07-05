@@ -12,9 +12,14 @@ class Coachs extends React.Component{
             coachs: [],
             DataisLoaded: true,
             image:[],
-            postalCode : null
+            postalCode : null,
+            searchInput: ''
         };
     }
+
+    handleSearchChange = (event) => {
+        this.setState({ searchInput: event.target.value });
+    };
 
     getCoachs(maxResults){
        
@@ -78,12 +83,23 @@ class Coachs extends React.Component{
 
     render() {
         const { DataisLoaded, coachs } = this.state;
+        const { showSearchInput } = this.props; // Ajout de la variable de contrôle
+        console.log(coachs);
+        let filteredCoachs = coachs;
+        if (this.state.searchInput.toLowerCase() != '') {
+            filteredCoachs = coachs.filter(coach => coach.description && coach.description.toLowerCase().includes(this.state.searchInput.toLowerCase()));
+        }
         return DataisLoaded && !this.props.maxResults ? (
             <Loader></Loader>
         ) :  (
-            /*Coachs */
+            <div>
+            {/* Condition pour afficher la barre de recherche */}
+            {showSearchInput && (
+                <input type="text" className='input-search form-control' value={this.state.searchInput} onChange={this.handleSearchChange} placeholder="Rechercher un coach" />
+            )}
             <div className="coachs">
-                {coachs.map((coach) => ( 
+
+                {filteredCoachs.map((coach) => ( 
                     <div key={coach.id}   onClick={this.handleCoachClick.bind(this, coach.id)} className="container-coach h-100"  data-id={ coachs.id }>
                         <div className="card card-coach">
                             <img src={coach.path} className="card-img-top"/>
@@ -94,6 +110,7 @@ class Coachs extends React.Component{
                         </div>
                     </div>
                 ))}
+            </div>
             </div>
         )
     }

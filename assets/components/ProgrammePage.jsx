@@ -8,6 +8,7 @@ const ProgrammePage = (props)=>{
         <div>
             <Auth></Auth>
             <NavBar name="navbar-home"></NavBar>
+             <h1>Découvrez de nouveau programme</h1>
             <Programme></Programme>
         </div>
     )

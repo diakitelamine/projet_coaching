@@ -1,10 +1,9 @@
 import React from 'react';
-import FormRegister from './modules/user/FormRegister';
 import NavBar from './modules/layout/NavBar';
 import Auth from './modules/Auth';
 import ReservationNew from './modules/reservation/ReservationNew';
 
-const RegisterPage = (props)=>{ 
+const ReservationNewPage = (props)=>{ 
     return (
         <div>
             <Auth></Auth>
@@ -13,4 +12,4 @@ const RegisterPage = (props)=>{
         </div>
     )
 }
-export default RegisterPage;
+export default ReservationNewPage;

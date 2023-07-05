@@ -19,9 +19,9 @@ const ReservationNew = (params) => {
     });
     const [classForm, setClassForm] = React.useState('');
     useEffect(() => {
-        /*if (id == localStorage.getItem("id")) {
+        if (id == localStorage.getItem("id")) {
             location.href = `#/coach/${id}`
-        }*/
+        }
         console.log(new Date());
         let num = 0;
         //Récupererles reservation du coachs

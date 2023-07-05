@@ -13,7 +13,7 @@ export default function Recettes(params) {
         let url = '';
         if(params.myRecette == 1){
             //Si on affiche les recettes du coach connecté
-            url = 'recettes/user/'+sessionStorage.getItem("id");
+            url = 'recettes/user/'+localStorage.getItem("id");
         }else{
             //Si non on affiche toutes les recettes
             url = 'recettes';

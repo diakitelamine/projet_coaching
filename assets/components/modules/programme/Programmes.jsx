@@ -42,15 +42,6 @@ export default function Programmes(params) {
         <Loader></Loader>
    ) : (
         <div className="container-fluid programmes">
-            {params.myProgramme == 1 &&
-                <div>
-                    <h1>Vos programmes</h1>
-                    <a href="#/new/programme" className="btn btn-primary"><i className="bi bi-plus-lg"></i> Nouveau programme</a>
-                </div>
-            }
-            {params.myProgramme != 1 &&
-                <h1>Découvrez de nouveau programme</h1>
-            }
             <div className="container-all-programmes mt-4">
                 {programmes != '' &&
                     programmes.map(programme => (  

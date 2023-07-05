@@ -8,7 +8,9 @@ const RecettesPage = (props)=>{
         <div>
             <Auth></Auth>
             <NavBar name="navbar-home"></NavBar>
-            <h1>Découvrez de nouvelle recettes</h1>
+            <div className="container-fluid">
+                <h1>Découvrez de nouvelle recettes</h1>
+            </div>
             <Recettes></Recettes>
         </div>
     )

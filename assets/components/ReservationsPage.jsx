@@ -1,15 +1,15 @@
 import React from 'react';
-import Coach from './modules/coach/Coach';
 import NavBar from './modules/layout/NavBar';
 import Auth from './modules/Auth';
+import Reservations from './modules/reservation/Reservations';
 
-const CoachPage = (props)=>{ 
+const ReservationsPage = (props)=>{ 
     return (
         <div>
             <Auth></Auth>
             <NavBar name="navbar-home"></NavBar>
-            <Coach></Coach>
+            <Reservations></Reservations>
         </div>
     )
 }
-export default CoachPage;
+export default ReservationsPage;

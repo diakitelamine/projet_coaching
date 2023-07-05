@@ -36,7 +36,7 @@ class UserController extends AbstractController
         //Récupere les données dans un tableau
         $data = json_decode($request->getContent(), true);
         //On récupere tout les users avec un role coach
-        $userCoachs = $userRepository->getUserByRole('ROLE_COACH', $data['maxResults']);
+        $userCoachs = $userRepository->getUserByRole('ROLE_COACH');
         if(isset($data['postalCode']) && !is_null($data['postalCode'])){
             $villes = VilleController::getVillesVoisin($data['postalCode'], $data['rayon']);
             $codePostal = [];
@@ -44,15 +44,21 @@ class UserController extends AbstractController
             foreach ($villes as $ville) {
                 $codePostal[] = $ville->code_postal;
             }
+            
             //Si le coach ne fait pas partie de ce code postal on le supprime du tableau 
             foreach ($userCoachs as $key => $coach) {
-                if(!in_array($coach->getPostalCode(), $codePostal)){
+                if(!is_null($coach->getPostalCode()) && !in_array($coach->getPostalCode(), $codePostal)){
                     unset($userCoachs[$key]);
                 }
             }
             //Recalcul les clés du tableau 
             $userCoachs = array_values($userCoachs);
         }
+
+        if(!is_null($data['maxResults'])){
+            $userCoachs = array_slice($userCoachs, 0, $data['maxResults']); 
+        }
+
         $coachs = $serializer->serialize(
             $userCoachs, 'json'
         );

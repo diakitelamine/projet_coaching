@@ -21,7 +21,9 @@ import ProgrammeNewPage from './components/ProgrammeNewPage';
 import CoachPage from './components/CoachPage';
 import RecettesPage from './components/RecettesPage';
 import ProgrammesPage from './components/ProgrammesPage';
-import ReservationPage from './components/ReservationPage';
+import Logout from './components/Logout';
+import ReservationNewPage from './components/ReservationNewPage';
+import ReservationsPage from './components/ReservationsPage';
 
 const $ = require('jquery');
 require('bootstrap');
@@ -43,22 +45,30 @@ const App = () =>{
           <div className="light">
                <HashRouter>
                     <Route exact path="/" component={HomePage}/>
+
                     <Route path="/coachs" component={CoachsPage}/>
                     <Route path="/coach/:id" component={CoachPage}/>
+
                     <Route path="/auth" component={LoginPage}/>
                     <Route path="/register" component={RegisterPage}/>
-                    <Route path="/test" component={TestPage}/>
+
                     <Route path="/profil" component={ProfilPage}/>
                     <Route path="/edit/profil" component={EditProfilPage}/>
+
                     <Route path="/my/recettes" component={RecettesProfilPage}/>
                     <Route path="/recettes" component={RecettesPage}/>
                     <Route path="/new/recette" component={RecetteNewPage}/>
                     <Route path="/recette/:id" component={RecettePage}/>
+
                     <Route path="/programme/:id" component={ProgrammePage}/>
                     <Route path="/my/programmes" component={ProgrammesProfilPage}/>
                     <Route path="/new/programme" component={ProgrammeNewPage}/>
                     <Route path="/programmes" component={ProgrammesPage}/>
-                    <Route path="/reservation/:id" component={ReservationPage}/>
+
+                    <Route path="/reservation/:id" component={ReservationNewPage}/>
+                    <Route path="/reservations" component={ReservationsPage}/>
+                    
+                    <Route path="/logout" component={Logout}/>
                </HashRouter>
           </div>
      );

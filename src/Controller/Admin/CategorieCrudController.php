@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 
 class CategorieCrudController extends AbstractCrudController
 {
@@ -22,9 +23,11 @@ class CategorieCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
             TextField::new('description'),
-            DateTimeField::new('created_At'),
-            DateTimeField::new('deleted_At'),
-            IntegerField::new('deleted_By')
+            DateTimeField::new('created_At')->hideOnForm(),
+            DateTimeField::new('deleted_At')->hideOnForm(),
+            IntegerField::new('deleted_By')->hideOnForm(),
+            BooleanField::new('is_recette'),
+            BooleanField::new('is_programme')
             
         ];
     }
