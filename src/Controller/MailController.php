@@ -136,7 +136,7 @@ class MailController extends AbstractController
         $email = (new Email())
             ->from(new Address('support@moc.fr'))
             ->to(new Address($to))
-            ->subject('Confirmez votre inscription MOC')
+            ->subject('Seance confirmer MOC')
             ->text(strip_tags($message))
             ->html($message);
         try {
@@ -166,7 +166,7 @@ class MailController extends AbstractController
         $email = (new Email())
             ->from(new Address('support@moc.fr'))
             ->to(new Address($to))
-            ->subject('Confirmez votre inscription MOC')
+            ->subject('Seance annuler MOC')
             ->text(strip_tags($message))
             ->html($message);
         try {
