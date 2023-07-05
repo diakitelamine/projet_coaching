@@ -34,7 +34,8 @@ const RecetteNew = () => {
         fetch(API_URL+'categories/recette')
         .then((json) => json.json())
         .then((json) => {
-            setAllCategories(json)
+            console.log(json);
+            setAllCategories(json);
             setLoader(false);
         })
         //Récupere tout les programmes l'utilisateur
@@ -183,9 +184,9 @@ const RecetteNew = () => {
                 <label className="mt-3">Categories*</label>
                 <select name="role" className="form-select" id="categorie" onChange={handleChangeCategories} multiple>
                 {allCategories != '' &&
-                allCategories.map(categorie => (  
-                    <option key={categorie.id} value={categorie.id}>{categorie.name}</option>
-                ))
+                    allCategories.map(categorie => (  
+                        <option key={categorie.id} value={categorie.id}>{categorie.name}</option>
+                    ))
                 }
                 </select> 
 
