@@ -82,21 +82,18 @@ class Coachs extends React.Component{
             <Loader></Loader>
         ) :  (
             /*Coachs */
-            <div className="container-coachs">
-                <h1>Découvrez nos coachs</h1>
-                <div className="coachs">
-                    {coachs.map((coach) => ( 
-                        <div key={coach.id}   onClick={this.handleCoachClick.bind(this, coach.id)} className="container-coach h-100"  data-id={ coachs.id }>
-                            <div className="card card-coach">
-                                <img src={coach.path} className="card-img-top"/>
-                                <div className="card-body">
-                                    <h5 className="card-title"> { coach.lastname } { coach.firstname }</h5>
-                                    <p className="card-text">{coach.description}</p>
-                                </div>
+            <div className="coachs">
+                {coachs.map((coach) => ( 
+                    <div key={coach.id}   onClick={this.handleCoachClick.bind(this, coach.id)} className="container-coach h-100"  data-id={ coachs.id }>
+                        <div className="card card-coach">
+                            <img src={coach.path} className="card-img-top"/>
+                            <div className="card-body">
+                                <h5 className="card-title"> { coach.lastname } { coach.firstname }</h5>
+                                <p className="card-text">{coach.description}</p>
                             </div>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
         )
     }

@@ -10,6 +10,8 @@ const RecettesProfilPage = (props)=>{
             <Auth></Auth>
             <AuthCoach></AuthCoach>
             <NavBar name="navbar-home"></NavBar>
+            <h1>Vos recettes</h1>
+            <a href="#/new/recette" className="btn btn-primary"><i className="bi bi-plus-lg"></i> Nouvelle recette</a>
             <Recettes myRecette="1"></Recettes>
         </div>
     )

@@ -6,6 +6,7 @@ const CoachsPage = (props)=>{
     return (
         <div>
             <NavBar name="navbar-home"></NavBar>
+            <h1>Découvrez nos coachs</h1>
             <Coachs></Coachs>
         </div>
     )

@@ -15,18 +15,18 @@ const Profil = () => {
 
     useEffect(() => {
         // Requete à l'api user
-        fetch(API_URL+'user/'+sessionStorage.getItem("id"))
+        fetch(API_URL+'user/'+localStorage.getItem("id"))
         // Transforme les données en json
         .then((res) => res.json())
         .then((json) => {
             setId(json.id);
             setUser(json);
-            let imageProfil = getPathUserImage(sessionStorage.getItem("id"));
+            let imageProfil = getPathUserImage(localStorage.getItem("id"));
             imageProfil.then((value) => {
                 setImageProfil(value);
                 setClassLoaderImageProfil('');
             })
-            let imageCover = getPathUserImageCover(sessionStorage.getItem("id"));
+            let imageCover = getPathUserImageCover(localStorage.getItem("id"));
             imageCover.then((value) => {
                 
                 setClassLoaderImageCover('');

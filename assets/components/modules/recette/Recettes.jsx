@@ -40,15 +40,6 @@ export default function Recettes(params) {
         <Loader></Loader>
    ) : (
         <div className="container-fluid recettes">
-            {params.myRecette == 1 && 
-            <div>
-                <h1>Vos recettes</h1>
-                <a href="#/new/recette" className="btn btn-primary"><i className="bi bi-plus-lg"></i> Nouvelle recette</a>
-            </div>
-            }
-            {params.myRecette != 1 && 
-                <h1>Découvrez de nouvelle recettes</h1>
-            }
             <div className="container-all-recettes mt-4">
                 {recettes != '' &&
                     recettes.map(recette => (  

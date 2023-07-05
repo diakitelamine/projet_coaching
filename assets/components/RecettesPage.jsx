@@ -8,6 +8,7 @@ const RecettesPage = (props)=>{
         <div>
             <Auth></Auth>
             <NavBar name="navbar-home"></NavBar>
+            <h1>Découvrez de nouvelle recettes</h1>
             <Recettes></Recettes>
         </div>
     )

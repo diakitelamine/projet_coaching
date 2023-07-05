@@ -25,8 +25,17 @@
 @import './light/programme.scss';
 @import './light/programme-new.scss';
 
+@import './light/reservation-new.scss';
+
 @import url('https://fonts.cdnfonts.com/css/clean-sports-stencil');
 @import 'animate.css';
+.accordion {
+    --bs-accordion-active-bg: #eb616121;
+    --bs-accordion-active-color: #C73120;
+}
+.accordion-button:focus {
+    box-shadow: none;
+  }
 html {
     height: 100%;
 }

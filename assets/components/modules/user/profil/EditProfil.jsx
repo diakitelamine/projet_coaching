@@ -25,7 +25,7 @@ export default function EditProfil() {
     
     useEffect(() => {
         // Requete à l'api user
-        fetch(API_URL+'user/'+sessionStorage.getItem("id"))
+        fetch(API_URL+'user/'+localStorage.getItem("id"))
         // Transforme les données en json
         .then((res) => res.json())
         .then((json) => {
@@ -37,11 +37,11 @@ export default function EditProfil() {
             setFirstName(json.firstname);
             setLastName(json.lastname);
             setDescription(json.description);
-            let imageProfil = getImageProfilByUser(sessionStorage.getItem("id"));
+            let imageProfil = getImageProfilByUser(localStorage.getItem("id"));
             imageProfil.then((value) => {
                 setImageProfil(value)
             })
-            let imageCover = getImageCoverByUser(sessionStorage.getItem("id"));
+            let imageCover = getImageCoverByUser(localStorage.getItem("id"));
             imageCover.then((value) => {
                 setImageCover(value)
             })
@@ -50,7 +50,7 @@ export default function EditProfil() {
     }, [])
 
     async function getImageProfilByUser(id) {
-        const path = await fetch(API_URL+'image/profil/user/'+sessionStorage.getItem("id"))
+        const path = await fetch(API_URL+'image/profil/user/'+localStorage.getItem("id"))
         // Transforme les données en json
         .then((res) => res.json())
         .then((json) => {
@@ -65,7 +65,7 @@ export default function EditProfil() {
     }
 
     async function getImageCoverByUser(id) {
-        const path = await fetch(API_URL+'image/cover/user/'+sessionStorage.getItem("id"))
+        const path = await fetch(API_URL+'image/cover/user/'+localStorage.getItem("id"))
         // Transforme les données en json
         .then((res) => res.json())
         .then((json) => {
@@ -113,7 +113,7 @@ export default function EditProfil() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                id: sessionStorage.getItem("id"),
+                id: localStorage.getItem("id"),
                 imageProfil: imageProfil,
                 imageCover: imageCover,
                 email: email,

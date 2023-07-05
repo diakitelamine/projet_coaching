@@ -4,13 +4,13 @@ import { API_URL } from '../../config';
 const AuthCoach = () => {
     const [redirect, setRedirect] = React.useState(false);
     useEffect(() => {
-        if (!sessionStorage.getItem("id")) {
+        if (!localStorage.getItem("id")) {
             //Set la redirection
             setRedirect(true)
         }
         else{
             // Requete à l'api user
-            fetch(API_URL+'user/'+sessionStorage.getItem("id"))
+            fetch(API_URL+'user/'+localStorage.getItem("id"))
             // Transforme les données en json
             .then((res) => res.json())
             .then((json) => {
@@ -20,7 +20,7 @@ const AuthCoach = () => {
                     setRedirect(true)
                 }
                 //Si la session ne correspond pas
-                else if(json.id != sessionStorage.getItem("id") || json.userIdentifier != sessionStorage.getItem("email") || json.password != sessionStorage.getItem("password")){
+                else if(json.id != localStorage.getItem("id") || json.userIdentifier != localStorage.getItem("email") || json.password != localStorage.getItem("password")){
                     if (json.roles.indexOf("ROLE_COACH") <= 0) {
                         setRedirect(true)   
                     }

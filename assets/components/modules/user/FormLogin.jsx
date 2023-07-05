@@ -11,12 +11,12 @@ const FormLogin = () => {
     });
 
     const createSession = (user) => {
-        sessionStorage.setItem("email", user.email);
-        sessionStorage.setItem("role", JSON.stringify(user.roles));
-        sessionStorage.setItem("firstName", user.firstname);
-        sessionStorage.setItem("lastName", user.lastname);
-        sessionStorage.setItem("id", user.id);
-        sessionStorage.setItem("password", user.password);
+        localStorage.setItem("email", user.email);
+        localStorage.setItem("role", JSON.stringify(user.roles));
+        localStorage.setItem("firstName", user.firstname);
+        localStorage.setItem("lastName", user.lastname);
+        localStorage.setItem("id", user.id);
+        localStorage.setItem("password", user.password);
     }
 
     const handleSubmit = (event) => {

@@ -13,7 +13,7 @@ export default function Programmes(params) {
         console.log(url);
         if(params.myProgramme == 1){
             //Si on affiche les programme du coach connecté
-            url = 'programmes/user/'+sessionStorage.getItem("id");
+            url = 'programmes/user/'+localStorage.getItem("id");
             
         }else{
             //Si non on affiche toutes les recettes

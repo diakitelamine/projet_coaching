@@ -19,10 +19,12 @@
     .container-recettes{
         display:flex;
         flex-wrap: wrap;
+        
     }
     .container-all-recettes{
         display: flex;
         flex-flow: wrap;
+        padding: 0 5% 0 5%;
         .card-recette-coach{
             max-width: 350px !important;
         }

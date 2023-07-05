@@ -32,7 +32,7 @@ const ProgrammeNew = () => {
             setReady(num);
         })
         //Récupere tout les recettes de l'utilisateur
-        fetch(API_URL+'recettes/user/'+sessionStorage.getItem("id"))
+        fetch(API_URL+'recettes/user/'+localStorage.getItem("id"))
         .then((json) => json.json())
         .then((json) => {
             setAllRecettes(json)
@@ -95,7 +95,7 @@ const ProgrammeNew = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                idUser: sessionStorage.getItem("id"),
+                idUser: localStorage.getItem("id"),
                 categories : categories,
                 name : name,
                 description: description,

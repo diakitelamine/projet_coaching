@@ -68,7 +68,7 @@ const NavBar = (props)=>{
             </li>    
           </ul>   
         }
-        {!sessionStorage.getItem("id") &&        //Si l'utilisateur n'est pas connecter
+        {!localStorage.getItem("id") &&        //Si l'utilisateur n'est pas connecter
           <ul className="navbar-nav me-auto navbar-right">
             <li className="nav-item">
               <a className="nav-link" href="#/auth" >Authentification</a>
