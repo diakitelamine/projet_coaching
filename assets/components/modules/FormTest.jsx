@@ -1,4 +1,5 @@
 import React from 'react';
+import { API_URL } from '../../config';
 
 export default function FormTest() {
     const [email, setEmail] = React.useState("");
@@ -31,7 +32,7 @@ export default function FormTest() {
             }),
           };
 
-        fetch('https://127.0.0.1:8000/api/users', requestOptions)
+        fetch(API_URL+'users/', requestOptions)
             .then(async response => {
                 console.log(response.json());
                 console.log(requestOptions);

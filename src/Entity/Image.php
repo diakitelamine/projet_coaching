@@ -20,9 +20,6 @@ class Image
     private ?string $path = null;
 
     #[ORM\OneToOne(inversedBy: 'image', cascade: ['persist', 'remove'])]
-    private ?User $user = null;
-
-    #[ORM\OneToOne(inversedBy: 'image', cascade: ['persist', 'remove'])]
     private ?Recette $recette = null;
 
     #[ORM\OneToOne(mappedBy: 'image', cascade: ['persist', 'remove'])]
@@ -37,6 +34,15 @@ class Image
     #[ORM\Column(nullable: true)]
     private ?int $deleted_by = null;
 
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    private ?User $user = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $detail = null;
+
+    #[ORM\OneToOne(inversedBy: 'image', cascade: ['persist', 'remove'])]
+    private ?Programme $programme = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -50,18 +56,6 @@ class Image
     public function setPath(string $path): self
     {
         $this->path = $path;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -132,6 +126,42 @@ class Image
     public function setDeletedBy(?int $deleted_by): self
     {
         $this->deleted_by = $deleted_by;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDetail(): ?string
+    {
+        return $this->detail;
+    }
+
+    public function setDetail(?string $detail): self
+    {
+        $this->detail = $detail;
+
+        return $this;
+    }
+
+    public function getProgramme(): ?Programme
+    {
+        return $this->programme;
+    }
+
+    public function setProgramme(?Programme $programme): self
+    {
+        $this->programme = $programme;
 
         return $this;
     }

@@ -45,6 +45,9 @@ class Programme
     #[ORM\Column(nullable: true)]
     private ?int $deleted_by = null;
 
+    #[ORM\OneToOne(mappedBy: 'programme', cascade: ['persist', 'remove'])]
+    private ?Image $image = null;
+
     public function __construct()
     {
         $this->avis = new ArrayCollection();
@@ -142,7 +145,7 @@ class Programme
     {
         return $this->categories;
     }
-
+    
     public function addCategory(Categorie $category): self
     {
         if (!$this->categories->contains($category)) {
@@ -209,6 +212,28 @@ class Programme
     public function setDeletedBy(?int $deleted_by): self
     {
         $this->deleted_by = $deleted_by;
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($image === null && $this->image !== null) {
+            $this->image->setProgramme(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($image !== null && $image->getProgramme() !== $this) {
+            $image->setProgramme($this);
+        }
+
+        $this->image = $image;
 
         return $this;
     }

@@ -42,6 +42,12 @@ class Categorie
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
 
+    #[ORM\Column]
+    private ?bool $isRecette = null;
+
+    #[ORM\Column]
+    private ?bool $isProgramme = null;
+
     public function __construct()
     {
         $this->recettes = new ArrayCollection();
@@ -121,7 +127,7 @@ class Categorie
         return $this->programmes;
     }
 
-    public function addProgramme(self $programme): self
+    public function addProgramme(Programme $programme): self
     {
         if (!$this->programmes->contains($programme)) {
             $this->programmes->add($programme);
@@ -130,7 +136,7 @@ class Categorie
         return $this;
     }
 
-    public function removeProgramme(self $programme): self
+    public function removeProgramme(Programme $programme): self
     {
         $this->programmes->removeElement($programme);
 
@@ -169,6 +175,37 @@ class Categorie
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    
+    public function __toString()
+    {
+        return $this->name;
+
+    }
+
+    public function isIsRecette(): ?bool
+    {
+        return $this->isRecette;
+    }
+
+    public function setIsRecette(bool $isRecette): self
+    {
+        $this->isRecette = $isRecette;
+
+        return $this;
+    }
+
+    public function isIsProgramme(): ?bool
+    {
+        return $this->isProgramme;
+    }
+
+    public function setIsProgramme(bool $isProgramme): self
+    {
+        $this->isProgramme = $isProgramme;
 
         return $this;
     }

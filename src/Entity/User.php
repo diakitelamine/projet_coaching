@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource()]//tu me suis?
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -22,7 +23,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(length: 180, unique: false)]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -70,12 +71,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
     private Collection $reservations;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $key_register = null;
+
+    #[ORM\Column]
+    private ?bool $active = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Image::class)]
+    private Collection $images;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $address = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $city = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $postalCode = null;
+
     public function __construct()
     {
         $this->recettes = new ArrayCollection();
         $this->avis = new ArrayCollection();
         $this->programmes = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -203,7 +223,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->recettes->contains($recette)) {
             $this->recettes->add($recette);
-            $recette->setAuthor($this);
+            $recette->setUser($this);
         }
 
         return $this;
@@ -213,8 +233,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->recettes->removeElement($recette)) {
             // set the owning side to null (unless already changed)
-            if ($recette->getAuthor() === $this) {
-                $recette->setAuthor(null);
+            if ($recette->getUser() === $this) {
+                $recette->setUser(null);
             }
         }
 
@@ -389,6 +409,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $reservation->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getKeyRegister(): ?string
+    {
+        return $this->key_register;
+    }
+
+    public function setKeyRegister(?string $key_register): self
+    {
+        $this->key_register = $key_register;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getUser() === $this) {
+                $image->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(?string $postalCode): self
+    {
+        $this->postalCode = $postalCode;
 
         return $this;
     }
